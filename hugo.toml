@@ -1,4 +1,4 @@
-baseURL = 'https://matteovacher.org/'
+baseURL = 'https://matteovacher.github.io/'
 languageCode = 'en-us'
 title = 'Mattéo Vacher'
 theme = 'PaperMod'
