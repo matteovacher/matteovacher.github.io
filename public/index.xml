@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Mattéo Vacher</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Mattéo Vacher</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Feb 2026 23:56:13 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Plan</title>
+      <link>http://localhost:1313/posts/the-plan/</link>
+      <pubDate>Wed, 25 Feb 2026 23:56:13 +0100</pubDate>
+      <guid>http://localhost:1313/posts/the-plan/</guid>
+      <description>&lt;h2 id=&#34;first-simulation&#34;&gt;First Simulation&lt;/h2&gt;
+&lt;p&gt;For my first simulation, here is the plan that will be completed along with my readings :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;use GA to train individuals&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;the fitness will be evaluated depending on two factors :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;whether or not the ant bring food to the nest and does trophallaxis&lt;/li&gt;
+&lt;li&gt;whether or not the ant receive trophallaxis and does trophallaxis to feed larvae&lt;/li&gt;
+&lt;li&gt;whether or not the ant receive trophallaxis and does other tasks (still to be determined)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Be careful about the fact that ants may just do trophallaxis to maximize the fitness, the food distribution neef to be studied, cf doc2.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Sun, 22 Feb 2026 01:00:09 +0100</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;h2 id=&#34;mattéo-vacher&#34;&gt;Mattéo Vacher&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Student &amp;amp; Collective Intelligence, AI Enthusiast&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I am a student  passionate about the intersection of &lt;strong&gt;myrmecology&lt;/strong&gt; (the study of ants), &lt;strong&gt;neuro-ethology&lt;/strong&gt; (the study of neural mechanisms responsible of animals behavior) and &lt;strong&gt;Artificial Intelligence&lt;/strong&gt;. My work focuses on understanding how simple individual rules in ant colonies lead to complex behaviors, which I will simulate using &lt;strong&gt;Python&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;research-interests&#34;&gt;Research Interests&lt;/h3&gt;
+&lt;p&gt;My goal is to bridge biological observations and computational model. I am interested in :&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Readings</title>
+      <link>http://localhost:1313/posts/readings/</link>
+      <pubDate>Sun, 22 Feb 2026 00:55:18 +0100</pubDate>
+      <guid>http://localhost:1313/posts/readings/</guid>
+      <description>&lt;h2 id=&#34;readings-results-discussion-and-possibility-of-research&#34;&gt;Readings, results, discussion and possibility of research&lt;/h2&gt;
+&lt;p&gt;Hello everyone,&lt;/p&gt;
+&lt;p&gt;Thanks to Amany Amin I am now in possession of 10 articles and I am sure that these papers will help me through my project. Here I&amp;rsquo;ll try to note important results from different papers and try to organize them to highlight future possible research.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;emergent-regulation-of-ant-foraging-frequency-through-a-computationally-inexpensive-forager-movement-rule-baltiansky-l-frankel-g--feinerman-o-2023&#34;&gt;Emergent regulation of ant foraging frequency through a computationally inexpensive forager movement rule &lt;em&gt;Baltiansky, L., Frankel, G., &amp;amp; Feinerman, O. (2023)&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Key Question:&lt;/strong&gt; How does a colony regulate its foraging frequency based on collective hunger without a central controller or complex individual computations ?&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

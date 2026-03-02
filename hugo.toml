@@ -1,0 +1,46 @@
+baseURL = 'https://matteovacher.org/'
+languageCode = 'en-us'
+title = 'Mattéo Vacher'
+theme = 'PaperMod'
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
+
+[params] 
+    author = "Mattéo Vacher"
+    description = "Simulation of ant colony and AI" 
+    defaultTheme = 'auto'
+    disableThemeToggle = false
+
+    [params.homeInfoParams]
+    enabled = false 
+    content = "Hello, I am Mattéo Vacher"
+    
+    [params.profileMode]
+    enabled = true 
+    title = "Mattéo Vacher - Ants and AI"
+    subtitle = "Dear Reader, here I explore ants collective intelligence through simulations at my scale and with my own equipment."
+    imageUrl = "img/profil.jpg"
+    imageWidth = 180 
+    imageHeight = 180
+
+    [params.assets]
+    favicon = "img/favicon.ico"
+    favicon16x16 = "img/profil.png"
+    favicon32x32 = "img/profil.png"
+    apple_touch_icon = "img/profil.png"
+
+
+[menu]
+    [[menu.main]]
+        identifier = "news"
+        name = "News"
+        url = "/posts/"
+        weight = 10 
+
+    [[menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about/"
+        weight = 20
