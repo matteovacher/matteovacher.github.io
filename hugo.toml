@@ -13,6 +13,15 @@ theme = 'PaperMod'
     defaultTheme = 'auto'
     disableThemeToggle = false
 
+    showToc = true
+    TocOpen = false
+
+    ShowBreadCrumbs = true
+    ShowCodeCopyButton = true
+
+    hideMeta = false 
+    ShowReadingTime = true
+
     [params.homeInfoParams]
     enabled = false 
     content = "Hello, I am Mattéo Vacher"
@@ -26,21 +35,58 @@ theme = 'PaperMod'
     imageHeight = 180
 
     [params.assets]
-    favicon = "img/favicon.ico"
+    favicon = "img/profil.png"
     favicon16x16 = "img/profil.png"
     favicon32x32 = "img/profil.png"
     apple_touch_icon = "img/profil.png"
 
+    [[params.socialIcons]]
+        name = "email"
+        url = "mailto:vachermatteo@gmail.com"
+    
+
+
+    [[params.socialIcons]]
+        name = "linkedin"
+        url = "https://www.linkedin.com/in/matteo-vacher/"
+
+    [[params.socialIcons]]
+        name = "github"
+        url = "https://github.com/matteovacher"
+
+    [[params.socialIcons]]
+        name = "email"
+        url = "mailto:matte.vacher@student.isae-supaero.fr"
+
 
 [menu]
+    [[menu.main]]
+        identifier = "home"
+        name = "Home"
+        url = "/"
+        weight = 10
+
     [[menu.main]]
         identifier = "news"
         name = "News"
         url = "/posts/"
-        weight = 10 
+        weight = 20 
+
+    # [[menu.main]]
+    #     identifier = "projects"
+    #     name = "Projects"
+    #     url = "/projects/"
+    #     weight = 30
+
+    # [[menu.main]]
+    #     identifier = "ressources"
+    #     name = "Ressources" 
+    #     url = "/ressources/"
+    # weight = 40
 
     [[menu.main]]
         identifier = "about"
         name = "About"
         url = "/about/"
-        weight = 20
+        weight = 30
+
