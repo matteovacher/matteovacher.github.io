@@ -6,8 +6,17 @@
     <description>Recent content on Mattéo Vacher</description>
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 25 Feb 2026 23:56:13 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 09 Mar 2026 14:43:18 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Beginning</title>
+      <link>http://localhost:1313/posts/the-beginning/</link>
+      <pubDate>Mon, 09 Mar 2026 14:43:18 +0100</pubDate>
+      <guid>http://localhost:1313/posts/the-beginning/</guid>
+      <description>&lt;h2 id=&#34;the-start-of-the-road&#34;&gt;The Start of the Road&lt;/h2&gt;
+&lt;p&gt;This post marks the &lt;strong&gt;beginning of my journey&lt;/strong&gt;. My goal is to explore the world of collective intelligence and multi agent systems through ant colony simulations.&lt;/p&gt;
+&lt;p&gt;Instead of waiting for a finished product, I have preferred to use this website as a space where I document my work as it happens. I still have no idea where all of this will lead but I hope that I will observe interesting simulations.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>The Plan</title>
       <link>http://localhost:1313/posts/the-plan/</link>
