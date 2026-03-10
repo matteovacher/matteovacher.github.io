@@ -2,7 +2,9 @@
 date = '2026-03-09T14:43:18+01:00'
 draft = false
 title = 'The Beginning'
+summary = "Starting a journey into collective intelligence and multi-agent systems. A look at the project's origins, from theory to live ant colony simulations."
 +++
+
 
 
 ## The Start of the Road 
