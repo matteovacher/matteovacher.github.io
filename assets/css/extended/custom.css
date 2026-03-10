@@ -1,0 +1,3 @@
+.profile_inner img {
+    border-radius: 0 !important; /* Force l'image à rester carrée */
+} /* l'image reste carrée */

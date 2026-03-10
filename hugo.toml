@@ -17,10 +17,13 @@ theme = 'PaperMod'
     TocOpen = false
 
     ShowBreadCrumbs = true
-    ShowCodeCopyButton = true
+    ShowCodeCopyButtons = true
 
     hideMeta = false 
     ShowReadingTime = true
+
+    ShowScrollToTopBtn = true
+    ShowShareButtons = false 
 
     [params.homeInfoParams]
     enabled = false 
@@ -30,15 +33,15 @@ theme = 'PaperMod'
     enabled = true 
     title = "Mattéo Vacher - Ants and AI"
     subtitle = "Dear Reader, here I explore ants collective intelligence through simulations at my scale and with my own equipment."
-    imageUrl = "img/profil.jpg"
-    imageWidth = 180 
+    imageUrl = "img/anthill.png"
+    imageWidth = 180
     imageHeight = 180
 
     [params.assets]
-    favicon = "img/profil.png"
-    favicon16x16 = "img/profil.png"
-    favicon32x32 = "img/profil.png"
-    apple_touch_icon = "img/profil.png"
+        favicon = "img/favicon.ico"
+        favicon16x16 = "img/favicon-16x16.png"
+        favicon32x32 = "img/favicon-32x32.png"
+        apple_touch_icon = "img/apple-touch-icon.png"
 
     [[params.socialIcons]]
         name = "email"
@@ -58,6 +61,14 @@ theme = 'PaperMod'
         name = "email"
         url = "mailto:matte.vacher@student.isae-supaero.fr"
 
+    [params.fuseOpts]
+        isCaseSensitive = false
+        shouldSort = true
+        location = 0
+        distance = 1000
+        threshold = 0.4
+        minMatchCharLength = 0
+        keys = ["title", "permalink", "summary", "content"]
 
 [menu]
     [[menu.main]]
@@ -85,8 +96,17 @@ theme = 'PaperMod'
     # weight = 40
 
     [[menu.main]]
+        identifier = "search"
+        name = "Search"
+        url = "/search/"
+        weight = 30
+
+    [[menu.main]]
         identifier = "about"
         name = "About"
         url = "/about/"
-        weight = 30
+        weight = 40
+
+[outputs]
+    home = ["HTML", "RSS", "JSON"]
 
