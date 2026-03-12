@@ -48,7 +48,6 @@ copyright = "© 2026 [Mattéo Vacher](/) · Icons from [Flaticon](https://www.fl
     [[params.socialIcons]]
         name = "email"
         url = "mailto:vachermatteo@gmail.com"
-    
 
 
     [[params.socialIcons]]
@@ -61,7 +60,7 @@ copyright = "© 2026 [Mattéo Vacher](/) · Icons from [Flaticon](https://www.fl
 
     [[params.socialIcons]]
         name = "email"
-        url = "mailto:matte.vacher@student.isae-supaero.fr"
+        url = "mailto:matteo.vacher@student.isae-supaero.fr"
 
     [params.fuseOpts]
         isCaseSensitive = false
