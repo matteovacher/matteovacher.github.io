@@ -90,23 +90,23 @@ copyright = "© 2026 [Mattéo Vacher](/) · Icons from [Flaticon](https://www.fl
     #     url = "/projects/"
     #     weight = 30
 
-    # [[menu.main]]
-    #     identifier = "ressources"
-    #     name = "Ressources" 
-    #     url = "/ressources/"
-    # weight = 40
+    [[menu.main]]
+        identifier = "ressources"
+        name = "Ressources" 
+        url = "/ressources/"
+    weight = 30
 
     [[menu.main]]
         identifier = "search"
         name = "Search"
         url = "/search/"
-        weight = 30
+        weight = 40
 
     [[menu.main]]
         identifier = "about"
         name = "About"
         url = "/about/"
-        weight = 40
+        weight = 50
 
 [outputs]
     home = ["HTML", "RSS", "JSON"]
