@@ -1,13 +1,13 @@
 +++
 date = '2026-03-16T14:24:53+01:00'
-draft = true
+draft = false
 title = 'Introduction to the Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO'
-description = 'Personal synthesis to remind of the course content'
+summary = 'Personal synthesis to remind of the course content'
 +++
 
 ## Elective Synthesis 
 
-This elective course is a synthesis of the concepts of evolutionary computation. I want to document the core principles I've gained through this elective so that I can go back to them later if needed through my different projects. 
+This **elective course** is a synthesis of the concepts of evolutionary computation. I want to document the core principles I've gained through this elective so that I can go back to them later if needed through my different projects. 
 
 ### Why this "Ressources" section ? 
 

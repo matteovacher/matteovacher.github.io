@@ -15,13 +15,13 @@ Instead of waiting for a finished product, I have preferred to use this website 
 
 ## Current Context & Acknowledgements 
 
-This research is directly linked to the **elective course taught by Dennis Wilson.** It serves as both the academic foundation and the practical starting point for everything I am building right now. 
+This research is directly linked to the **elective course taught by Prof. Dennis Wilson (ISAE-SUPAERO).** It serves as both the academic foundation and the practical starting point for everything I am building right now. 
 
 The concepts of evolutionary computation and complex systems explored in his course will be the foundation of my current project.
 
 {{< figure src="/img/dennis_elective.png" link="https://d9w.github.io/evolution/" width="300px" align="center" title="Projet Dennis Wilson" >}}
 
-I particularly want to thank Dennis Wilson for his invaluable support, both for this project and others we have discussed. He has shown incredible patience and provided essential guidance at times when I struggled to find the right words to describe the ideas I wanted to explore. His mentorship has been the catalyst for this journey. 
+I particularly want to thank Dennis Wilson for his invaluable support, both for this project and others we have discussed. He has shown incredible patience and provided essential guidance at times when I struggled to find the right words to describe the ideas I wanted to explore. **His mentorship has been the catalyst for this journey.**
 
 ## The Vision 
 
@@ -31,17 +31,16 @@ My goal is to visualize thousands of digital agents interacting in real-time. I 
 
 I plan to share my **advancements** here. 
 
-* **Initial Ideas :** concepts and questions that I am exploring
-* **Progress :** Seeing how my simulations and results evolve with my code. 
+* **Initial Ideas :** Concepts and questions that I am exploring
+* **Progress :** Seeing how my simulations and results evolve with my code
 * **Tools :** Notes on the tools I will use 
-
-* **Fails :** I also want to share when I fail. 
+* **Fails :** I also want to share when I fail
 
 ## From Theory to the Real World 
 
 Coming from a background of "Classes Préparatoires" and now my first two years at **ISAE-SUPAERO**, I have written a lot of code in **C, Java, MATLAB, and Python.** However, my experience has been mostly focused on the **theoretical aspect of computer science.**
 
-With this project, I want to fill the gap. I want to confront the reality of the practice with bugs and unexpected behaviors of a live simulation. Documenting my failures is, for me, part of becoming a better engineer and will allow others to see where to be careful.
+With this/these projects, I want to fill the gap. I want to confront the reality of the practice with bugs and unexpected behaviors of a live simulation. Documenting my failures is, for me, part of becoming a better engineer and will allow others to see where to be careful.
 
 
 
