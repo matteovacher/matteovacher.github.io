@@ -7,8 +7,24 @@
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
     <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
-    <lastBuildDate>Mon, 16 Mar 2026 15:42:15 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2026 00:53:30 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
+      <link>http://localhost:1313/ressources/evo_strat/</link>
+      <pubDate>Wed, 25 Mar 2026 00:53:30 +0100</pubDate>
+      <guid>http://localhost:1313/ressources/evo_strat/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>First of the Project</title>
+      <link>http://localhost:1313/posts/first-of-the-project/</link>
+      <pubDate>Tue, 24 Mar 2026 15:51:14 +0100</pubDate>
+      <guid>http://localhost:1313/posts/first-of-the-project/</guid>
+      <description>&lt;p&gt;brouillon en fr :&lt;/p&gt;
+&lt;p&gt;pygame — la fenêtre de simulation. C&amp;rsquo;est lui qui affiche la grille, les fourmis qui bougent, les trainées de phéromones en temps réel. Sans lui, la simulation tourne mais tu ne vois rien. je rajoute que c&amp;rsquo;est mon environnment et que je vais devoir le modif&lt;/p&gt;
+&lt;p&gt;numpy — le moteur de calcul de la grille. La carte des phéromones est un tableau 2D numpy. Toutes les opérations dessus (évaporation, dépôt, lecture) sont vectorisées, donc rapides sans boucles Python. pareil je vais utiliser des noyaux de conv ou autre pour pheromones&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Genetic Algorithms (GA) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
       <link>http://localhost:1313/ressources/ga/</link>
