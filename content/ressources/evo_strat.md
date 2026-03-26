@@ -1,9 +1,9 @@
 +++
 date = '2026-03-25T00:53:30+01:00'
-draft = true
+draft = false
 title = 'Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO'
 math = true 
-summary = ' '
+summary = 'Synthesis of the core concepts of Evolutionary Strategies (ES)'
 +++
 
 ## Introduction 
@@ -26,7 +26,7 @@ While the (1 + 1) ES moves quickly, the (1 + \lambda) ES is more exploratory, wh
 
 ### Approximating the Gradient 
 
-What is brilliant with ES is that it allows us to approximate the gradient of a function without calculating its derivative. 
+What is brilliant with ES is that it allows us to approximate the gradient of a function **without** calculating its derivative. 
 
 #### Based on Performance
 
@@ -44,27 +44,27 @@ $$ \nabla f = \pm \frac{A \cdot N}{\lambda} $$
 
 with : 
 
-- $N$ is the matrix of noise vectors sampled from a normal distribution $N(0, 1)$. Here, for the whole population, $N$ is a matrix of size $[\lambda, d]$ where $d$ is the dimension of the problem. 
+- $N$ is the **matrix of noise vectors** sampled from a normal distribution $N(0, 1)$. Here, for the whole population, $N$ is a matrix of size $[\lambda, d]$ where $d$ is the dimension of the problem. 
 
-- $A$ is the standardized fitness score of the population. It is a vector that contains the standardized fitness score of each individual in the population. This means that for each individual $i$, $A_i = \frac{f(x_i) - \mu(f(x))}{\sigma(f(x))}$ where $f(x)$ is the fitness function and $\mu(f(x))$ and $\sigma(f(x))$ are the mean and standard deviation of the population. 
+- $A$ is the **standardized fitness score** of the population. It is a vector that contains the standardized fitness score of each individual in the population. This means that for each individual $i$, $A_i = \frac{f(x_i) - \mu(f(x))}{\sigma(f(x))}$ where $f(x)$ is the fitness function and $\mu(f(x))$ and $\sigma(f(x))$ are the mean and standard deviation of the population. 
 
-- $\lambda$ is the number of offspring.
+- $\lambda$ is the **number of offspring**.
 
 #### The Learning Rate
 
 Lastly we define the new center of the future normal distribution by : 
 
-$$ x = x \pm \alpha \frac{A \cdot N}{\lambda} $$
+$$ x = x + \alpha \frac{A \cdot N}{\lambda} $$
 
 #### The Algorithm 
 
 With all of this we can build our algorithm : 
 
 --- 
-Algorithm 1: Evolutionary Strategies $(\mu, \lambda)$
+**Algorithm 1: Evolutionary Strategies $(\mu, \lambda)$**
 ```text
 Initializing parent x in the search space
-Set learning rate alpha and the population size of the offspring lambda
+Set learning rate alpha and the population size of the offspring lambda and the standard deviation of the noise sigma
 
 For each generation g from 1 to G : 
 
@@ -73,7 +73,7 @@ For each generation g from 1 to G :
     F = [f1=0, f2=0, ..., flambda=0]
 
     For each offspring i from 1 to lambda : 
-        ind_i = x + N[i]
+        ind_i = x + sigma *N[i]
         F[i] = f(ind_i)
 
     # Here we can keep track of the best individual in the population. 
@@ -90,7 +90,7 @@ For each generation g from 1 to G :
     gradient_approx = dot(A, N) / lambda
 
     # 4. Update parent 
-    x = x +/- alpha * gradient_approx
+    x = x + alpha * gradient_approx
 
 End For 
 
@@ -99,7 +99,7 @@ Return x or the best individual in the population.
 --- 
 #### To Summary 
 
-In this approach we turned a blind and random search into a gradient descent. We no longer need to know the derivative of our landscape, we just feel where we should move.
+In this approach we turned a blind and random search into a gradient descent. We no longer need to know the derivative of our landscape, we just **feel** where we should move.
 
 ### Rank-Based Updates
 
@@ -107,11 +107,11 @@ In ES, **rank-based updates** are a robust method for moving toward a solution b
 
 #### The concept
 
-Instead of focusing on fitness values to approximate a gradient, the algorithm sorts the individuals (offsprings here) from the best to the worst based on their performance. 
+Instead of focusing on fitness values to approximate a gradient, the algorithm **sorts the individuals** (offsprings here) from the best to the worst based on their performance. 
 
-- **Selection of \mu individuals :** Usually, not all individuals are useful for finding the center of the search. In the notebook, we typically select the best 50% percent of the population. 
+- **Selection of $\mu$ individuals :** Usually, not all individuals are useful for finding the center of the search. In the notebook, we typically select the best 50% percent of the population. 
 
-- **Weight update :** Then, we create a set of weights that decreases exponentially from the best to the worst selected individual. This ensures that the most promising individuals are given more importance and influence on the algorithm moves. 
+- **Weight update :** Then, we create a set of weights that decreases logarithmically from the best to the worst selected individual. This ensures that the most promising individuals are given more importance and influence on the algorithm moves. 
 
 #### Why 
 
@@ -126,7 +126,7 @@ Instead of focusing on fitness values to approximate a gradient, the algorithm s
 Here is the associated algorithm : 
 
 --- 
-Algorithm 2: Rank-based Evolutionary Strategies $(\mu, \lambda)$
+**Algorithm 2: Rank-based Evolutionary Strategies $(\mu, \lambda)$**
 
 ```text
 Initializing parent x in the search space
@@ -163,6 +163,8 @@ End For
 Return x or the best individual in the population.
 ```
 ---
+
+This algorithm is called **Canonical ES**.
 
 
 
