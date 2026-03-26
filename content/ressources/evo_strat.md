@@ -62,7 +62,7 @@ With all of this we can build our algorithm :
 
 --- 
 Algorithm 1: Evolutionary Strategies $(\mu, \lambda)$
-```text 
+```text
 Initializing parent x in the search space
 Set learning rate alpha and the population size of the offspring lambda
 
@@ -97,10 +97,72 @@ End For
 Return x or the best individual in the population. 
 ```
 --- 
+#### To Summary 
 
-bla 
+In this approach we turned a blind and random search into a gradient descent. We no longer need to know the derivative of our landscape, we just feel where we should move.
 
+### Rank-Based Updates
 
+In ES, **rank-based updates** are a robust method for moving toward a solution by focusing on the relative ordering of individuals rather than their absolute fitness scores. 
+
+#### The concept
+
+Instead of focusing on fitness values to approximate a gradient, the algorithm sorts the individuals (offsprings here) from the best to the worst based on their performance. 
+
+- **Selection of \mu individuals :** Usually, not all individuals are useful for finding the center of the search. In the notebook, we typically select the best 50% percent of the population. 
+
+- **Weight update :** Then, we create a set of weights that decreases exponentially from the best to the worst selected individual. This ensures that the most promising individuals are given more importance and influence on the algorithm moves. 
+
+#### Why 
+
+- **Reducing noises :** By only using ranks, worst individuals do not count as the best ones, and the algorithm is not bothered by individuals with bad performance. 
+
+- **Avoiding local optima :** focusing only on the top individuals prevent from getting pull away from a nearby optimum. 
+
+- **Invariance property :** I didn't really notice this one but : rank-based updates are **invariant to order preserving transformations**. That means if you scale the fitness values (multiply by a scalar take the log), the update remains exactly the same as long as the ranking remains the same. 
+
+#### The Algorithm
+
+Here is the associated algorithm : 
+
+--- 
+Algorithm 2: Rank-based Evolutionary Strategies $(\mu, \lambda)$
+
+```text
+Initializing parent x in the search space
+Set the learning rate sigma (or standard deviation) and the population size of the offspring lambda and the number of elites mu 
+
+# Compute the weights based on log rank 
+w = [w1 = (log(mu + 1/2) - log(1)), w2 = (log(mu + 1/2) - log(2)), ..., wmu = (log(mu + 1/2) - log(mu))] 
+w = w / sum(w)
+
+For each generation g from 1 to G : 
+
+    epsilon = Normal(0, 1, size=(lambda, d)) # where d is the dimension of the problem
+    f = [f1, f2, ..., flambda]
+
+    # 1. Generating the offsprings
+    For each individual i from 1 to lambda : 
+
+        x_i = x + sigma * epsilon[i]
+        f[i] = f(x_i)
+
+    end For 
+
+    # 2. Sorting the offsprings
+    sorted_f = argsort(f) # where the best is at index 0
+    
+    # 3. Approximation of the gradient
+    gradient_approx = dot(w, epsilon[sorted_f[:mu]]) = N[first]*w1 + N[second]*w2 + ... + N[last]*wmu
+
+    # 4. Update parent 
+    x = x + sigma * gradient_approx
+
+End For 
+
+Return x or the best individual in the population.
+```
+---
 
 
 
