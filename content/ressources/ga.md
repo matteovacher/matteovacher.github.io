@@ -8,9 +8,13 @@ summary = 'Synthesis of the core concepts of Genetic Algorythms (GA)'
 
 ## Introduction to Evolutionary Computation 
 
+
+
 ### Individuals and Genes 
 
 The basic unit of an EA (Evolutionary Algorithm) is the individual, which represents a potential solution to a given problem. In this tutorial, individuals are represented by binary strings, consisting of genes that are either 0 or 1. Each individual of the population is initialized with random genes and a default fitness score of zero. 
+
+---
 
 ### Evaluation and Objective Functions
 
@@ -19,6 +23,8 @@ What is an objective function ?
 An **objective function** (or fitness function) is a function that gives a score to the individual (potential solution) i.e. tells us how good is the individual on the given problem. For each problem, there could be multiple objective functions. Each of them will give a different score to the individual. On the first Notebook we have two objective functions : 
 * **OneMax :** This function returns the sum of all the bits in the genotype. The aim of this function is to find the individual with the maximum number of 1 bits.
 * **LeadingOnes :** This functions counts the number of consecutive starting 1s from the left, stopping at the first 0. 
+
+---
 
 ### The (1+1) Evolutionary Algorithm 
 
@@ -36,6 +42,8 @@ This algorithm follows really simple steps :
 
 This algorithm is the most simple that can be done. His performance depends primarily on the the problem and on the objective function. 
 
+---
+
 ### The $(1 + \lambda$) EA 
 
 #### The Algorithm 
@@ -46,10 +54,13 @@ In the previous algorithm a single parent parent produces a single offspring. In
 
 The $(1 + \lambda)$ usually requires fewer generations to converge, it performs more evaluations per generation ($\lambda$ to be exact). In order to compare the $(1 + 1)$ and the $(1 + \lambda)$ algorithm, we need to compare the total number of evaluation and not only the number of generations. 
 
+---
+
 ### More on These Algorithms 
 
 Finally the choice of the mutation rate and the population size **significantly impact** the performance of the EA. 
 
+---
 
 ## Genetic Algorithms 
 
@@ -67,6 +78,8 @@ GA are basically composed of different steps :
 
 By repeating these steps, we can generate a new population of individuals that are more likely to be good solutions to the problem. 
 
+---
+
 ### The Population 
 
 The first step in a GA is defining the representation of a solution, known as the genome. For the TSP, a genome is represented as a permutation of city indices, ensuring each city is visited exactly once.
@@ -76,6 +89,8 @@ The first step in a GA is defining the representation of a solution, known as th
 - Maintaining a large population size allows for more diversity in the population, which can lead to better solutions by looking for multiples different potential solutions at the same time. 
 
 - This diversity is the key to avoiding being trapped in a local optimum. 
+
+---
 
 ### The Evaluation 
 
@@ -90,6 +105,8 @@ with :
     - $p_{i}$ is the index of the city at position $i$ in the tour.
     - $\text{dist}(a, b)$ is the pre-computed distance between city $a$ and city $b$ from the distance matrix.
 
+---
+
 ### The selection 
 
 The selection is the process of deciding which individuals will be selected and will pass their genes to the next generation. 
@@ -103,6 +120,8 @@ Here, there exists different type of selection methods :
 
 - **Tournament Selection :** We first choose a subset of individuals randomly from the population. Then the best among them is given the right to reproduce. This method relies more on the rank than on the absolute value of the fitness which means that if you are selected to reproduce it is because you are the best of the subset and not because you crush your opponents. 
 
+---
+
 ### The Crossover 
 
 The crossover is the "sexual" part of the algorithm where the **information from two parents is combined** to create an offspring. 
@@ -113,6 +132,8 @@ The crossover is the "sexual" part of the algorithm where the **information from
 
 - To solve this, we use a specialized operator like the Edge Recombination Operator (ERX), which builds a child by prioritizing the existing links between the cities find in both parents. 
 
+---
+
 ### The Mutation 
 
 The mutation step is then necessary to introduce entirely **new and random** genetic material into the population. 
@@ -122,6 +143,8 @@ The mutation step is then necessary to introduce entirely **new and random** gen
 - To respect TSP constraints, we swap the order of a single random pair of cities. 
 
 - This step is vital for maintaining genetic diversity and allows the algorithm to search outside the current combinations already existing in the population. 
+
+---
 
 ### The Process 
 
@@ -163,6 +186,8 @@ Return the best individual found in P
 ---
 
 By combining these steps, along with elitism, which passes the very best individuals directly to the next generation, the Genetic Algorithm iteratively refines its population toward an optimal solution.
+
+---
 
 ### Final Remarks 
 

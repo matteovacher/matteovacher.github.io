@@ -10,6 +10,8 @@ summary = 'Synthesis of the core concepts of Evolutionary Strategies (ES)'
 
 Evolutionary Strategies (ES) are a powerful class of stochastic search algorithms that have been used to solve a wide range of optimization problems. While traditional optimization often relies on calculating exact derivatives, ES excels in environments where the objective function is unknown, non-differentiable, or noisy. In the notebook of the elective, we used standard test functions like the **Himmelblau** function or the **Rosenbrock** function. 
 
+---
+
 ## Evolutionary Strategies
 
 Building on what we previously explored in the **Genetic Algorithms** (GA) section, we now dive into **Evolutionary Strategies** (ES). While GA often focuses on discrete populations, ES is the fundamental tool for continuous optimization.
@@ -20,9 +22,13 @@ As we've seen before :
 - **The (1 + 1) ES :** is the simplest form of ES, a single parent produces one child and the parent is replaced only if the child is better. 
 - **The (1 + \lambda) ES :** is a more complex form of ES, a single parent produces $\lambda$ children and the parent is replaced only if the best child is better.
 
+---
+
 ### Exploration vs Speed
 
 While the (1 + 1) ES moves quickly, the (1 + \lambda) ES is more exploratory, which avoid getting stuck in local optima. But be careful, generating too many points (will give you better data on the landscape but :) can become computationally expensive (at least for complex simulations). 
+
+---
 
 ### Approximating the Gradient 
 
@@ -101,6 +107,8 @@ Return x or the best individual in the population.
 
 In this approach we turned a blind and random search into a gradient descent. We no longer need to know the derivative of our landscape, we just **feel** where we should move.
 
+---
+
 ### Rank-Based Updates
 
 In ES, **rank-based updates** are a robust method for moving toward a solution by focusing on the relative ordering of individuals rather than their absolute fitness scores. 
@@ -165,11 +173,3 @@ Return x or the best individual in the population.
 ---
 
 This algorithm is called **Canonical ES**.
-
-
-
-
-
-
-
-

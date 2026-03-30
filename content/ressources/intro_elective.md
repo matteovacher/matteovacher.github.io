@@ -9,13 +9,17 @@ summary = 'Personal synthesis to remind of the course content'
 
 This **elective course** is a synthesis of the concepts of evolutionary computation. I want to document the core principles I've gained through this elective so that I can go back to them later if needed through my different projects. 
 
-### Why this "Ressources" section ? 
+---
+
+## Why this "Ressources" section ? 
 
 I have decided to document the corner stones of this course and of the different paper that I read for two main reasons : 
 1. **Reinforcement Learning :** Explaining complex concepts is for me the best way to master them. 
 2. **Research base :** These summaries will serve as a starting point for my own projects. 
 
-### Key Takeaways 
+---
+
+## Key Takeaways 
 
 The approach chosen by Prof. Dennis Wilson allowed us to navigate through different strategies and algorythms to solve different complex problems : 
 

@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO | Mattéo Vacher</title>
 <meta name="keywords" content="">
-<meta name="description" content="Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO - Mattéo Vacher">
+<meta name="description" content="Synthesis of the core concepts of Evolutionary Strategies (ES)">
 <meta name="author" content="Mattéo Vacher">
 <link rel="canonical" href="http://localhost:1313/ressources/evo_strat/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.91bca08ba24824edebd4266f1219549f7b8e610f545bed813ab87737fe9d351c.css" integrity="sha256-kbygi6JIJO3r1CZvEhlUn3uOYQ9UW&#43;2BOrh3N/6dNRw=" rel="preload stylesheet" as="style">
@@ -156,12 +156,6 @@
     <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/ressources/">Ressources</a></div>
     <h1 class="post-title entry-hint-parent">
       Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
     </h1>
     <div class="post-meta"><span title='2026-03-25 00:53:30 +0100 CET'>March 25, 2026</span>&nbsp;·&nbsp;<span>6 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
 
@@ -219,6 +213,7 @@
 
   <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
 <p>Evolutionary Strategies (ES) are a powerful class of stochastic search algorithms that have been used to solve a wide range of optimization problems. While traditional optimization often relies on calculating exact derivatives, ES excels in environments where the objective function is unknown, non-differentiable, or noisy. In the notebook of the elective, we used standard test functions like the <strong>Himmelblau</strong> function or the <strong>Rosenbrock</strong> function.</p>
+<hr>
 <h2 id="evolutionary-strategies">Evolutionary Strategies<a hidden class="anchor" aria-hidden="true" href="#evolutionary-strategies">#</a></h2>
 <p>Building on what we previously explored in the <strong>Genetic Algorithms</strong> (GA) section, we now dive into <strong>Evolutionary Strategies</strong> (ES). While GA often focuses on discrete populations, ES is the fundamental tool for continuous optimization.</p>
 <h3 id="from-individual-survival-to-population-exploration">From Individual Survival to Population Exploration<a hidden class="anchor" aria-hidden="true" href="#from-individual-survival-to-population-exploration">#</a></h3>
@@ -227,8 +222,10 @@
 <li><strong>The (1 + 1) ES :</strong> is the simplest form of ES, a single parent produces one child and the parent is replaced only if the child is better.</li>
 <li><strong>The (1 + \lambda) ES :</strong> is a more complex form of ES, a single parent produces $\lambda$ children and the parent is replaced only if the best child is better.</li>
 </ul>
+<hr>
 <h3 id="exploration-vs-speed">Exploration vs Speed<a hidden class="anchor" aria-hidden="true" href="#exploration-vs-speed">#</a></h3>
 <p>While the (1 + 1) ES moves quickly, the (1 + \lambda) ES is more exploratory, which avoid getting stuck in local optima. But be careful, generating too many points (will give you better data on the landscape but :) can become computationally expensive (at least for complex simulations).</p>
+<hr>
 <h3 id="approximating-the-gradient">Approximating the Gradient<a hidden class="anchor" aria-hidden="true" href="#approximating-the-gradient">#</a></h3>
 <p>What is brilliant with ES is that it allows us to approximate the gradient of a function <strong>without</strong> calculating its derivative.</p>
 <h4 id="based-on-performance">Based on Performance<a hidden class="anchor" aria-hidden="true" href="#based-on-performance">#</a></h4>
@@ -252,13 +249,13 @@
 </ul>
 <h4 id="the-learning-rate">The Learning Rate<a hidden class="anchor" aria-hidden="true" href="#the-learning-rate">#</a></h4>
 <p>Lastly we define the new center of the future normal distribution by :</p>
-<p>$$ x = x \pm \alpha \frac{A \cdot N}{\lambda} $$</p>
+<p>$$ x = x + \alpha \frac{A \cdot N}{\lambda} $$</p>
 <h4 id="the-algorithm">The Algorithm<a hidden class="anchor" aria-hidden="true" href="#the-algorithm">#</a></h4>
 <p>With all of this we can build our algorithm :</p>
 <hr>
 <p><strong>Algorithm 1: Evolutionary Strategies $(\mu, \lambda)$</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Initializing parent x in the search space
-</span></span><span style="display:flex;"><span>Set learning rate alpha and the population size of the offspring lambda
+</span></span><span style="display:flex;"><span>Set learning rate alpha and the population size of the offspring lambda and the standard deviation of the noise sigma
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>For each generation g from 1 to G : 
 </span></span><span style="display:flex;"><span>
@@ -267,7 +264,7 @@
 </span></span><span style="display:flex;"><span>    F = [f1=0, f2=0, ..., flambda=0]
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    For each offspring i from 1 to lambda : 
-</span></span><span style="display:flex;"><span>        ind_i = x + N[i]
+</span></span><span style="display:flex;"><span>        ind_i = x + sigma *N[i]
 </span></span><span style="display:flex;"><span>        F[i] = f(ind_i)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    # Here we can keep track of the best individual in the population. 
@@ -284,7 +281,7 @@
 </span></span><span style="display:flex;"><span>    gradient_approx = dot(A, N) / lambda
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    # 4. Update parent 
-</span></span><span style="display:flex;"><span>    x = x +/- alpha * gradient_approx
+</span></span><span style="display:flex;"><span>    x = x + alpha * gradient_approx
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>End For 
 </span></span><span style="display:flex;"><span>
@@ -292,6 +289,7 @@
 </span></span></code></pre></div><hr>
 <h4 id="to-summary">To Summary<a hidden class="anchor" aria-hidden="true" href="#to-summary">#</a></h4>
 <p>In this approach we turned a blind and random search into a gradient descent. We no longer need to know the derivative of our landscape, we just <strong>feel</strong> where we should move.</p>
+<hr>
 <h3 id="rank-based-updates">Rank-Based Updates<a hidden class="anchor" aria-hidden="true" href="#rank-based-updates">#</a></h3>
 <p>In ES, <strong>rank-based updates</strong> are a robust method for moving toward a solution by focusing on the relative ordering of individuals rather than their absolute fitness scores.</p>
 <h4 id="the-concept">The concept<a hidden class="anchor" aria-hidden="true" href="#the-concept">#</a></h4>
@@ -301,7 +299,7 @@
 <p><strong>Selection of $\mu$ individuals :</strong> Usually, not all individuals are useful for finding the center of the search. In the notebook, we typically select the best 50% percent of the population.</p>
 </li>
 <li>
-<p><strong>Weight update :</strong> Then, we create a set of weights that decreases exponentially from the best to the worst selected individual. This ensures that the most promising individuals are given more importance and influence on the algorithm moves.</p>
+<p><strong>Weight update :</strong> Then, we create a set of weights that decreases logarithmically from the best to the worst selected individual. This ensures that the most promising individuals are given more importance and influence on the algorithm moves.</p>
 </li>
 </ul>
 <h4 id="why">Why<a hidden class="anchor" aria-hidden="true" href="#why">#</a></h4>
@@ -353,6 +351,7 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Return x or the best individual in the population.
 </span></span></code></pre></div><hr>
+<p>This algorithm is called <strong>Canonical ES</strong>.</p>
 
 
   </div>

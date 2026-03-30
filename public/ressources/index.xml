@@ -7,14 +7,36 @@
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
     <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
-    <lastBuildDate>Wed, 25 Mar 2026 00:53:30 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2026 22:24:32 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/ressources/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Documentation for my project</title>
+      <link>http://localhost:1313/ressources/lectures_on_ants/</link>
+      <pubDate>Fri, 27 Mar 2026 22:24:32 +0100</pubDate>
+      <guid>http://localhost:1313/ressources/lectures_on_ants/</guid>
+      <description>This serves as a summary (made by Claude) for helping me with the writing of my articles</description>
+    </item>
+    <item>
+      <title>To_read</title>
+      <link>http://localhost:1313/ressources/to_read/</link>
+      <pubDate>Thu, 26 Mar 2026 23:13:38 +0100</pubDate>
+      <guid>http://localhost:1313/ressources/to_read/</guid>
+      <description>&lt;p&gt;Algorithmique &amp;amp; maths&lt;/p&gt;
+&lt;p&gt;Introduction to Algorithms — Cormen (CLRS) → archive.org (emprunt gratuit)
+Structure and Interpretation of Computer Programs (SICP) → mitpress.mit.edu gratuit en ligne&lt;/p&gt;
+&lt;p&gt;ML &amp;amp; réseaux de neurones&lt;/p&gt;
+&lt;p&gt;Deep Learning — Goodfellow, Bengio, Courville → gratuit en ligne sur deeplearningbook.org Deep Learning
+Pattern Recognition and Machine Learning — Bishop → PDF officiel gratuit sur le site de Microsoft Research&lt;/p&gt;
+&lt;p&gt;Algorithmes évolutifs&lt;/p&gt;
+&lt;p&gt;Introduction to Evolutionary Computing — Eiben &amp;amp; Smith → à acheter, pas de version libre officielle
+Evolutionary Algorithms in Theory and Practice — Back → idem&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
       <link>http://localhost:1313/ressources/evo_strat/</link>
       <pubDate>Wed, 25 Mar 2026 00:53:30 +0100</pubDate>
       <guid>http://localhost:1313/ressources/evo_strat/</guid>
-      <description></description>
+      <description>Synthesis of the core concepts of Evolutionary Strategies (ES)</description>
     </item>
     <item>
       <title>Genetic Algorithms (GA) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>

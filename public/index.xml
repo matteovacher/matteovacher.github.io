@@ -7,14 +7,29 @@
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
     <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
-    <lastBuildDate>Wed, 25 Mar 2026 00:53:30 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 26 Mar 2026 23:13:38 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>To_read</title>
+      <link>http://localhost:1313/ressources/to_read/</link>
+      <pubDate>Thu, 26 Mar 2026 23:13:38 +0100</pubDate>
+      <guid>http://localhost:1313/ressources/to_read/</guid>
+      <description>&lt;p&gt;Algorithmique &amp;amp; maths&lt;/p&gt;
+&lt;p&gt;Introduction to Algorithms — Cormen (CLRS) → archive.org (emprunt gratuit)
+Structure and Interpretation of Computer Programs (SICP) → mitpress.mit.edu gratuit en ligne&lt;/p&gt;
+&lt;p&gt;ML &amp;amp; réseaux de neurones&lt;/p&gt;
+&lt;p&gt;Deep Learning — Goodfellow, Bengio, Courville → gratuit en ligne sur deeplearningbook.org Deep Learning
+Pattern Recognition and Machine Learning — Bishop → PDF officiel gratuit sur le site de Microsoft Research&lt;/p&gt;
+&lt;p&gt;Algorithmes évolutifs&lt;/p&gt;
+&lt;p&gt;Introduction to Evolutionary Computing — Eiben &amp;amp; Smith → à acheter, pas de version libre officielle
+Evolutionary Algorithms in Theory and Practice — Back → idem&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
       <link>http://localhost:1313/ressources/evo_strat/</link>
       <pubDate>Wed, 25 Mar 2026 00:53:30 +0100</pubDate>
       <guid>http://localhost:1313/ressources/evo_strat/</guid>
-      <description></description>
+      <description>Synthesis of the core concepts of Evolutionary Strategies (ES)</description>
     </item>
     <item>
       <title>First of the Project</title>
@@ -91,6 +106,36 @@
 &lt;hr&gt;
 &lt;h3 id=&#34;emergent-regulation-of-ant-foraging-frequency-through-a-computationally-inexpensive-forager-movement-rule-baltiansky-l-frankel-g--feinerman-o-2023&#34;&gt;Emergent regulation of ant foraging frequency through a computationally inexpensive forager movement rule &lt;em&gt;Baltiansky, L., Frankel, G., &amp;amp; Feinerman, O. (2023)&lt;/em&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Key Question:&lt;/strong&gt; How does a colony regulate its foraging frequency based on collective hunger without a central controller or complex individual computations ?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/ressources/lectures_on_ants/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/ressources/lectures_on_ants/</guid>
+      <description>&lt;h1 id=&#34;synthese--diffusion-evaporation-depot-de-pheromones&#34;&gt;Synthese : Diffusion, Evaporation, Depot de Pheromones&lt;/h1&gt;
+&lt;p&gt;Sources : Dorigo et al. (2000), von Thienen et al. (2014)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;diffusion&#34;&gt;Diffusion&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;La pheromone cree un gradient spatial -&amp;gt; chimiotaxie&lt;/li&gt;
+&lt;li&gt;Haute volatilite = diffusion rapide = reaction rapide aux changements
+mais necessite une IC plus elevee pour compenser la perte de signal&lt;/li&gt;
+&lt;li&gt;LACUNE : aucun modele mathematique de diffusion spatiale dans ces deux sources
+Le modele de Deneubourg (Dorigo 2000) concerne les termites/piliers, pas la diffusion
+de pheromones de fourragement -&amp;gt; ne pas l&amp;rsquo;utiliser pour ca&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;evaporation&#34;&gt;Evaporation&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Role : retroaction negative, permet d&amp;rsquo;abandonner les pistes obsoletes (ACO : coefficient rho)&lt;/li&gt;
+&lt;li&gt;Seuil critique : si densite trop faible, la pheromone s&amp;rsquo;evapore entre deux passages
+-&amp;gt; pas d&amp;rsquo;amplification du signal, pas de coordination&lt;/li&gt;
+&lt;li&gt;Facteurs externes : temperature, pluie, rosee, nature du substrat&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Persistance par espece (von Thienen 2014) :
+Lasius niger          : ~47 min, plus de reaction apres 160 min
+Linepithema humile    : encore actif apres 22h
+Euprenolepis procera  : encore actif apres 22h&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

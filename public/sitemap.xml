@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/ressources/evo_strat/</loc>
-    <lastmod>2026-03-25T00:53:30+01:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2026-03-25T00:53:30+01:00</lastmod>
+    <lastmod>2026-03-26T23:13:38+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/ressources/</loc>
+    <lastmod>2026-03-26T23:13:38+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/ressources/to_read/</loc>
+    <lastmod>2026-03-26T23:13:38+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/ressources/evo_strat/</loc>
     <lastmod>2026-03-25T00:53:30+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/first-of-the-project/</loc>
@@ -37,6 +40,8 @@
   </url><url>
     <loc>http://localhost:1313/posts/readings/</loc>
     <lastmod>2026-02-22T00:55:18+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/ressources/lectures_on_ants/</loc>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>
