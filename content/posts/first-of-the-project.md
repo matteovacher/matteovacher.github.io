@@ -1,6 +1,6 @@
 +++
 date = '2026-03-28T00:00:00+01:00'
-draft = true
+draft = false
 title = 'Step 1 of Ant Simulation Project : Pheromones'
 math = true
 summary = 'Building the pheromone grid : the substrate every ant reads from and writes to, grounded in biological and mathematical models.'
