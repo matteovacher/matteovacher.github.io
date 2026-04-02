@@ -7,8 +7,29 @@
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
     <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
-    <lastBuildDate>Thu, 26 Mar 2026 23:13:38 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Step 2 of Ant Simulation Project : Ant Agent</title>
+      <link>http://localhost:1313/posts/second_of_the_project/</link>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/posts/second_of_the_project/</guid>
+      <description>Implementation de la classe Ant : orientation par angle, mouvement, reflexion sur les murs, depot de pheromones.</description>
+    </item>
+    <item>
+      <title>Step 1 of Ant Simulation Project : Pheromones</title>
+      <link>http://localhost:1313/posts/first-of-the-project/</link>
+      <pubDate>Sat, 28 Mar 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/posts/first-of-the-project/</guid>
+      <description>Building the pheromone grid : the substrate every ant reads from and writes to, grounded in biological and mathematical models.</description>
+    </item>
+    <item>
+      <title>Documentation for my project</title>
+      <link>http://localhost:1313/ressources/lectures_on_ants/</link>
+      <pubDate>Fri, 27 Mar 2026 22:24:32 +0100</pubDate>
+      <guid>http://localhost:1313/ressources/lectures_on_ants/</guid>
+      <description>This serves as a summary (made by Claude) for helping me with the writing of my articles</description>
+    </item>
     <item>
       <title>To_read</title>
       <link>http://localhost:1313/ressources/to_read/</link>
@@ -30,15 +51,6 @@ Evolutionary Algorithms in Theory and Practice — Back → idem&lt;/p&gt;</desc
       <pubDate>Wed, 25 Mar 2026 00:53:30 +0100</pubDate>
       <guid>http://localhost:1313/ressources/evo_strat/</guid>
       <description>Synthesis of the core concepts of Evolutionary Strategies (ES)</description>
-    </item>
-    <item>
-      <title>First of the Project</title>
-      <link>http://localhost:1313/posts/first-of-the-project/</link>
-      <pubDate>Tue, 24 Mar 2026 15:51:14 +0100</pubDate>
-      <guid>http://localhost:1313/posts/first-of-the-project/</guid>
-      <description>&lt;p&gt;brouillon en fr :&lt;/p&gt;
-&lt;p&gt;pygame — la fenêtre de simulation. C&amp;rsquo;est lui qui affiche la grille, les fourmis qui bougent, les trainées de phéromones en temps réel. Sans lui, la simulation tourne mais tu ne vois rien. je rajoute que c&amp;rsquo;est mon environnment et que je vais devoir le modif&lt;/p&gt;
-&lt;p&gt;numpy — le moteur de calcul de la grille. La carte des phéromones est un tableau 2D numpy. Toutes les opérations dessus (évaporation, dépôt, lecture) sont vectorisées, donc rapides sans boucles Python. pareil je vais utiliser des noyaux de conv ou autre pour pheromones&lt;/p&gt;</description>
     </item>
     <item>
       <title>Genetic Algorithms (GA) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
@@ -106,36 +118,6 @@ Evolutionary Algorithms in Theory and Practice — Back → idem&lt;/p&gt;</desc
 &lt;hr&gt;
 &lt;h3 id=&#34;emergent-regulation-of-ant-foraging-frequency-through-a-computationally-inexpensive-forager-movement-rule-baltiansky-l-frankel-g--feinerman-o-2023&#34;&gt;Emergent regulation of ant foraging frequency through a computationally inexpensive forager movement rule &lt;em&gt;Baltiansky, L., Frankel, G., &amp;amp; Feinerman, O. (2023)&lt;/em&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Key Question:&lt;/strong&gt; How does a colony regulate its foraging frequency based on collective hunger without a central controller or complex individual computations ?&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/ressources/lectures_on_ants/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/ressources/lectures_on_ants/</guid>
-      <description>&lt;h1 id=&#34;synthese--diffusion-evaporation-depot-de-pheromones&#34;&gt;Synthese : Diffusion, Evaporation, Depot de Pheromones&lt;/h1&gt;
-&lt;p&gt;Sources : Dorigo et al. (2000), von Thienen et al. (2014)&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;diffusion&#34;&gt;Diffusion&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;La pheromone cree un gradient spatial -&amp;gt; chimiotaxie&lt;/li&gt;
-&lt;li&gt;Haute volatilite = diffusion rapide = reaction rapide aux changements
-mais necessite une IC plus elevee pour compenser la perte de signal&lt;/li&gt;
-&lt;li&gt;LACUNE : aucun modele mathematique de diffusion spatiale dans ces deux sources
-Le modele de Deneubourg (Dorigo 2000) concerne les termites/piliers, pas la diffusion
-de pheromones de fourragement -&amp;gt; ne pas l&amp;rsquo;utiliser pour ca&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;evaporation&#34;&gt;Evaporation&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Role : retroaction negative, permet d&amp;rsquo;abandonner les pistes obsoletes (ACO : coefficient rho)&lt;/li&gt;
-&lt;li&gt;Seuil critique : si densite trop faible, la pheromone s&amp;rsquo;evapore entre deux passages
--&amp;gt; pas d&amp;rsquo;amplification du signal, pas de coordination&lt;/li&gt;
-&lt;li&gt;Facteurs externes : temperature, pluie, rosee, nature du substrat&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Persistance par espece (von Thienen 2014) :
-Lasius niger          : ~47 min, plus de reaction apres 160 min
-Linepithema humile    : encore actif apres 22h
-Euprenolepis procera  : encore actif apres 22h&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
