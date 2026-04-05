@@ -1,6 +1,6 @@
 +++
 date = '2026-04-02T00:00:00+01:00'
-draft = true
+draft = false
 title = 'Step 2 of Ant Simulation Project : Ant Agent'
 math = true
 summary = 'Implementation de la classe Ant : orientation par angle, mouvement, reflexion sur les murs, depot de pheromones.'
@@ -40,16 +40,16 @@ The new position is then :
 
 $$x_{t+1} = x_t + \cos(\theta_{t+1}), \quad y_{t+1} = y_t + \sin(\theta_{t+1})$$
 
-### The oscillation of the Ants, a normal behavior
+### The oscillation of the ants, a normal behavior
 
-This point deserves further explanation. Collett et al. (2025) showed that ants move in an oscillating pattern (sinusoidal, in zigzag). This behavior is not accidental, it is a universal functioning behavior. It exists in species that follow pheromones but also in species like *Cataglyphis bombycina* that relies on vision. 
+This point deserves further explanation. Draft et al. (2018) showed that ants move in an oscillating pattern (sinusoidal, in zigzag). This behavior is not accidental, it is a universal functioning behavior. It exists in species that follow pheromones but also in species like *Cataglyphis bombycina* that rely on vision. 
 
 This oscillation has two purposes : 
 
 - It maximizes the detection surface of the pheromones by sweeping over a wide range of directions. 
 - It allows visual corrections to occur at the peaks and valley of the oscillation when the head is stable. 
 
-In our case, we'll begin to simulate ants without vision. This oscillation will be or not visualized in the simulation. The neural network will have to reproduce this behavior by learning and not by encoded rules. 
+In our case, we'll begin to simulate ants without vision. This oscillation may or may not be visualized in the simulation. The neural network will have to reproduce this behavior by learning and not by encoded rules. 
 
 --- 
 
@@ -63,17 +63,17 @@ To avoid this, the direction is reversed by a simple symmetry along the axis of 
 
 With this method the ant always goes back towards the inside of the grid. 
 
-In the real world, ants have a tendency to **follow the walls (Thigmotaxism)**. This behavior is also not encoded in the ant and we hope that it will emerge and be learned by the neural network if we give him the detection of the wall as an input. 
+In the real world, ants have a tendency to **follow the walls (Thigmotaxism)**. This behavior is also not encoded in the ant and we hope that it will emerge and be learned by the neural network if we give it the detection of the wall as an input. 
 
 --- 
 
 ## The Pheromones
 
-At each time step, the ant will deposit or not pheromones on the current cell. **I decided to encode which type of pheromones to deposit depending on the situation** : 
-- `has_food = True` : the ant has food and deposit a green pheromone leading to the food source. 
-- `has_food = False` : the ant has no food and deposit a brown pheromone.
+At each time step, the ant will deposit or not pheromones on the current cell. **We decided to encode which type of pheromones to deposit depending on the situation** : 
+- `has_food = True` : the ant has food and deposits a green pheromone leading to the food source. 
+- `has_food = False` : the ant has no food and deposits a brown pheromone.
 
-As said in the first article, it is the base of **stigmergy**, the indirect communication between ants via the trails. Again, as already cited in Step 1, this system with two pheromones is biologically inspired : Dussutour et al. (2009) has shown that some species deposit a long lasting pheromone while exploring and another short lasting pheromone  while bringing back food. Collett et al. (2025) confirms this mechanism for *Pheidole megacephala*, where these pheromones play different roles. 
+As said in the first article, it is the base of **stigmergy**, the indirect communication between ants via the trails. Again, as already cited in Step 1, this system with two pheromones is biologically inspired : Dussutour et al. (2009) has shown that some species like *Pheidole megacephala* deposit a long lasting pheromone while exploring and another short lasting pheromone  while bringing back food. 
 
 --- 
 
@@ -92,7 +92,7 @@ The values of the pheromones at these positions will be **inputs of the neural n
 
 This bilateral system of gradient detection is a well-documented mechanism in ants. Collett et al. (2025) recall the foundational experiment by Hangartner (1967) on *Lasius fuliginosus* : with one antenna removed, the ant follows the edge of the trail detected by the remaining antenna. With both antennas surgically crossed, the ant becomes unable to follow the trail. These results prove that the ant's brain indeed computes a **bilateral spatial gradient** - it compares the concentration on the left and right and turns toward the maximum. This is exactly what the network inputs in our model will do.
 
-Hangartner (1967) also provides a key quantitative data : the detection threshold for the bilateral gradient is about 1/10. One third of the workers respond to a concentration ratio of 1/10 between the two antennas, practically all respond to a ratio of 1:1. This is an order of magnitude useful for evaluating whether the neural network correctly exploits the difference between the two antennal inputs.
+Hangartner (1967) also provides a key quantitative data : the detection threshold for the bilateral gradient is about 1/10. One third of the workers respond to a concentration ratio of 1/10 between the two antennas. This is an order of magnitude useful for evaluating whether the neural network correctly exploits the difference between the two antennal inputs.
 
 ### Biological Calibration of the angle $\alpha$ and the length $L$
 
@@ -108,7 +108,7 @@ From the cumulative distributions of $\theta$ in Figure 3C of the paper, the thr
 
 The key data for our model is the **trail following** module. During precise trail tracking, the antennas are excluded from the central zone of approximately 2 mm width (the trail width) and move perpendicularly to the direction of motion, which corresponds to a $\theta$ value of approximately 50 deg. We also know from the paper that the antenna length is approximately 0.5 times the body length (by approximation from the head-to-centroid distance of about 4.0 mm used as normalization unit). 
 
-The current values `ANGLE_ANTENNA = pi/4` (45 deg) and `LENGTH_ANTENNA = 0.5` are therefore a reasonable approximation of trail following behavior.
+The current values `ANGLE_ANTENNA = pi/4` (45 deg) and `LENGTH_ANTENNA = 1` (L = 1 represents the distance from the ant's center to the antenna tip, combining approximately half the body length (~0.5) and the antenna length (~0.5 body length)) are therefore a reasonable approximation of trail following behavior.
 
 It could be interesting in a later stage to set `ANGLE_ANTENNA` as an **output of the neural network**, so that the ant dynamically adapts its antenna configuration depending on its behavioral state - exactly as real ants switch between probing, trail following and sinusoidal modules.
 
@@ -130,24 +130,28 @@ The response from the literature is nuanced. Collett et al. (2025) show, citing 
 
 ### Two types of Food Sources 
 
-In the model, we consider two type of food sources with each their own purposes : 
+In the model, we consider two types of food sources with each their own purposes : 
 
 - **The Aphids :** A consistent number of ant species have been observed feeding on aphids, a common example is the ginger wood ant *Formica rufa* that raises aphids like cattle. Aphids provide a constant source of sugar for the colony. In the simulation, we hope that ants will build a consistent network of pheromones to guide them towards the aphid source. Each aphid will have a `RECHARGE_RATE` and at each time step, the aphid will stock this amount of food. 
 
-- **The Sugar :** The sugar will represent a non-persistent food source for the ant. If a sugar is consumed, it will never recharge again. I will be the only one deciding whether or not is added on the map. We hope that, ants will still keep looking for other sources of food instead of aphids to feed their colony.
+- **The Sugar :** The sugar will represent a non-persistent food source for the ant. If a sugar source is consumed, it will never recharge again. We will be the only one deciding whether or not it is added on the map. We hope that ants will still keep looking for other sources of food instead of aphids to feed their colony.
 
 ### The Food Transport
 
-We changed the former model where each ant had a boolean attribute `has_food` to a float attribute that derives better the natural behavior of ants. This attribute is built as follow : `food_carried` $\in [0, \texttt{MAX\_FOOD\_CARRIED}]$.
+We changed the former model where each ant had a boolean attribute `has_food` to a float attribute that derives better the natural behavior of ants. This attribute is called `food_carried` and `food_carried` $\in [0, MAX FOOD CARRIED]$
 
-This choices is made to highlight that ants do not always carry the maximum amount of food they can hold. For instance, if the food source is almost consumed, the ant goes back with what's left which is compatible with a partially-consumed source. 
+
+
+
+
+This choice is made to highlight that ants do not always carry the maximum amount of food they can hold. For instance, if the food source is almost consumed, the ant goes back with what's left which is compatible with a partially-consumed source. 
 
 ### The method `interact()` 
 
-The way the ant think is simple and directly inspired from what everyone can observe at his own scale : 
+The way the ant thinks is simple and directly inspired from what everyone can observe at their own scale : 
 
-1. **If the ant is on the food source and that she still have food to carry**, she takes whatever she can from the food source in the limit of `FOOD_COLLECT_AMOUNT` and what's left in the source. 
-2. **If the ant carry food ant that she reaches the nest**, she will deposit the food in the nest. 
+1. **If the ant is on the food source and that she still has food to carry**, she takes whatever she can from the food source in the limit of `FOOD_COLLECT_AMOUNT` and what's left in the source. 
+2. **If the ant carries food and that she reaches the nest**, she will deposit the food in the nest. 
 
 ### The collect pause : `EAT_DURATION`
 
@@ -157,13 +161,31 @@ When an ant collects food, she stays still for a few time steps. This behavior i
 
 ### The Threshold `THRESHOLD_FOOD`
 
-An ant that carries very few food will put `HOME` pheromones and not `FOOD` pheromones. This is directly inspired from the fact that ants don't deposit pheromones if they have very little food. This avoid 2 problems : 
+An ant that carries very few food will put `HOME` pheromones and not `FOOD` pheromones. This is directly inspired from the fact that ants don't deposit pheromones if they have very little food. This avoids 2 problems : 
 
 1. **A representation problem :** an ant that carries $0.01$ units of food doesn't really find food, so she needs to keep going and look for food. 
 
-2. **A numerical problem :** instead of comparing units with `==`` which is dangerous with float number, we use this threshold to solve the problem. 
+2. **A numerical problem :** instead of comparing units with `==` which is dangerous with float number, we use this threshold to solve the problem. 
 
 ---
+
+## The Results 
+
+Here is a video showing how the model that we currently have works : 
+
+--- 
+
+{{< youtube J5r5mvSEyc4 >}}
+
+--- 
+
+On the video, we can see that ants may find the food sources, whether it is sugar or aphids, then they deposit the right pheromone but are not able to find their way back to the nest because we have not implemented the sensory mechanism. Still 2 ants happen to go back to the nest increasing the total number of food collected. Then they deposit again the right type of pheromone. 
+
+### What to do next ? 
+
+The ants currently move and deposit pheromones, but they do so blindly. They cannot yet read the pheromone gradient with their antennas, which means the trail system has no effect on their behavior. This is the core problem to address in the next step.
+
+Step 3 — Colony and Emergence will focus on connecting the sensory inputs to the movement. Concretely, this means reading the pheromone concentrations at the two antenna positions and using that difference to bias `delta_theta`. At this stage, the rule will still be hand-crafted - a simple weighted difference between left and right antenna - but it will be enough to observe the first emergent trails. The goal is to see a collective structure appear from purely local decisions, without any central coordination.
 
 ## References
 

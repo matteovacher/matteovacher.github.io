@@ -156,14 +156,8 @@
     <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
       Step 2 of Ant Simulation Project : Ant Agent
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
     </h1>
-    <div class="post-meta"><span title='2026-04-02 00:00:00 +0100 +0100'>April 2, 2026</span>&nbsp;·&nbsp;<span>8 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
+    <div class="post-meta"><span title='2026-04-02 00:00:00 +0100 +0100'>April 2, 2026</span>&nbsp;·&nbsp;<span>11 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
 
 </div>
   </header> <div class="toc">
@@ -181,9 +175,9 @@
                     <a href="#the-movement-of-the-ant" aria-label="The Movement of the Ant">The Movement of the Ant</a><ul>
                         
                 <li>
-                    <a href="#how-the-ants-move-" aria-label="How the Ants move ?">How the Ants move ?</a></li>
+                    <a href="#how-do-the-ants-move-" aria-label="How do the ants move ?">How do the ants move ?</a></li>
                 <li>
-                    <a href="#the-oscillation-of-the-ants-a-normal-behavior" aria-label="The oscillation of the Ants, a normal behavior">The oscillation of the Ants, a normal behavior</a></li></ul>
+                    <a href="#the-oscillation-of-the-ants-a-normal-behavior" aria-label="The oscillation of the ants, a normal behavior">The oscillation of the ants, a normal behavior</a></li></ul>
                 </li>
                 <li>
                     <a href="#rebound-on-the-walls" aria-label="Rebound on the Walls">Rebound on the Walls</a></li>
@@ -200,6 +194,26 @@
                 <li>
                     <a href="#stock-t---1--model-hypotheses" aria-label="Stock t - 1 : Model Hypotheses">Stock t - 1 : Model Hypotheses</a></li>
                 <li>
+                    <a href="#the-food-sources-collect-and-transport" aria-label="The Food, Sources, Collect and Transport">The Food, Sources, Collect and Transport</a><ul>
+                        
+                <li>
+                    <a href="#two-types-of-food-sources" aria-label="Two types of Food Sources">Two types of Food Sources</a></li>
+                <li>
+                    <a href="#the-food-transport" aria-label="The Food Transport">The Food Transport</a></li>
+                <li>
+                    <a href="#the-method-interact" aria-label="The method interact()">The method interact()</a></li>
+                <li>
+                    <a href="#the-collect-pause--eat_duration" aria-label="The collect pause : EAT_DURATION">The collect pause : EAT_DURATION</a></li>
+                <li>
+                    <a href="#the-threshold-threshold_food" aria-label="The Threshold THRESHOLD_FOOD">The Threshold THRESHOLD_FOOD</a></li></ul>
+                </li>
+                <li>
+                    <a href="#the-results" aria-label="The Results">The Results</a><ul>
+                        
+                <li>
+                    <a href="#what-to-do-next-" aria-label="What to do next ?">What to do next ?</a></li></ul>
+                </li>
+                <li>
                     <a href="#references" aria-label="References">References</a>
                 </li>
             </ul>
@@ -215,41 +229,41 @@
 <p>To represent the ant and its position on the grid, we have two possibilities : either to use the ant position as an index in a two-dimensional array (like the pheromones grids), or to use an angle to represent the direction and position of the ant.</p>
 <p>Instead of using 8 discrete directions, and therefore using 8 <code>if/elif</code> statements to determine the next position, we will use an floating angle $\theta \in [0, 2\pi]$. At each time-step the spatial-step is simply :</p>
 <p>$$\Delta x = \cos(\theta + \delta \theta), \Delta y = \sin(\theta + \delta \theta)$$.</p>
-<p>Here $\delta \theta$ is a random value sampled from a uniform distribution in $[-\pi/6, \pi/6]$. His role is only to display the ants movements on the screen. Later, this value will be the output of a neural network.</p>
+<p>Here $\delta \theta$ is a random value sampled from a uniform distribution in $[-\pi/6, \pi/6]$. Its role is only to display the ants movements on the screen. Later, this value will be the output of a neural network.</p>
 <p>Then, we only have to take the integer of these values to determine the next position on the surface that we&rsquo;ll give to pygame.</p>
 <hr>
 <h2 id="the-movement-of-the-ant">The Movement of the Ant<a hidden class="anchor" aria-hidden="true" href="#the-movement-of-the-ant">#</a></h2>
-<h3 id="how-the-ants-move-">How the Ants move ?<a hidden class="anchor" aria-hidden="true" href="#how-the-ants-move-">#</a></h3>
+<h3 id="how-do-the-ants-move-">How do the ants move ?<a hidden class="anchor" aria-hidden="true" href="#how-do-the-ants-move-">#</a></h3>
 <p>The core method of the <code>Ant</code> class is <code>move(delta_theta, put_pheromones, value_pheromone)</code>. This method will move the ant by modifying the current direction by <code>delta_theta</code>, and will also add pheromones if <code>put_pheromones</code> is <code>True</code>. The <code>value_pheromone</code> parameter is the value of the pheromone to be added.</p>
 <p>Here we only manage and execute the movement of the ant. The value of <code>delta_theta</code> will be the <strong>output of the neural network</strong>.</p>
 <p>The new position is then :</p>
 <p>$$x_{t+1} = x_t + \cos(\theta_{t+1}), \quad y_{t+1} = y_t + \sin(\theta_{t+1})$$</p>
-<h3 id="the-oscillation-of-the-ants-a-normal-behavior">The oscillation of the Ants, a normal behavior<a hidden class="anchor" aria-hidden="true" href="#the-oscillation-of-the-ants-a-normal-behavior">#</a></h3>
-<p>This point deserves further explanation. Collett et al. (2025) showed that ants move in an oscillating pattern (sinusoidal, in zigzag). This behavior is not accidental, it is a universal functioning behavior. It exists in species that follow pheromones but also in species like <em>Cataglyphis bombycina</em> that relies on vision.</p>
+<h3 id="the-oscillation-of-the-ants-a-normal-behavior">The oscillation of the ants, a normal behavior<a hidden class="anchor" aria-hidden="true" href="#the-oscillation-of-the-ants-a-normal-behavior">#</a></h3>
+<p>This point deserves further explanation. Draft et al. (2018) showed that ants move in an oscillating pattern (sinusoidal, in zigzag). This behavior is not accidental, it is a universal functioning behavior. It exists in species that follow pheromones but also in species like <em>Cataglyphis bombycina</em> that rely on vision.</p>
 <p>This oscillation has two purposes :</p>
 <ul>
 <li>It maximizes the detection surface of the pheromones by sweeping over a wide range of directions.</li>
 <li>It allows visual corrections to occur at the peaks and valley of the oscillation when the head is stable.</li>
 </ul>
-<p>In our case, we&rsquo;ll begin to simulate ants without vision. This oscillation will be or not visualized in the simulation. The neural network will have to reproduce this behavior by learning and not by encoded rules.</p>
+<p>In our case, we&rsquo;ll begin to simulate ants without vision. This oscillation may or may not be visualized in the simulation. The neural network will have to reproduce this behavior by learning and not by encoded rules.</p>
 <hr>
 <h2 id="rebound-on-the-walls">Rebound on the Walls<a hidden class="anchor" aria-hidden="true" href="#rebound-on-the-walls">#</a></h2>
-<p>Because the simulation is basically a grid, the ants can only move inside this grid. If the new position is outside the grid, we put the ant back on the grid with <code>numpy.clip</code>. But the problem is what happens next. If the <strong>direction remains the same</strong> then, the and will forever be stuck on the edges of the grid.</p>
-<p>To avoid this, the direction is reversed by a simple symmetry along the axe of the edge :</p>
+<p>Because the simulation is basically a grid, the ants can only move inside this grid. If the new position is outside the grid, we put the ant back on the grid with <code>numpy.clip</code>. But the problem is what happens next. If the <strong>direction remains the same</strong> then, the ant will forever be stuck on the edges of the grid.</p>
+<p>To avoid this, the direction is reversed by a simple symmetry along the axis of the edge :</p>
 <ul>
 <li><strong>Vertical wall :</strong> $x$ is out of bounds, $\theta \leftarrow \pi - \theta$, we inverse the horizontal component.</li>
-<li><strong>Horizontal wall :</strong> $y$ is out of bounds, $\theta \leftarrow -\theta$, we inverse the vertical component.</li>
+<li><strong>Horizontal wall :</strong> $y$ is out of bounds, $\theta \leftarrow -\theta$, we invert the vertical component.</li>
 </ul>
 <p>With this method the ant always goes back towards the inside of the grid.</p>
-<p>In the real world, ants have a tendency to <strong>follow the walls (Thigmotaxism)</strong>. This behavior is also not encoded in the ant and we hope that it will emerge and be learned by the neural network if we give him the detection of the wall as an input.</p>
+<p>In the real world, ants have a tendency to <strong>follow the walls (Thigmotaxism)</strong>. This behavior is also not encoded in the ant and we hope that it will emerge and be learned by the neural network if we give it the detection of the wall as an input.</p>
 <hr>
 <h2 id="the-pheromones">The Pheromones<a hidden class="anchor" aria-hidden="true" href="#the-pheromones">#</a></h2>
-<p>At each time step, the ant will deposit or not pheromones on the current cell. <strong>I decided to encode which type of pheromones to deposit depending on the situation</strong> :</p>
+<p>At each time step, the ant will deposit or not pheromones on the current cell. <strong>We decided to encode which type of pheromones to deposit depending on the situation</strong> :</p>
 <ul>
-<li><code>has_food = True</code> : the ant has food and deposit a green pheromone leading to the food source.</li>
-<li><code>has_food = False</code> : the ant has no food and deposit a brown pheromone.</li>
+<li><code>has_food = True</code> : the ant has food and deposits a green pheromone leading to the food source.</li>
+<li><code>has_food = False</code> : the ant has no food and deposits a brown pheromone.</li>
 </ul>
-<p>As said in the first article, it is the base of <strong>stigmergy</strong>, the indirect communication between ants via the trails. Again, as already cited in Step 1, this system with two pheromones is biologically inspired : Dussutour et al. (2009) has shown that that some species deposit a long lasting pheromone while exploring and another short lasting pheromone  while bringing back food. Collet et al. (2025) confirms this mechanism for <em>Pheidole megacephala</em>, where these pheromones play different roles.</p>
+<p>As said in the first article, it is the base of <strong>stigmergy</strong>, the indirect communication between ants via the trails. Again, as already cited in Step 1, this system with two pheromones is biologically inspired : Dussutour et al. (2009) has shown that some species like <em>Pheidole megacephala</em> deposit a long lasting pheromone while exploring and another short lasting pheromone  while bringing back food.</p>
 <hr>
 <h2 id="the-antennas-for-the-detection-of-the-gradient-of-pheromones">The Antennas for the detection of the Gradient of Pheromones<a hidden class="anchor" aria-hidden="true" href="#the-antennas-for-the-detection-of-the-gradient-of-pheromones">#</a></h2>
 <h3 id="the-method-get_antenna_pos">The Method <code>get_antenna_pos</code><a hidden class="anchor" aria-hidden="true" href="#the-method-get_antenna_pos">#</a></h3>
@@ -258,8 +272,8 @@
 $$\text{right antenna} = (x + L \cdot \cos(\theta - \alpha); y + L \cdot \sin(\theta - \alpha))$$</p>
 <p>where $\alpha$ is <code>ANGLE_ANTENNA</code> and $L$ is the length of the antenna <code>LENGTH_ANTENNA</code>.</p>
 <p>The values of the pheromones at these positions will be <strong>inputs of the neural network.</strong></p>
-<p>This bilateral system of gradient detection is a well-documented mechanism in ants. Collett et al. (2025) recall the foundational experiment by Hangartner (1967) on fire ants : with one antenna removed, the ant follows the edge of the trail detected by the remaining antenna. With both antennas surgically crossed, the ant becomes unable to follow the trail. These results prove that the ant&rsquo;s brain indeed computes a <strong>bilateral spatial gradient</strong> - it compares the concentration on the left and right and turns toward the maximum. This is exactly what the network inputs in our model will do.</p>
-<p>Hangartner (1967) also provides a key quantitative data : the detection threshold for the bilateral gradient is about 1/10. One third of the workers respond to a concentration ratio of 1/10 between the two antennas, practically all respond to a ratio of 1:1. This is an order of magnitude useful for evaluating whether the neural network correctly exploits the difference between the two antennal inputs.</p>
+<p>This bilateral system of gradient detection is a well-documented mechanism in ants. Collett et al. (2025) recall the foundational experiment by Hangartner (1967) on <em>Lasius fuliginosus</em> : with one antenna removed, the ant follows the edge of the trail detected by the remaining antenna. With both antennas surgically crossed, the ant becomes unable to follow the trail. These results prove that the ant&rsquo;s brain indeed computes a <strong>bilateral spatial gradient</strong> - it compares the concentration on the left and right and turns toward the maximum. This is exactly what the network inputs in our model will do.</p>
+<p>Hangartner (1967) also provides a key quantitative data : the detection threshold for the bilateral gradient is about 1/10. One third of the workers respond to a concentration ratio of 1/10 between the two antennas. This is an order of magnitude useful for evaluating whether the neural network correctly exploits the difference between the two antennal inputs.</p>
 <h3 id="biological-calibration-of-the-angle-alpha-and-the-length-l">Biological Calibration of the angle $\alpha$ and the length $L$<a hidden class="anchor" aria-hidden="true" href="#biological-calibration-of-the-angle-alpha-and-the-length-l">#</a></h3>
 <p>Draft et al. (2018) provide the most precise quantitative data available on antenna angles in <em>Camponotus pennsylvanicus</em>. The relevant parameter for our model is $\theta$, defined as the angle between the body axis and the line connecting the head to the antenna tip &ndash; which is exactly what <code>ANGLE_ANTENNA</code> represents in our code.</p>
 <p>From the cumulative distributions of $\theta$ in Figure 3C of the paper, the three behavioral modules show distinct distributions :</p>
@@ -290,21 +304,66 @@ $$\text{right antenna} = (x + L \cdot \cos(\theta - \alpha); y + L \cdot \sin(\t
   </tbody>
 </table>
 <p>The key data for our model is the <strong>trail following</strong> module. During precise trail tracking, the antennas are excluded from the central zone of approximately 2 mm width (the trail width) and move perpendicularly to the direction of motion, which corresponds to a $\theta$ value of approximately 50 deg. We also know from the paper that the antenna length is approximately 0.5 times the body length (by approximation from the head-to-centroid distance of about 4.0 mm used as normalization unit).</p>
-<p>The current values <code>ANGLE_ANTENNA = pi/4</code> (45 deg) and <code>LENGTH_ANTENNA = 0.5</code> are therefore a reasonable approximation of trail following behavior.</p>
+<p>The current values <code>ANGLE_ANTENNA = pi/4</code> (45 deg) and <code>LENGTH_ANTENNA = 1</code> (L = 1 represents the distance from the ant&rsquo;s center to the antenna tip, combining approximately half the body length (~0.5) and the antenna length (~0.5 body length)) are therefore a reasonable approximation of trail following behavior.</p>
 <p>It could be interesting in a later stage to set <code>ANGLE_ANTENNA</code> as an <strong>output of the neural network</strong>, so that the ant dynamically adapts its antenna configuration depending on its behavioral state - exactly as real ants switch between probing, trail following and sinusoidal modules.</p>
 <hr>
 <h2 id="stock-t---1--model-hypotheses">Stock t - 1 : Model Hypotheses<a hidden class="anchor" aria-hidden="true" href="#stock-t---1--model-hypotheses">#</a></h2>
-<p>In addition with the two values of pheromones at instant $t$ we consider adding the two values of pheromones at instant $t-1$. This would grant the model an explicit access to the <strong>temporal gradient</strong>.</p>
+<p>In addition to the two values of pheromones at instant $t$ we consider adding the two values of pheromones at instant $t-1$. This would grant the model an explicit access to the <strong>temporal gradient</strong>.</p>
 <p>The question is now, do ants use this type of information ?</p>
 <p>The response from the literature is nuanced. Collett et al. (2025) show, citing Draft et al. (2018) on carpenter ants, that during trail tracking, the antennas oscillate perpendicular to the trail and that brief contact with the trail produces a high temporal concentration gradient. But this temporal gradient <strong>emerges from the ant&rsquo;s oscillating movement</strong> - it is not an explicit memory of a past value. The ant does not &ldquo;store&rdquo; $C(t-1)$ : it experiences it through its movement.</p>
 <p><strong>As a result</strong>, storing $t-1$ in our model is an <strong>original modeling hypothesis</strong>, not directly observed in ants. It is inspired by another mechanism and provides the neural network with an additional signal that could be useful. It is an experimental extension of the model, not a biological constraint.</p>
 <hr>
+<h2 id="the-food-sources-collect-and-transport">The Food, Sources, Collect and Transport<a hidden class="anchor" aria-hidden="true" href="#the-food-sources-collect-and-transport">#</a></h2>
+<h3 id="two-types-of-food-sources">Two types of Food Sources<a hidden class="anchor" aria-hidden="true" href="#two-types-of-food-sources">#</a></h3>
+<p>In the model, we consider two types of food sources with each their own purposes :</p>
+<ul>
+<li>
+<p><strong>The Aphids :</strong> A consistent number of ant species have been observed feeding on aphids, a common example is the ginger wood ant <em>Formica rufa</em> that raises aphids like cattle. Aphids provide a constant source of sugar for the colony. In the simulation, we hope that ants will build a consistent network of pheromones to guide them towards the aphid source. Each aphid will have a <code>RECHARGE_RATE</code> and at each time step, the aphid will stock this amount of food.</p>
+</li>
+<li>
+<p><strong>The Sugar :</strong> The sugar will represent a non-persistent food source for the ant. If a sugar source is consumed, it will never recharge again. We will be the only one deciding whether or not it is added on the map. We hope that ants will still keep looking for other sources of food instead of aphids to feed their colony.</p>
+</li>
+</ul>
+<h3 id="the-food-transport">The Food Transport<a hidden class="anchor" aria-hidden="true" href="#the-food-transport">#</a></h3>
+<p>We changed the former model where each ant had a boolean attribute <code>has_food</code> to a float attribute that derives better the natural behavior of ants. This attribute is called <code>food_carried</code> and <code>food_carried</code> $\in [0, MAX FOOD CARRIED]$</p>
+<p>This choice is made to highlight that ants do not always carry the maximum amount of food they can hold. For instance, if the food source is almost consumed, the ant goes back with what&rsquo;s left which is compatible with a partially-consumed source.</p>
+<h3 id="the-method-interact">The method <code>interact()</code><a hidden class="anchor" aria-hidden="true" href="#the-method-interact">#</a></h3>
+<p>The way the ant thinks is simple and directly inspired from what everyone can observe at their own scale :</p>
+<ol>
+<li><strong>If the ant is on the food source and that she still has food to carry</strong>, she takes whatever she can from the food source in the limit of <code>FOOD_COLLECT_AMOUNT</code> and what&rsquo;s left in the source.</li>
+<li><strong>If the ant carries food and that she reaches the nest</strong>, she will deposit the food in the nest.</li>
+</ol>
+<h3 id="the-collect-pause--eat_duration">The collect pause : <code>EAT_DURATION</code><a hidden class="anchor" aria-hidden="true" href="#the-collect-pause--eat_duration">#</a></h3>
+<p>When an ant collects food, she stays still for a few time steps. This behavior is directly inspired from nature. Ants don&rsquo;t collect the food right away, they wait a few time steps before moving to the nest.</p>
+<hr>
+<h3 id="the-threshold-threshold_food">The Threshold <code>THRESHOLD_FOOD</code><a hidden class="anchor" aria-hidden="true" href="#the-threshold-threshold_food">#</a></h3>
+<p>An ant that carries very few food will put <code>HOME</code> pheromones and not <code>FOOD</code> pheromones. This is directly inspired from the fact that ants don&rsquo;t deposit pheromones if they have very little food. This avoids 2 problems :</p>
+<ol>
+<li>
+<p><strong>A representation problem :</strong> an ant that carries $0.01$ units of food doesn&rsquo;t really find food, so she needs to keep going and look for food.</p>
+</li>
+<li>
+<p><strong>A numerical problem :</strong> instead of comparing units with <code>==</code> which is dangerous with float number, we use this threshold to solve the problem.</p>
+</li>
+</ol>
+<hr>
+<h2 id="the-results">The Results<a hidden class="anchor" aria-hidden="true" href="#the-results">#</a></h2>
+<p>Here is a video showing how the model that we currently have works :</p>
+<hr>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/J5r5mvSEyc4?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<hr>
+<p>On the video, we can see that ants may find the food sources, whether it is sugar or aphids, then they deposit the right pheromone but are not able to find their way back to the nest because we have not implemented the sensory mechanism. Still 2 ants happen to go back to the nest increasing the total number of food collected. Then they deposit again the right type of pheromone.</p>
+<h3 id="what-to-do-next-">What to do next ?<a hidden class="anchor" aria-hidden="true" href="#what-to-do-next-">#</a></h3>
+<p>The ants currently move and deposit pheromones, but they do so blindly. They cannot yet read the pheromone gradient with their antennas, which means the trail system has no effect on their behavior. This is the core problem to address in the next step.</p>
+<p>Step 3 — Colony and Emergence will focus on connecting the sensory inputs to the movement. Concretely, this means reading the pheromone concentrations at the two antenna positions and using that difference to bias <code>delta_theta</code>. At this stage, the rule will still be hand-crafted - a simple weighted difference between left and right antenna - but it will be enough to observe the first emergent trails. The goal is to see a collective structure appear from purely local decisions, without any central coordination.</p>
 <h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
 <ul>
 <li>Collett T., Graham P., Heinze S. (2025). The neuroethology of ant navigation.</li>
 <li>Draft R.W., McGill M.R., Kapoor V., Murthy V.N. (2018). Carpenter ants use diverse antennae sampling strategies to track odor trails.</li>
 <li>Hangartner W. (1967). Spezifitat und Inaktivierung des Spurpheromons von Lasius fuliginosus.</li>
-<li>Namiki S., Iwabuchi S., Kono P.P., Kanzaki R. (2014). Information flow through neural circuits for pheromone orientation.</li>
 <li>Dussutour A. et al. (2009). The role of multiple pheromones in food recruitment by ants.</li>
 </ul>
 
