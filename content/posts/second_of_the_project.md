@@ -126,6 +126,45 @@ The response from the literature is nuanced. Collett et al. (2025) show, citing 
 
 --- 
 
+## The Food, Sources, Collect and Transport
+
+### Two types of Food Sources 
+
+In the model, we consider two type of food sources with each their own purposes : 
+
+- **The Aphids :** A consistent number of ant species have been observed feeding on aphids, a common example is the ginger wood ant *Formica rufa* that raises aphids like cattle. Aphids provide a constant source of sugar for the colony. In the simulation, we hope that ants will build a consistent network of pheromones to guide them towards the aphid source. Each aphid will have a `RECHARGE_RATE` and at each time step, the aphid will stock this amount of food. 
+
+- **The Sugar :** The sugar will represent a non-persistent food source for the ant. If a sugar is consumed, it will never recharge again. I will be the only one deciding whether or not is added on the map. We hope that, ants will still keep looking for other sources of food instead of aphids to feed their colony.
+
+### The Food Transport
+
+We changed the former model where each ant had a boolean attribute `has_food` to a float attribute that derives better the natural behavior of ants. This attribute is built as follow : `food_carried` $\in [0, \texttt{MAX\_FOOD\_CARRIED}]$.
+
+This choices is made to highlight that ants do not always carry the maximum amount of food they can hold. For instance, if the food source is almost consumed, the ant goes back with what's left which is compatible with a partially-consumed source. 
+
+### The method `interact()` 
+
+The way the ant think is simple and directly inspired from what everyone can observe at his own scale : 
+
+1. **If the ant is on the food source and that she still have food to carry**, she takes whatever she can from the food source in the limit of `FOOD_COLLECT_AMOUNT` and what's left in the source. 
+2. **If the ant carry food ant that she reaches the nest**, she will deposit the food in the nest. 
+
+### The collect pause : `EAT_DURATION`
+
+When an ant collects food, she stays still for a few time steps. This behavior is directly inspired from nature. Ants don't collect the food right away, they wait a few time steps before moving to the nest. 
+
+--- 
+
+### The Threshold `THRESHOLD_FOOD`
+
+An ant that carries very few food will put `HOME` pheromones and not `FOOD` pheromones. This is directly inspired from the fact that ants don't deposit pheromones if they have very little food. This avoid 2 problems : 
+
+1. **A representation problem :** an ant that carries $0.01$ units of food doesn't really find food, so she needs to keep going and look for food. 
+
+2. **A numerical problem :** instead of comparing units with `==`` which is dangerous with float number, we use this threshold to solve the problem. 
+
+---
+
 ## References
 
 - Collett T., Graham P., Heinze S. (2025). The neuroethology of ant navigation. 
