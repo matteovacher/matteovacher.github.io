@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Step 3 of Ant Simulation Project : Colony and Emergence | Mattéo Vacher</title>
+<meta name="keywords" content="">
+<meta name="description" content="Premier essai de suivi de traces par gradient d antennes. Observations, bugs, et prochaines etapes.">
+<meta name="author" content="Mattéo Vacher">
+<link rel="canonical" href="http://localhost:1313/posts/third_of_the_project/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.91bca08ba24824edebd4266f1219549f7b8e610f545bed813ab87737fe9d351c.css" integrity="sha256-kbygi6JIJO3r1CZvEhlUn3uOYQ9UW&#43;2BOrh3N/6dNRw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/img/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/img/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/third_of_the_project/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.38/dist/katex.min.css" integrity="sha384-/L6i+LN3dyoaK2jYG5ZLh5u13cjdsPDcFOSNJeFBFa/KgVXR5kOfTdiN3ft1uMAq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.38/dist/katex.min.js" integrity="sha384-H6s1ZrH2CKpFpqR680poRdStIRJGXty7fSkxAcIfxwl9iu6A4BOPtTk7vQ58Ovio" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.38/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Mattéo Vacher (Alt + H)">Mattéo Vacher</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="News">
+                    <span>News</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/ressources/" title="Ressources">
+                    <span>Ressources</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Step 3 of Ant Simulation Project : Colony and Emergence
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta"><span title='2026-04-06 00:00:00 +0100 +0100'>April 6, 2026</span>&nbsp;·&nbsp;<span>5 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#la-r%c3%a8gle-de-direction" aria-label="La règle de direction">La règle de direction</a></li>
+                <li>
+                    <a href="#le-code" aria-label="Le code">Le code</a><ul>
+                        
+                <li>
+                    <a href="#configpy" aria-label="config.py">config.py</a></li>
+                <li>
+                    <a href="#coreantpy" aria-label="core/ant.py">core/ant.py</a></li>
+                <li>
+                    <a href="#coreenvironment_bispy" aria-label="core/environment_bis.py">core/environment_bis.py</a></li></ul>
+                </li>
+                <li>
+                    <a href="#observations-et-probl%c3%a8mes" aria-label="Observations et problèmes">Observations et problèmes</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>Dans le step précédent on a construit la classe <code>Ant</code> : mouvement par angle, rebond sur les murs, dépôt de phéromones, et les positions des antennes. Les antennes étaient calculées mais complètement inutilisées - les fourmis faisaient une marche aléatoire pure en ignorant toutes les traces qu&rsquo;elles déposaient.</p>
+<p>Le step 3 branche les entrées sensorielles sur le mouvement. La règle est encore codée à la main : une simple différence pondérée entre antenne gauche et droite biaise <code>delta_theta</code>. L&rsquo;objectif est d&rsquo;observer les <strong>premières traces émergentes</strong> — une structure collective qui naît de décisions purement locales, sans aucune coordination centrale.</p>
+<hr>
+<h2 id="la-règle-de-direction">La règle de direction<a hidden class="anchor" aria-hidden="true" href="#la-règle-de-direction">#</a></h2>
+<p>$$\delta\theta = W \cdot (C_g - C_d) + U(-\delta_r,, \delta_r)$$</p>
+<p>$W$ est <code>ANTENNA_WEIGHT</code>, $C_{\text{left}}$ et $C_{\text{right}}$ sont les concentrations aux deux antennes, et $\delta_{\text{rand}}$ est <code>RANDOM_DIR</code>. Si la gauche est plus forte, la fourmi tourne à gauche, et vice versa. La magnitude scale continûment avec le gradient.</p>
+<p><strong>Quelle phéromone suivre ?</strong> Une fourmi avec de la nourriture veut rentrer au nid, une sans nourriture cherche une source :</p>
+<ul>
+<li><code>food_carried &gt; THRESHOLD</code> → a de la nourriture → suit les phéromones <code>HOME</code></li>
+<li><code>food_carried ≤ THRESHOLD</code> → cherche → suit les phéromones <code>FOOD</code></li>
+</ul>
+<hr>
+<h2 id="le-code">Le code<a hidden class="anchor" aria-hidden="true" href="#le-code">#</a></h2>
+<h3 id="configpy"><code>config.py</code><a hidden class="anchor" aria-hidden="true" href="#configpy">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>EVAPORATION_RATE <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.997</span>
+</span></span><span style="display:flex;"><span>GRID_WIDTH <span style="color:#f92672">=</span> <span style="color:#ae81ff">360</span>
+</span></span><span style="display:flex;"><span>GRID_HEIGHT <span style="color:#f92672">=</span> <span style="color:#ae81ff">240</span>
+</span></span><span style="display:flex;"><span>DIFFUSION_SIGMA <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>
+</span></span><span style="display:flex;"><span>CELL_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>FPS <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>
+</span></span><span style="display:flex;"><span>WINDOW_WIDTH <span style="color:#f92672">=</span> GRID_WIDTH <span style="color:#f92672">*</span> CELL_SIZE
+</span></span><span style="display:flex;"><span>WINDOW_HEIGHT <span style="color:#f92672">=</span> GRID_HEIGHT <span style="color:#f92672">*</span> CELL_SIZE
+</span></span><span style="display:flex;"><span>PHEROMONE_DEPOSIT <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COLOR_HOME <span style="color:#f92672">=</span> (<span style="color:#ae81ff">139</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">43</span>)
+</span></span><span style="display:flex;"><span>COLOR_FOOD <span style="color:#f92672">=</span> (<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">205</span>, <span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>COLOR_BACKGROUND <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>COLOR_NEST <span style="color:#f92672">=</span> (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>)
+</span></span><span style="display:flex;"><span>NEST_RADIUS <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>NEST_X <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>NEST_Y <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LENGTH_ANTENNA <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>ANGLE_ANTENNA <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi <span style="color:#f92672">/</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>N_ANTS <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>COLOR_ANT <span style="color:#f92672">=</span> (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">165</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>MAX_FOOD_CARRIED <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>FOOD_COLLECT_AMOUNT <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>
+</span></span><span style="display:flex;"><span>EAT_DURATION <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>ANTENNA_WEIGHT <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>TRESHOLD_FOOD <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.45</span>
+</span></span><span style="display:flex;"><span>RANDOM_DIR <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi <span style="color:#f92672">/</span> <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N_FOOD_TYPES <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>COLOR_APHID <span style="color:#f92672">=</span> (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">220</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>COLOR_SUGAR <span style="color:#f92672">=</span> (<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">255</span>)
+</span></span><span style="display:flex;"><span>RECHARGE_RATE_APHID <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>
+</span></span><span style="display:flex;"><span>RECHARGE_RATE_SUGAR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span></code></pre></div><h3 id="coreantpy"><code>core/ant.py</code><a hidden class="anchor" aria-hidden="true" href="#coreantpy">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> config <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Ant</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, x, y, angle_antenna, length_antenna):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>food_carried <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>eating_timer <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>direction <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>pi)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>angle_antenna <span style="color:#f92672">=</span> angle_antenna
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>length_antenna <span style="color:#f92672">=</span> length_antenna
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">move</span>(self, delta_theta):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>eating_timer <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>eating_timer <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> int(self<span style="color:#f92672">.</span>x), int(self<span style="color:#f92672">.</span>y)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>direction <span style="color:#f92672">+=</span> delta_theta
+</span></span><span style="display:flex;"><span>        new_x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>cos(self<span style="color:#f92672">.</span>direction)
+</span></span><span style="display:flex;"><span>        new_y <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>y <span style="color:#f92672">+</span> np<span style="color:#f92672">.</span>sin(self<span style="color:#f92672">.</span>direction)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        x_clipped <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>clip(new_x, <span style="color:#ae81ff">0</span>, GRID_WIDTH <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        y_clipped <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>clip(new_y, <span style="color:#ae81ff">0</span>, GRID_HEIGHT <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> x_clipped <span style="color:#f92672">!=</span> new_x:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>direction <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>direction
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> y_clipped <span style="color:#f92672">!=</span> new_y:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>direction <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>self<span style="color:#f92672">.</span>direction
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        old_x, old_y <span style="color:#f92672">=</span> int(self<span style="color:#f92672">.</span>x), int(self<span style="color:#f92672">.</span>y)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x <span style="color:#f92672">=</span> x_clipped
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> y_clipped
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> old_x, old_y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_antenna_pos</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [
+</span></span><span style="display:flex;"><span>            (self<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>length_antenna <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>cos(self<span style="color:#f92672">.</span>direction <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>angle_antenna),
+</span></span><span style="display:flex;"><span>             self<span style="color:#f92672">.</span>y <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>length_antenna <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sin(self<span style="color:#f92672">.</span>direction <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>angle_antenna)),
+</span></span><span style="display:flex;"><span>            (self<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>length_antenna <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>cos(self<span style="color:#f92672">.</span>direction <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>angle_antenna),
+</span></span><span style="display:flex;"><span>             self<span style="color:#f92672">.</span>y <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>length_antenna <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sin(self<span style="color:#f92672">.</span>direction <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>angle_antenna))
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_at_nest</span>(self, nest):
+</span></span><span style="display:flex;"><span>        x_nest, y_nest <span style="color:#f92672">=</span> nest<span style="color:#f92672">.</span>get_x_y()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (self<span style="color:#f92672">.</span>x <span style="color:#f92672">-</span> x_nest) <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> (self<span style="color:#f92672">.</span>y <span style="color:#f92672">-</span> y_nest) <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">&lt;=</span> NEST_RADIUS <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">interact</span>(self, source, at_nest):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> source <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">and</span> self<span style="color:#f92672">.</span>food_carried <span style="color:#f92672">&lt;</span> MAX_FOOD_CARRIED:
+</span></span><span style="display:flex;"><span>            want_to_collect <span style="color:#f92672">=</span> min(FOOD_COLLECT_AMOUNT, MAX_FOOD_CARRIED <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>food_carried)
+</span></span><span style="display:flex;"><span>            taken <span style="color:#f92672">=</span> source<span style="color:#f92672">.</span>consume(want_to_collect)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>food_carried <span style="color:#f92672">+=</span> taken
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> taken <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>eating_timer <span style="color:#f92672">=</span> EAT_DURATION
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> self<span style="color:#f92672">.</span>food_carried <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> at_nest:
+</span></span><span style="display:flex;"><span>            deposited <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>food_carried
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>food_carried <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> deposited
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.0</span>
+</span></span></code></pre></div><h3 id="coreenvironment_bispy"><code>core/environment_bis.py</code><a hidden class="anchor" aria-hidden="true" href="#coreenvironment_bispy">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> core.pheromone_grid <span style="color:#f92672">import</span> PheromoneGrid
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> config <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Environment</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, pheromone_grids, nest, food_grid, ants):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>pheromone_grids <span style="color:#f92672">=</span> pheromone_grids
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>nest <span style="color:#f92672">=</span> nest
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>food_grid <span style="color:#f92672">=</span> food_grid
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>ants <span style="color:#f92672">=</span> ants
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_x_y</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>nest<span style="color:#f92672">.</span>get_x_y()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_environment</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>pheromone_grids<span style="color:#f92672">.</span>update_pheromone()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>food_grid<span style="color:#f92672">.</span>update()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">step</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>update_environment()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> ant <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>ants:
+</span></span><span style="display:flex;"><span>            delta_theta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform(<span style="color:#f92672">-</span>RANDOM_DIR, RANDOM_DIR)
+</span></span><span style="display:flex;"><span>            p_type <span style="color:#f92672">=</span> PheromoneGrid<span style="color:#f92672">.</span>FOOD <span style="color:#66d9ef">if</span> ant<span style="color:#f92672">.</span>food_carried <span style="color:#f92672">&gt;</span> TRESHOLD_FOOD <span style="color:#66d9ef">else</span> PheromoneGrid<span style="color:#f92672">.</span>HOME
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            (lx, ly), (rx, ry) <span style="color:#f92672">=</span> ant<span style="color:#f92672">.</span>get_antenna_pos()
+</span></span><span style="display:flex;"><span>            left_pheromone <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>pheromone_grids<span style="color:#f92672">.</span>get_pheromone(p_type, lx, ly)
+</span></span><span style="display:flex;"><span>            right_pheromone <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>pheromone_grids<span style="color:#f92672">.</span>get_pheromone(p_type, rx, ry)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            bias <span style="color:#f92672">=</span> ANTENNA_WEIGHT <span style="color:#f92672">*</span> (left_pheromone <span style="color:#f92672">-</span> right_pheromone)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            old_x, old_y <span style="color:#f92672">=</span> ant<span style="color:#f92672">.</span>move(delta_theta <span style="color:#f92672">+</span> bias)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>pheromone_grids<span style="color:#f92672">.</span>add_pheromones(p_type, old_x, old_y, PHEROMONE_DEPOSIT)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            source <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>food_grid<span style="color:#f92672">.</span>get_source(int(ant<span style="color:#f92672">.</span>x), int(ant<span style="color:#f92672">.</span>y))
+</span></span><span style="display:flex;"><span>            deposited <span style="color:#f92672">=</span> ant<span style="color:#f92672">.</span>interact(source, ant<span style="color:#f92672">.</span>is_at_nest(self<span style="color:#f92672">.</span>nest))
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> deposited <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>nest<span style="color:#f92672">.</span>food_collected <span style="color:#f92672">+=</span> deposited
+</span></span></code></pre></div><hr>
+<h2 id="observations-et-problèmes">Observations et problèmes<a hidden class="anchor" aria-hidden="true" href="#observations-et-problèmes">#</a></h2>
+<p>La simulation est complètement chaotique. Une fourmi peut suivre une trace quelques instants puis l&rsquo;abandonner. Aucune structure stable n&rsquo;émerge.</p>
+<p>Quatre problèmes principaux identifiés :</p>
+<p><strong>Les fourmis ne savent pas faire demi-tour à la source.</strong> Après <code>EAT_DURATION = 8</code> steps gelées, la fourmi repart dans la même direction qu&rsquo;avant. Elle continue vers l&rsquo;avant au lieu de rentrer au nid. Une solution possible : ajouter beaucoup de bruit aléatoire juste après la collecte pour augmenter la chance d&rsquo;un demi-tour, ou inverser directement la direction.</p>
+<p><strong>Les phéromones s&rsquo;évaporent trop vite.</strong> Avec <code>EVAPORATION_RATE = 0.997</code>, la demi-vie d&rsquo;une trace est d&rsquo;environ 231 steps, soit ~10 secondes à 24 FPS. Avec seulement 20 fourmis, une trace qui n&rsquo;est pas renforcée en continu disparaît avant qu&rsquo;une autre fourmi arrive. Réduire l&rsquo;évaporation laisserait les traces exister assez longtemps pour être exploitées.</p>
+<p><strong>Pas assez de fourmis.</strong> 20 fourmis sur une grille de 360×240, c&rsquo;est une densité trop faible. Plus de fourmis = plus de renforcement des traces = meilleure émergence. Pour passer à 100-200 fourmis sans surcharger l&rsquo;affichage, il faudrait passer <code>CELL_SIZE</code> de 3 à 2 pixels, ce qui agrandit la grille utilisable à 540×360 cases.</p>
+<p><strong>Bug critique : inversion du type de phéromone.</strong> Dans <code>environment_bis.py</code>, une seule variable <code>p_type</code> est utilisée à la fois pour ce que la fourmi <strong>suit</strong> et pour ce qu&rsquo;elle <strong>dépose</strong>. Or ces deux types doivent être opposés :</p>
+<table>
+  <thead>
+      <tr>
+          <th>État</th>
+          <th>Dépose</th>
+          <th>Doit suivre</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A de la nourriture</td>
+          <td><code>FOOD</code></td>
+          <td><code>HOME</code></td>
+      </tr>
+      <tr>
+          <td>Sans nourriture</td>
+          <td><code>HOME</code></td>
+          <td><code>FOOD</code></td>
+      </tr>
+  </tbody>
+</table>
+<p>Actuellement, une fourmi qui vient de ramasser de la nourriture suit les phéromones <code>FOOD</code> — ce qui la ramène vers la source depuis laquelle elle vient de partir. Elle tourne en rond. C&rsquo;est probablement la cause principale du chaos. Le fix :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>deposit_type <span style="color:#f92672">=</span> PheromoneGrid<span style="color:#f92672">.</span>FOOD <span style="color:#66d9ef">if</span> ant<span style="color:#f92672">.</span>food_carried <span style="color:#f92672">&gt;</span> TRESHOLD_FOOD <span style="color:#66d9ef">else</span> PheromoneGrid<span style="color:#f92672">.</span>HOME
+</span></span><span style="display:flex;"><span>follow_type  <span style="color:#f92672">=</span> PheromoneGrid<span style="color:#f92672">.</span>HOME <span style="color:#66d9ef">if</span> ant<span style="color:#f92672">.</span>food_carried <span style="color:#f92672">&gt;</span> TRESHOLD_FOOD <span style="color:#66d9ef">else</span> PheromoneGrid<span style="color:#f92672">.</span>FOOD
+</span></span></code></pre></div><p>Une remarque aussi sur <code>ANTENNA_WEIGHT = π/3</code> : le biais maximum est d&rsquo;environ 60°, auquel s&rsquo;ajoute le bruit de 22°. Ça fait jusqu&rsquo;à ±82° de rotation par step, ce qui est très violent et peut provoquer des oscillations plutôt qu&rsquo;un suivi fluide. Ce paramètre devra être ajusté une fois le bug d&rsquo;inversion corrigé.</p>
+<hr>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>© 2026 <a href="/">Mattéo Vacher</a> · Icons from <a href="https://www.flaticon.com/">Flaticon</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

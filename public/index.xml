@@ -17,6 +17,13 @@
       <description>Synthesis of the core concepts of the Covariance Matrix Adaptation Evolution Strategy (CMA-ES)</description>
     </item>
     <item>
+      <title>Step 3 of Ant Simulation Project : Colony and Emergence</title>
+      <link>http://localhost:1313/posts/third_of_the_project/</link>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/posts/third_of_the_project/</guid>
+      <description>Premier essai de suivi de traces par gradient d antennes. Observations, bugs, et prochaines etapes.</description>
+    </item>
+    <item>
       <title>Step 2 of Ant Simulation Project : Ant Agent</title>
       <link>http://localhost:1313/posts/second_of_the_project/</link>
       <pubDate>Thu, 02 Apr 2026 00:00:00 +0100</pubDate>
