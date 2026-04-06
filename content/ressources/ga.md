@@ -193,4 +193,4 @@ By combining these steps, along with elitism, which passes the very best individ
 
 By effectively balancing the **preservation of elite individuals** with the continuous introduction of **novel genetic traits**, the Genetic Algorithm shifts from a mere random search to a sophisticated, **directed exploration** of the solution space. This iterative refinement allows the population to **surpass optima**, eventually converging toward a robust and highly optimized solution.
 
-In the next article, we will delve into a more advanced strategy: the **Covariance Matrix Adaptation Evolution Strategy (CMA-ES)**, and see how it handles even more complex continuous optimization landscapes.
+In the next articles, we will explore more advanced strategies: the **Evolutionary Strategies and Covariance Matrix Adaptation Evolution Strategy (CMA-ES)**, and see how it handles even more complex continuous optimization landscapes.
