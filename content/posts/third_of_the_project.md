@@ -34,149 +34,47 @@ $W$ est `ANTENNA_WEIGHT`, $C_{\text{left}}$ et $C_{\text{right}}$ sont les conce
 ```python
 import numpy as np 
 
-EVAPORATION_RATE = 0.997
-GRID_WIDTH = 360
-GRID_HEIGHT = 240
-DIFFUSION_SIGMA = 0.3
-CELL_SIZE = 3
-FPS = 24
-WINDOW_WIDTH = GRID_WIDTH * CELL_SIZE
-WINDOW_HEIGHT = GRID_HEIGHT * CELL_SIZE
-PHEROMONE_DEPOSIT = 0.7
+# GRID AND PHEROMONE 
 
-COLOR_HOME = (139, 90, 43)
-COLOR_FOOD = (50, 205, 50)
-COLOR_BACKGROUND = (0, 0, 0)
-COLOR_NEST = (255, 255, 255)
-NEST_RADIUS = 2
-NEST_X = 100
-NEST_Y = 100
+EVAPORATION_RATE = 0.997                # between 0 and 1, the higher the slower the evaporation
+DIFFUSION_SIGMA = 0.3                   # between 0 and inf, the higher the more the pheromone spreads, but also the more it evaporates
+GRID_WIDTH = 360                        # width of the grid in cells, also in pixels if cell size is 1, max 2880 for 8k screen
+GRID_HEIGHT = 240                       # height of the grid in cells, also in pixels if cell size is 1, max 1920 for 8k screen
+CELL_SIZE = 3                           # size of each cell in pixels
+FPS = 24                                # frames per second
+WINDOW_WIDTH = GRID_WIDTH*CELL_SIZE     # width of the window = width*cellsize (2880 pixels max )
+WINDOW_HEIGHT = GRID_HEIGHT*CELL_SIZE   # height of the window = height*cellsize (1920 pixels max )
+PHEROMONE_DEPOSIT = 0.7                 # amount of pheromone deposited by an ant at each step, between 0 and 1
 
-LENGTH_ANTENNA = 1
-ANGLE_ANTENNA = np.pi / 4
-N_ANTS = 20
-COLOR_ANT = (255, 165, 0)
-MAX_FOOD_CARRIED = 0.5
-FOOD_COLLECT_AMOUNT = 0.5
-EAT_DURATION = 8
-ANTENNA_WEIGHT = np.pi / 3
-TRESHOLD_FOOD = 0.45
-RANDOM_DIR = np.pi / 8
+# ENVIRONMENT
+COLOR_HOME = (139, 90, 43)              # brown color for the pheromone leading to the nest
+COLOR_FOOD = (50, 205, 50)              # green color for the pheromone leading to the food
+COLOR_BACKGROUND = (0, 0, 0)            # black color for the background
+COLOR_NEST = (255, 255, 255)            # white color for the nest
+NEST_RADIUS = 2                         # radius of the nest in cells
+NEST_X = 100                            # coordinates of the nest
+NEST_Y = 100                            # coordinates of the nest
 
-N_FOOD_TYPES = 2
-COLOR_APHID = (255, 220, 0)
-COLOR_SUGAR = (100, 200, 255)
-RECHARGE_RATE_APHID = 0.01
-RECHARGE_RATE_SUGAR = 0
-```
+# ANT
+N_ANTS = 20                             # number of ants in the simulation, must be an integer greater than 0
+LENGTH_ANTENNA = 0.5                    # length from the head to the tip of the antenna in cells, must be greater than 0
+ANGLE_ANTENNA = np.pi/4                 # angle between the direction of the ant and the direction of the antenna in radians, between 0 and pi/2, if 0 then antennas are in the same direction as the ant, if pi/2 then antennas are perpendicular to the direction of the ant
+COLOR_ANT = (255, 165, 0)               # orange color for the ants
+MAX_FOOD_CARRIED = 0.5                  # maximum amount of food an ant can carry, between 0 and 1, if 0.5 then an ant can carry half of a food source
+FOOD_COLLECT_AMOUNT = 0.5               # amount of food an ant can collect at one time, between 0 and MAX_FOOD_CARRIED
+EAT_DURATION = 8                        # number of steps an ant needs to eat a food source, during this time the ant cannot move or interact with other food sources, must be an integer
+ANTENNA_WEIGHT = np.pi/3                # weight of the pheromone bias on the ant's direction, between 0 and pi/2, if 0 then the ant ignores the pheromones, if pi/2 then the ant turns directly towards the strongest pheromone
+TRESHOLD_FOOD = 0.45                    # threshold of food carried for an ant to switch from following home pheromone to following food pheromone, between 0 and MAX_FOOD_CARRIED
+RANDOM_DIR = np.pi/8                    # maximum random change in direction for an ant at each step, between 0 and pi, if 0 then the ant never changes direction randomly, if pi then the ant can turn in any direction at each step
+HALF_LENGTH_BODY = 0.5                  # half of the length of the ant's body in cells, used for drawing the ant as a line before adding the antenna 
 
-### `core/ant.py`
+# FOOD SOURCES 
+N_FOOD_TYPES = 2                        # number of different types of food sources, must be an integer greater than 0
+COLOR_APHID = (255, 220, 0)             # color yellow for aphids, which are a type of food source that can recharge 
+COLOR_SUGAR = (100, 200, 255)           # color blue for sugar, which is another type of food source that does not recharge
+RECHARGE_RATE_APHID = 0.01              # recharge rate for aphids, between 0 and 1
+RECHARGE_RATE_SUGAR = 0                 # recharge rate for sugar, must be 0 since sugar does not recharge
 
-```python
-from config import *
-import numpy as np
-
-class Ant:
-
-    def __init__(self, x, y, angle_antenna, length_antenna):
-        self.x = x
-        self.y = y
-        self.food_carried = 0
-        self.eating_timer = 0
-        self.direction = np.random.uniform(0, 2 * np.pi)
-        self.angle_antenna = angle_antenna
-        self.length_antenna = length_antenna
-
-    def move(self, delta_theta):
-        if self.eating_timer > 0:
-            self.eating_timer -= 1
-            return int(self.x), int(self.y)
-        self.direction += delta_theta
-        new_x = self.x + np.cos(self.direction)
-        new_y = self.y + np.sin(self.direction)
-
-        x_clipped = np.clip(new_x, 0, GRID_WIDTH - 1)
-        y_clipped = np.clip(new_y, 0, GRID_HEIGHT - 1)
-
-        if x_clipped != new_x:
-            self.direction = np.pi - self.direction
-        if y_clipped != new_y:
-            self.direction = -self.direction
-
-        old_x, old_y = int(self.x), int(self.y)
-        self.x = x_clipped
-        self.y = y_clipped
-        return old_x, old_y
-
-    def get_antenna_pos(self):
-        return [
-            (self.x + self.length_antenna * np.cos(self.direction + self.angle_antenna),
-             self.y + self.length_antenna * np.sin(self.direction + self.angle_antenna)),
-            (self.x + self.length_antenna * np.cos(self.direction - self.angle_antenna),
-             self.y + self.length_antenna * np.sin(self.direction - self.angle_antenna))
-        ]
-
-    def is_at_nest(self, nest):
-        x_nest, y_nest = nest.get_x_y()
-        return (self.x - x_nest) ** 2 + (self.y - y_nest) ** 2 <= NEST_RADIUS ** 2
-
-    def interact(self, source, at_nest):
-        if source is not None and self.food_carried < MAX_FOOD_CARRIED:
-            want_to_collect = min(FOOD_COLLECT_AMOUNT, MAX_FOOD_CARRIED - self.food_carried)
-            taken = source.consume(want_to_collect)
-            self.food_carried += taken
-            if taken > 0:
-                self.eating_timer = EAT_DURATION
-        elif self.food_carried > 0 and at_nest:
-            deposited = self.food_carried
-            self.food_carried = 0
-            return deposited
-        return 0.0
-```
-
-### `core/environment_bis.py`
-
-```python
-from core.pheromone_grid import PheromoneGrid
-from config import *
-import numpy as np
-
-class Environment:
-
-    def __init__(self, pheromone_grids, nest, food_grid, ants):
-        self.pheromone_grids = pheromone_grids
-        self.nest = nest
-        self.food_grid = food_grid
-        self.ants = ants
-
-    def get_x_y(self):
-        return self.nest.get_x_y()
-
-    def update_environment(self):
-        self.pheromone_grids.update_pheromone()
-        self.food_grid.update()
-
-    def step(self):
-        self.update_environment()
-
-        for ant in self.ants:
-            delta_theta = np.random.uniform(-RANDOM_DIR, RANDOM_DIR)
-            p_type = PheromoneGrid.FOOD if ant.food_carried > TRESHOLD_FOOD else PheromoneGrid.HOME
-
-            (lx, ly), (rx, ry) = ant.get_antenna_pos()
-            left_pheromone = self.pheromone_grids.get_pheromone(p_type, lx, ly)
-            right_pheromone = self.pheromone_grids.get_pheromone(p_type, rx, ry)
-
-            bias = ANTENNA_WEIGHT * (left_pheromone - right_pheromone)
-
-            old_x, old_y = ant.move(delta_theta + bias)
-
-            self.pheromone_grids.add_pheromones(p_type, old_x, old_y, PHEROMONE_DEPOSIT)
-
-            source = self.food_grid.get_source(int(ant.x), int(ant.y))
-            deposited = ant.interact(source, ant.is_at_nest(self.nest))
-            if deposited > 0:
-                self.nest.food_collected += deposited
 ```
 
 ---
@@ -193,20 +91,27 @@ Quatre problèmes principaux identifiés :
 
 **Pas assez de fourmis.** 20 fourmis sur une grille de 360×240, c'est une densité trop faible. Plus de fourmis = plus de renforcement des traces = meilleure émergence. Pour passer à 100-200 fourmis sans surcharger l'affichage, il faudrait passer `CELL_SIZE` de 3 à 2 pixels, ce qui agrandit la grille utilisable à 540×360 cases.
 
-**Bug critique : inversion du type de phéromone.** Dans `environment_bis.py`, une seule variable `p_type` est utilisée à la fois pour ce que la fourmi **suit** et pour ce qu'elle **dépose**. Or ces deux types doivent être opposés :
+Une remarque aussi sur `ANTENNA_WEIGHT = π/3` : le biais maximum est d'environ 60°, auquel s'ajoute le bruit de 22°. Ça fait jusqu'à ±82° de rotation par step, ce qui est très violent et peut provoquer des oscillations plutôt qu'un suivi fluide. 
 
-| État | Dépose | Doit suivre |
-|---|---|---|
-| A de la nourriture | `FOOD` | `HOME` |
-| Sans nourriture | `HOME` | `FOOD` |
 
-Actuellement, une fourmi qui vient de ramasser de la nourriture suit les phéromones `FOOD` — ce qui la ramène vers la source depuis laquelle elle vient de partir. Elle tourne en rond. C'est probablement la cause principale du chaos. Le fix :
+REMARQUE INDEPENDANTE 
+J'ai egalement ajouté un nouveau modele pour les antennes, l'ancien avec une longueur d'antenne de 1 qui part du centre de la fourmi ne marchait pas a cause de l'angle des antenne qui se retrouvait alors faussé, j'ai rajouté dans les calculs la demi longueur du corps qui premet aux antennes de bien partir de la tete. 
 
-```python
-deposit_type = PheromoneGrid.FOOD if ant.food_carried > TRESHOLD_FOOD else PheromoneGrid.HOME
-follow_type  = PheromoneGrid.HOME if ant.food_carried > TRESHOLD_FOOD else PheromoneGrid.FOOD
-```
+**Ajustements des paramètres pour favoriser l'émergence.** Pour essayer de voir apparaître les premières structures collectives, plusieurs paramètres ont été modifiés : `EVAPORATION_RATE` passe à `0.999`, `N_ANTS` à 50, `PHEROMONE_DEPOSIT` à `0.8`. Le `NEST_RADIUS` a également été augmenté pour faciliter le retour au nid — une fourmi qui passe près du nid sans le déclencher ne dépose pas sa nourriture, ce qui casse le renforcement des traces HOME. Un rayon plus grand augmente le taux de succès des retours et devrait améliorer la cohérence des pistes émergentes. de plus antenna weight passe a pi/6 et random dir passe a pi/10 pour favoriser le retour au nid. aussi rayon nid = 10
+RESULTAT ? la simulation recolte plus, mais toujours pas assez. et aucun chemin n'apparait, comme elles ne fond pas demi tour la map se rempli de verre, j'enregistre la video en fps 60 pour accelerer le rendu 
 
-Une remarque aussi sur `ANTENNA_WEIGHT = π/3` : le biais maximum est d'environ 60°, auquel s'ajoute le bruit de 22°. Ça fait jusqu'à ±82° de rotation par step, ce qui est très violent et peut provoquer des oscillations plutôt qu'un suivi fluide. Ce paramètre devra être ajusté une fois le bug d'inversion corrigé.
+
+## Suivant 
+
+j'ai mis un diffusion rate a 0.4 pour que ca difuse plus et fasse plus gradient, vu que les fourmis se base dans notre cas sur le gradient ca devrait les aider. 
+en plus je vais leur faire demi tour lorque elle ont assez mangé pour leur donner une chance de suivre leur ancienne piste. c'est ajouté dans la methode move de la classe Ant. diminuer diffusion rate a 0.35 et truncate a 4.0 pour voir si ca va mieux car ca diffusait trop. le score etait neanmoins plus elevé. Elle se debrouille mieux mais de pas grand chose, pour mieux visualiser je vais tenter de separer la fenetre en double fentre pour observer les deux pheromones. 
+
+## Suivant 
+
+on va modifier l'affichage pour que : 
+- on puisse switcher entre les differents affichage : 
+en 1 : le max est affiché 
+en 2 : juste home 
+en 3 : juste food 
 
 ---
