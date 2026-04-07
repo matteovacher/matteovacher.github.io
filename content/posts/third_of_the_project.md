@@ -114,4 +114,34 @@ en 1 : le max est affiché
 en 2 : juste home 
 en 3 : juste food 
 
+c'est fait, on verra le rendu dans la prochaine video qui sortira en meme temps que toute les autres updates. 
+
+## Suivant
+
+On bloque alors on repart du modele pour l'amliorer, mon modele fonctionne sur un gradient de pheromone, hors ce gradient n'est pour linstant utilisé seulement pour faire des gauche droite, on va donc essayer de l'utiliser pour plus guider la fourmis, pour cela, on va faire en sorte que plus la fourmis s'eloigne en nombre de pas, moins elle depose. chez les fourmis, on compte ses pas, Collett cite Wittlinger. On va donc partir sur une diminution de pheromone au fur et a mesure. En plus de cela, on va donner un boost de direction au retour au nid, quand la fourmi retourne au nid elle va faire demmi tour et la random dir sera plus grande pour favoriser l'exploration. mais tourjours avoir la possibilité de revenir sur la piste de nourriture, on va egalement augmenter la diffusion pour permettre au fourmis de mieux detecter le gradient. On va egalement auglenter le pheromone deposit pour partir de 1 puisque mtn celui ci diminue avbev le temps. on va egalement augmenter le antenna weight pour renforcer le suivi. On va egalement augmenter le nombre de fourmis pour tenter de mieux voir des phenomenes de groupe. 
+on rajoute aussi une difference de evaporation rate entre les deux type de pheromone, car au bout d'un moment toute les fourmis sont vertes (je sais pas si je l'ai dis mais les fourmis qui ont recolté la nourriture sont verte maintenant) donc il faut que la pheromone marron ie home dure plus longtemps 
+
+RESULTATS ? ca ne marche pas pafaitement, ca marche mieux mais pas encore bien, 
+
+## SUIVANT 
+
+pour resoudre le probleme, on va discretiser le systeme de pheromone, on va interpoler les valeurs de toutes les cases autour, en plus de ca on va modifier la grille et son fonctionnement, les fourmis seront plus grosses que les cases pheromones, ainsi 1 case sera 1 pixels et une fourmis pourra enb faire, avec ces deux choses, on espere voir une amelioration 
+j'ai egalement augmenté la taille d'un peu tout et desormais si la fourmis, son centre est dans le cerche de la nourriture alors elle est considéré comme dessus et la recolte. en augmentant le antenna weight ca ne marche pas, pas besoin de video, c'est sensiblement la meme qu'avant les fourmis sortent des pistes dans les virages 
+
+## SUIVANT 
+On essaye encore, cette fois on se dit que les antennes sont trop loin, je separe donc le rendu visuelle de la simulation physique ie les fourmis apparaissent plus grosses qu'elle ne sont dans la simulation. Je diminue le antenna weight pour eviter de trop tourner en virage et ensuite je clip la valeur de total_theta si elle est trop grande. j'ai l'impression que les gradients sont inexistant et donc aucune direction n'apparait, dommage pour un systeme de detection qui repose dessus 
+
+mon gradient spatial semble trop faible alors je vais diminuer sigma diffusion et egalement le decay factor, j'augmente ensuite le evaporation rate car je veux quand meme que les trace loin reste un peu, si c'est trop je le diminuerai 
+
+On va alors chnager le modele de la fourmi, je rajoute ce que je disais sur le gradient temporel, je vais prendre une 3e valeur un peu comme dans Draft et al. (2018)
+
+Si la valeur devant est plus grande on reste tout droit (a la direction aleatoire généré pres), les fourmis suivent mieux, mais probleme, elles tournent encore plus autour du nid, mais beaucoup plus donc moins de nourriture recolté, pour ca je diminue l'influence de la diffusion car tout est satturé a 1 pret du nid et les fourmis ne se repere pas, et je change le add_pheromone pour pas le faire saturer en permanence au depot, je prends le max de current et value que je veux deposer. en plus de ca je reduis l'ecart de l'angle des antennes pour qu'il detecte mieux, 
+
 ---
+
+
+## References
+
+
+- Collett T., Graham P., Heinze S. (2025). The neuroethology of ant navigation.
+- Wittlinger, Whener, Wolf (2006)
