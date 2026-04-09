@@ -1,6 +1,6 @@
 +++
 date = '2026-04-06T12:09:31+02:00'
-draft = true
+draft = false
 title = 'CMA-ES - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO'
 math = true
 summary = 'Synthesis of the core concepts of the Covariance Matrix Adaptation Evolution Strategy (CMA-ES)'
@@ -169,8 +169,6 @@ End For
 
 Return x or the best individual found
 ```
----
-
 ---
 
 ## In Practice

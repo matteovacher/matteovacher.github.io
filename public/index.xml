@@ -7,8 +7,26 @@
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
     <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
-    <lastBuildDate>Mon, 06 Apr 2026 12:09:31 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2026 17:04:17 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Evostar</title>
+      <link>http://localhost:1313/ressources/evostar/</link>
+      <pubDate>Wed, 08 Apr 2026 17:04:17 +0200</pubDate>
+      <guid>http://localhost:1313/ressources/evostar/</guid>
+      <description>&lt;h2 id=&#34;so-fukuhara&#34;&gt;So Fukuhara&lt;/h2&gt;
+&lt;p&gt;kagawa univ&lt;/p&gt;
+&lt;p&gt;Novel Particle Swarm Optimization for High-Dimensional Problems&lt;/p&gt;
+&lt;p&gt;parle de rastrigin function et rosenbrock&lt;/p&gt;
+&lt;p&gt;novel PSO learns variable interractions
+coordinate interacting variables&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;work
+maintain diversity&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;from-cooperation-to-hierarchy-a-study-of-dynamics-of-hierarchy-emergence-in-a-multi-agent-system&#34;&gt;From Cooperation to Hierarchy: A Study of Dynamics of Hierarchy Emergence in a Multi-Agent System&lt;/h2&gt;
+&lt;h2 id=&#34;evolutionary-emergence-of-distributed-neural-network-controllers-in-voxel-based-soft-robots&#34;&gt;Evolutionary Emergence of Distributed Neural Network Controllers in Voxel-Based Soft Robots&lt;/h2&gt;</description>
+    </item>
     <item>
       <title>CMA-ES - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
       <link>http://localhost:1313/ressources/cmaes/</link>
