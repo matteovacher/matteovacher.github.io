@@ -135,10 +135,30 @@ mon gradient spatial semble trop faible alors je vais diminuer sigma diffusion e
 
 On va alors chnager le modele de la fourmi, je rajoute ce que je disais sur le gradient temporel, je vais prendre une 3e valeur un peu comme dans Draft et al. (2018)
 
-Si la valeur devant est plus grande on reste tout droit (a la direction aleatoire généré pres), les fourmis suivent mieux, mais probleme, elles tournent encore plus autour du nid, mais beaucoup plus donc moins de nourriture recolté, pour ca je diminue l'influence de la diffusion car tout est satturé a 1 pret du nid et les fourmis ne se repere pas, et je change le add_pheromone pour pas le faire saturer en permanence au depot, je prends le max de current et value que je veux deposer. en plus de ca je reduis l'ecart de l'angle des antennes pour qu'il detecte mieux, 
+Si la valeur devant est plus grande on reste tout droit (a la direction aleatoire généré pres), les fourmis suivent mieux, mais probleme, elles tournent encore plus autour du nid, mais beaucoup plus donc moins de nourriture recolté, pour ca je diminue l'influence de la diffusion car tout est satturé a 1 pret du nid et les fourmis ne se repere pas, et je change le add_pheromone pour pas le faire saturer en permanence au depot, je prends le max de current et value que je veux deposer. en plus de ca je reduis l'ecart de l'angle des antennes pour qu'il detecte mieux, avec ca j'ai egalement changé pas mal les valeurs de diffusion et evaporation, je vais rajouter deux type de diffusion comme cela je pourrait obtenir dans les deux cas un bon sigma pour chaque piste, apres discussion avec guy thorelaz, mon modele semble etre plus ou moins juste, disons que les pheromones deposé sont seulement pour food le reste c'est des hydrocarbure, odeur du corps ? je vais verif ca avec le papier sur les pheidoles
+
+
+Après plusieurs journées d'itérations, voici où en est le code au moment où j'écris ces lignes.
+
+**Grille et rendu.** La grille est maintenant à 960×640 pixels avec `CELL_SIZE = 1` — chaque case fait un pixel. C'est beaucoup plus grand qu'avant (360×240 / 3 px) mais ça permet d'avoir des traces fines et un rendu plus lisible. FPS = 45.
+
+**200 fourmis.** Le passage à `N_ANTS = 200` donne enfin assez de masse pour renforcer les traces. Avec 20 ou 50 fourmis sur une grande grille, les traces s'évaporaient avant qu'une deuxième fourmi passe dessus.
+
+**Évaporations différenciées.** `EVAPORATION_RATE_HOME = 0.999` et `EVAPORATION_RATE_FOOD = 0.996` — les traces HOME durent plus longtemps que les traces FOOD. C'est cohérent : les fourmis qui rentrent au nid ont besoin d'une piste stable, celles qui cherchent de la nourriture peuvent se permettre une piste plus volatile qui disparaît si personne ne la renforce.
+
+**Diffusion réduite.** `DIFFUSION_SIGMA = 0.25` — on a diminué la diffusion par rapport aux tentatives précédentes. Trop diffuser annule le gradient spatial dont les antennes ont besoin pour détecter une direction.
+
+**Modèle à 3 antennes finalisé.** `HALF_LENGTH_BODY = 1.5`, `LENGTH_ANTENNA = 1.5`. Les trois capteurs (gauche, droite, avant) sont stables — l'antenne avant sert à détecter si la concentration augmente devant la fourmi.
+
+**Outil de calibration.** J'ai créé `evaluation_parameters.py` qui calcule automatiquement la demi-vie des phéromones, le sigma effectif, le SNR et le ratio séparation/largeur des antennes. Ça permet de vérifier en un coup d'œil si les paramètres sont dans une zone cohérente avant de lancer une simulation. ici c'est claude qui a fait ce fichier pour me fair egagner du temps dur la base de mes instructions. 
+
+**Refactoring.** `environment_bis.py` sépare proprement la logique de simulation du rendu — l'orchestrateur ne touche plus à Pygame. L'ancien `environment.py` est conservé mais legacy.
+
+Pour le moment ca marche bien 
+il faut aussi rajuter un compteur totale de decay rate pour mesurer la porté max des fourmis pour adapter la taille de la map
+
 
 ---
-
 
 ## References
 
