@@ -26,3 +26,16 @@ une autre chose a faire, serait de partir de cette base pour se rapprocher de ce
 design un troisieme ann qui chosit les frontieres, un point va dans telle ou telle zone mais avec comme regles de ils doivent etre collés. ca complexifie mais ca peut etre une idée, ensuite par chacune des zones fait la fitness et bonus si les zones correspondes ou autre. 
 
 aussi utiliser une fonction cout exemple produire des puscles demande plus d'energie 
+
+avant ca je dois apprendre a maitriser docker. 
+je vais donc regarder de longues videos pour bien comprendre ca ahah 
+
+## Evolution Gym: A Large-Scale Benchmark for Evolving Soft Robots
+
+peut etre representer par des matrices, c'est physique derriere, on peut deja noté l'into de notaton pour : 
+
+position du centre de gravité avec x et y 
+la vitesse selon x et y 
+une orientation 
+
+l'espace d'observation depend de la tache sur laquelle on entraine le robot, globalement on prend la position d chaque voxel plus la vitesse du corps 

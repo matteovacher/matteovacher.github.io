@@ -7,8 +7,19 @@
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
     <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
-    <lastBuildDate>Wed, 08 Apr 2026 17:04:17 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 16 Apr 2026 16:32:51 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>References Soft Robots</title>
+      <link>http://localhost:1313/ressources/references-soft-robots/</link>
+      <pubDate>Thu, 16 Apr 2026 16:32:51 +0200</pubDate>
+      <guid>http://localhost:1313/ressources/references-soft-robots/</guid>
+      <description>&lt;h2 id=&#34;co-evolving-morphology-and-control-of-soft-robots-using-a-single-genome&#34;&gt;Co-evolving morphology and control of soft robots using a single genome&lt;/h2&gt;
+&lt;p&gt;Fabio Tanaka&lt;/p&gt;
+&lt;p&gt;Ce papier est le papier sur lequel je vais me baser pour mes recherches sur les soft robots et sur co evoluer le corps et le controller, je vasi utiliser la meme methode.&lt;/p&gt;
+&lt;p&gt;c&amp;rsquo;est un cppn evoler par neat qui produit deux ann, l&amp;rsquo;un pour le corps et l&amp;rsquo;autre pour le cerveau. c&amp;rsquo;est ca hyper neat.&lt;/p&gt;
+&lt;p&gt;l&amp;rsquo;ann du corps est simple, il prend la position et dit quoi mettre, l&amp;rsquo;ann du cerveau est different, des valeurs sont enregistré (celle produites par les capteurs) et il y a une sortie par voxel.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Evostar</title>
       <link>http://localhost:1313/ressources/evostar/</link>
