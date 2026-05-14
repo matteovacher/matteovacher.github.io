@@ -16,6 +16,8 @@ Step 3 is about connecting the sensory inputs to the movement. The rule is still
 
 The path to get there was not straight. Many parameters were tested, many things did not work, and the model itself evolved during the process (2 antennas became 3, a single evaporation rate became two, the deposit rule was rewritten). The article below describes the final state of the model and the reasoning behind each choice.
 
+This article, by its complexity, is a really long one, and if you are more interested in the results than in the process (which I totally understand), I highly recommend you to skip all this article to directly go see the videos at the end of it. 
+
 ---
 
 ## The Starting Point
