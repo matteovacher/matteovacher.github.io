@@ -198,4 +198,3 @@ CMA-ES represents a significant improvement over standard ES. By combining rank-
 
 Its main limitation is computational : the eigendecomposition of $C$ costs $O(n^3)$ per generation, which becomes prohibitive in very high dimensions (I don't know when $n$ is too big). 
 
-In the next section, we will explore **Multi-Objective Optimization** - and see how evolutionary strategies can be adapted to optimize several conflicting objectives simultaneously.
