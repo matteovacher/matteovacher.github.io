@@ -7,8 +7,15 @@
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
     <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
-    <lastBuildDate>Mon, 06 Apr 2026 00:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 13 May 2026 04:40:14 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Evo Ecs</title>
+      <link>http://localhost:1313/posts/evo-ecs/</link>
+      <pubDate>Wed, 13 May 2026 04:40:14 +0200</pubDate>
+      <guid>http://localhost:1313/posts/evo-ecs/</guid>
+      <description>Here I present my EvoGym-ECS package so that people can better handle EvoGym and their research.</description>
+    </item>
     <item>
       <title>Step 3 of Ant Simulation Project : Colony and Emergence</title>
       <link>http://localhost:1313/posts/third_of_the_project/</link>

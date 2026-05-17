@@ -334,7 +334,6 @@
 <h2 id="final-remarks">Final Remarks<a hidden class="anchor" aria-hidden="true" href="#final-remarks">#</a></h2>
 <p>CMA-ES represents a significant improvement over standard ES. By combining rank-based selection, covariance matrix adaptation, and cumulative step-size control, it turns the blind exploration of ES into a <strong>self-adaptation, geometry-aware search</strong>. The algorithm progressively learns not just where to go, but in what shape to explore.</p>
 <p>Its main limitation is computational : the eigendecomposition of $C$ costs $O(n^3)$ per generation, which becomes prohibitive in very high dimensions (I don&rsquo;t know when $n$ is too big).</p>
-<p>In the next section, we will explore <strong>Multi-Objective Optimization</strong> - and see how evolutionary strategies can be adapted to optimize several conflicting objectives simultaneously.</p>
 
 
   </div>

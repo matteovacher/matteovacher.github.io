@@ -2,8 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/posts/evo-ecs/</loc>
+    <lastmod>2026-05-13T04:40:14+02:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2026-04-16T16:32:51+02:00</lastmod>
+    <lastmod>2026-05-13T04:40:14+02:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2026-05-13T04:40:14+02:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/ressources/references-soft-robots/</loc>
     <lastmod>2026-04-16T16:32:51+02:00</lastmod>
@@ -16,9 +22,6 @@
   </url><url>
     <loc>http://localhost:1313/ressources/cmaes/</loc>
     <lastmod>2026-04-06T12:09:31+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2026-04-06T00:00:00+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/third_of_the_project/</loc>
     <lastmod>2026-04-06T00:00:00+01:00</lastmod>
