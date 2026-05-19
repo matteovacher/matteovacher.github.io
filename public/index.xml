@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Mattéo Vacher</title>
-    <link>http://localhost:1313/</link>
+    <link>http://localhost:63480/</link>
     <description>Recent content on Mattéo Vacher</description>
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
     <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
     <lastBuildDate>Wed, 13 May 2026 04:40:14 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:63480/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Evo Ecs</title>
-      <link>http://localhost:1313/posts/evo-ecs/</link>
+      <link>http://localhost:63480/posts/evo-ecs/</link>
       <pubDate>Wed, 13 May 2026 04:40:14 +0200</pubDate>
-      <guid>http://localhost:1313/posts/evo-ecs/</guid>
+      <guid>http://localhost:63480/posts/evo-ecs/</guid>
       <description>Here I present my EvoGym-ECS package so that people can better handle EvoGym and their research.</description>
     </item>
     <item>
       <title>References Soft Robots</title>
-      <link>http://localhost:1313/ressources/references-soft-robots/</link>
+      <link>http://localhost:63480/ressources/references-soft-robots/</link>
       <pubDate>Thu, 16 Apr 2026 16:32:51 +0200</pubDate>
-      <guid>http://localhost:1313/ressources/references-soft-robots/</guid>
+      <guid>http://localhost:63480/ressources/references-soft-robots/</guid>
       <description>&lt;h2 id=&#34;co-evolving-morphology-and-control-of-soft-robots-using-a-single-genome&#34;&gt;Co-evolving morphology and control of soft robots using a single genome&lt;/h2&gt;
 &lt;p&gt;Fabio Tanaka&lt;/p&gt;
 &lt;p&gt;Ce papier est le papier sur lequel je vais me baser pour mes recherches sur les soft robots et sur co evoluer le corps et le controller, je vasi utiliser la meme methode.&lt;/p&gt;
@@ -29,86 +29,86 @@
     </item>
     <item>
       <title>Evostar</title>
-      <link>http://localhost:1313/ressources/evostar/</link>
+      <link>http://localhost:63480/ressources/evostar/</link>
       <pubDate>Wed, 08 Apr 2026 17:04:17 +0200</pubDate>
-      <guid>http://localhost:1313/ressources/evostar/</guid>
+      <guid>http://localhost:63480/ressources/evostar/</guid>
       <description></description>
     </item>
     <item>
       <title>CMA-ES - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
-      <link>http://localhost:1313/ressources/cmaes/</link>
+      <link>http://localhost:63480/ressources/cmaes/</link>
       <pubDate>Mon, 06 Apr 2026 12:09:31 +0200</pubDate>
-      <guid>http://localhost:1313/ressources/cmaes/</guid>
+      <guid>http://localhost:63480/ressources/cmaes/</guid>
       <description>Synthesis of the core concepts of the Covariance Matrix Adaptation Evolution Strategy (CMA-ES)</description>
     </item>
     <item>
       <title>Step 3 of Ant Simulation Project : Colony and Emergence</title>
-      <link>http://localhost:1313/posts/third_of_the_project/</link>
+      <link>http://localhost:63480/posts/third_of_the_project/</link>
       <pubDate>Mon, 06 Apr 2026 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/third_of_the_project/</guid>
+      <guid>http://localhost:63480/posts/third_of_the_project/</guid>
       <description>Premier essai de suivi de traces par gradient d antennes. Observations, bugs, et prochaines etapes.</description>
     </item>
     <item>
       <title>Step 2 of Ant Simulation Project : Ant Agent</title>
-      <link>http://localhost:1313/posts/second_of_the_project/</link>
+      <link>http://localhost:63480/posts/second_of_the_project/</link>
       <pubDate>Thu, 02 Apr 2026 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/second_of_the_project/</guid>
+      <guid>http://localhost:63480/posts/second_of_the_project/</guid>
       <description>Implementation de la classe Ant : orientation par angle, mouvement, reflexion sur les murs, depot de pheromones.</description>
     </item>
     <item>
       <title>Step 1 of Ant Simulation Project : Pheromones</title>
-      <link>http://localhost:1313/posts/first-of-the-project/</link>
+      <link>http://localhost:63480/posts/first-of-the-project/</link>
       <pubDate>Sat, 28 Mar 2026 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/first-of-the-project/</guid>
+      <guid>http://localhost:63480/posts/first-of-the-project/</guid>
       <description>Building the pheromone grid : the substrate every ant reads from and writes to, grounded in biological and mathematical models.</description>
     </item>
     <item>
       <title>Documentation for my project</title>
-      <link>http://localhost:1313/ressources/lectures_on_ants/</link>
+      <link>http://localhost:63480/ressources/lectures_on_ants/</link>
       <pubDate>Fri, 27 Mar 2026 22:24:32 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/lectures_on_ants/</guid>
+      <guid>http://localhost:63480/ressources/lectures_on_ants/</guid>
       <description>This serves as a summary (made by Claude) for helping me with the writing of my articles</description>
     </item>
     <item>
       <title>To_read</title>
-      <link>http://localhost:1313/ressources/to_read/</link>
+      <link>http://localhost:63480/ressources/to_read/</link>
       <pubDate>Thu, 26 Mar 2026 23:13:38 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/to_read/</guid>
+      <guid>http://localhost:63480/ressources/to_read/</guid>
       <description></description>
     </item>
     <item>
       <title>Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
-      <link>http://localhost:1313/ressources/evo_strat/</link>
+      <link>http://localhost:63480/ressources/evo_strat/</link>
       <pubDate>Wed, 25 Mar 2026 00:53:30 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/evo_strat/</guid>
+      <guid>http://localhost:63480/ressources/evo_strat/</guid>
       <description>Synthesis of the core concepts of Evolutionary Strategies (ES)</description>
     </item>
     <item>
       <title>Genetic Algorithms (GA) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
-      <link>http://localhost:1313/ressources/ga/</link>
+      <link>http://localhost:63480/ressources/ga/</link>
       <pubDate>Mon, 16 Mar 2026 15:42:15 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/ga/</guid>
+      <guid>http://localhost:63480/ressources/ga/</guid>
       <description>Synthesis of the core concepts of Genetic Algorythms (GA)</description>
     </item>
     <item>
       <title>Introduction to the Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
-      <link>http://localhost:1313/ressources/intro_elective/</link>
+      <link>http://localhost:63480/ressources/intro_elective/</link>
       <pubDate>Mon, 16 Mar 2026 14:24:53 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/intro_elective/</guid>
+      <guid>http://localhost:63480/ressources/intro_elective/</guid>
       <description>Personal synthesis to remind of the course content</description>
     </item>
     <item>
       <title>The Beginning</title>
-      <link>http://localhost:1313/posts/the-beginning/</link>
+      <link>http://localhost:63480/posts/the-beginning/</link>
       <pubDate>Mon, 09 Mar 2026 14:43:18 +0100</pubDate>
-      <guid>http://localhost:1313/posts/the-beginning/</guid>
+      <guid>http://localhost:63480/posts/the-beginning/</guid>
       <description>Starting a journey into collective intelligence and multi-agent systems. A look at the project&amp;rsquo;s origins, from theory to live ant colony simulations.</description>
     </item>
     <item>
       <title>The Plan</title>
-      <link>http://localhost:1313/posts/the-plan/</link>
+      <link>http://localhost:63480/posts/the-plan/</link>
       <pubDate>Wed, 25 Feb 2026 23:56:13 +0100</pubDate>
-      <guid>http://localhost:1313/posts/the-plan/</guid>
+      <guid>http://localhost:63480/posts/the-plan/</guid>
       <description>&lt;h2 id=&#34;first-simulation&#34;&gt;First Simulation&lt;/h2&gt;
 &lt;p&gt;For my first simulation, here is the plan that will be completed along with my readings :&lt;/p&gt;
 &lt;ul&gt;
@@ -128,9 +128,9 @@
     </item>
     <item>
       <title>About</title>
-      <link>http://localhost:1313/about/</link>
+      <link>http://localhost:63480/about/</link>
       <pubDate>Sun, 22 Feb 2026 01:00:09 +0100</pubDate>
-      <guid>http://localhost:1313/about/</guid>
+      <guid>http://localhost:63480/about/</guid>
       <description>&lt;h2 id=&#34;mattéo-vacher&#34;&gt;Mattéo Vacher&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Student &amp;amp; Collective Intelligence, AI Enthusiast&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;I am a student  passionate about the intersection of &lt;strong&gt;myrmecology&lt;/strong&gt; (the study of ants), &lt;strong&gt;neuro-ethology&lt;/strong&gt; (the study of neural mechanisms responsible of animals behavior) and &lt;strong&gt;Artificial Intelligence&lt;/strong&gt;. My work focuses on understanding how simple individual rules in ant colonies lead to complex behaviors, which I will simulate using &lt;strong&gt;Python&lt;/strong&gt;.&lt;/p&gt;
@@ -140,9 +140,9 @@
     </item>
     <item>
       <title>Readings</title>
-      <link>http://localhost:1313/posts/readings/</link>
+      <link>http://localhost:63480/posts/readings/</link>
       <pubDate>Sun, 22 Feb 2026 00:55:18 +0100</pubDate>
-      <guid>http://localhost:1313/posts/readings/</guid>
+      <guid>http://localhost:63480/posts/readings/</guid>
       <description>&lt;h2 id=&#34;readings-results-discussion-and-possibility-of-research&#34;&gt;Readings, results, discussion and possibility of research&lt;/h2&gt;
 &lt;p&gt;Hello everyone,&lt;/p&gt;
 &lt;p&gt;Thanks to Amany Amin I am now in possession of 10 articles and I am sure that these papers will help me through my project. Here I&amp;rsquo;ll try to note important results from different papers and try to organize them to highlight future possible research.&lt;/p&gt;
