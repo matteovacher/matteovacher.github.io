@@ -5,11 +5,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Evostar | Mattéo Vacher</title>
+<title>Internship Report | Mattéo Vacher</title>
 <meta name="keywords" content="">
-<meta name="description" content="Evostar - Mattéo Vacher">
+<meta name="description" content="Introduction
+In this page, I will report what I will be doing in my internship and the different steps that compose this project.
+I begin this article with almost a month of delay since I was really involved in my search.
+Before and after coming to japan
+Before coming to Japan, Claus, my supervisor here in Japan told me to do Dennis&rsquo; elective and to reproduce Fabio&rsquo;s work (Fabio is the student that work on the project before me).
+First I did the elective, managed to make some summary that will follow my path for a long time. Then I started to reproduce the work of Fabio.">
 <meta name="author" content="Mattéo Vacher">
-<link rel="canonical" href="http://localhost:1313/ressources/evostar/">
+<link rel="canonical" href="http://localhost:1313/ressources/internship-report/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.91bca08ba24824edebd4266f1219549f7b8e610f545bed813ab87737fe9d351c.css" integrity="sha256-kbygi6JIJO3r1CZvEhlUn3uOYQ9UW&#43;2BOrh3N/6dNRw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/img/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/img/favicon-16x16.png">
@@ -18,7 +23,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/ressources/evostar/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/ressources/internship-report/">
 <noscript>
     <style>
         #theme-toggle,
@@ -135,7 +140,7 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/ressources/">Ressources</a></div>
     <h1 class="post-title entry-hint-parent">
-      Evostar
+      Internship Report
       <span class="entry-hint" title="Draft">
         <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
           <path
@@ -143,11 +148,71 @@
         </svg>
       </span>
     </h1>
-    <div class="post-meta"><span title='2026-04-08 17:04:17 +0200 CEST'>April 8, 2026</span>&nbsp;·&nbsp;<span>0 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
+    <div class="post-meta"><span title='2026-05-25 11:52:31 +0200 CEST'>May 25, 2026</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
 
 </div>
-  </header> 
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#before-and-after-coming-to-japan" aria-label="Before and after coming to japan">Before and after coming to japan</a><ul>
+                        
+                <li>
+                    <a href="#the-dockerfile-problem" aria-label="The Dockerfile problem">The Dockerfile problem</a></li>
+                <li>
+                    <a href="#the-code" aria-label="The Code">The Code</a></li>
+                <li>
+                    <a href="#the-entity-component-system" aria-label="The Entity Component System">The Entity Component System</a></li>
+                <li>
+                    <a href="#the-entity-component-system-project-example" aria-label="The Entity Component System project example">The Entity Component System project example</a></li></ul>
+                </li>
+                <li>
+                    <a href="#hyperneat-and-evogym" aria-label="Hyperneat and Evogym">Hyperneat and Evogym</a><ul>
+                        
+                <li>
+                    <a href="#notes" aria-label="notes">notes</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>In this page, I will report what I will be doing in my internship and the different steps that compose this project.
+I begin this article with almost a month of delay since I was really involved in my search.</p>
+<h2 id="before-and-after-coming-to-japan">Before and after coming to japan<a hidden class="anchor" aria-hidden="true" href="#before-and-after-coming-to-japan">#</a></h2>
+<p>Before coming to Japan, Claus, my supervisor here in Japan told me to do Dennis&rsquo; elective and to reproduce Fabio&rsquo;s work (Fabio is the student that work on the project before me).
+First I did the elective, managed to make some summary that will follow my path for a long time. Then I started to reproduce the work of Fabio.</p>
+<h3 id="the-dockerfile-problem">The Dockerfile problem<a hidden class="anchor" aria-hidden="true" href="#the-dockerfile-problem">#</a></h3>
+<p>By first looking at the architecture of the files, I noticed that the project contained a Dockerfile. I understood that it was meant to increase the reproducibility of the work but it wouldnt work due to some software version problem. I had to take a look into this and learn how to use and make my own file. I spent almost 3 or 4 days learning how to handle Docker. Then I built my own Dockerfile and as I&rsquo;m writting these lines, I know that that my work can be easily reproduce from another computer. During my internship here I will make another article to explain how my work is arranged and built, how to begin a simulation, how to render it and other stuff.</p>
+<h3 id="the-code">The Code<a hidden class="anchor" aria-hidden="true" href="#the-code">#</a></h3>
+<p>In order to reproduce the work of Fabio, I had to go into all of his files, lots of them werent related to the work he published, so I had to look deeply into how each file was working with another. By doing so, I finished by extracting the global layout of the project, and began to rewrite the code. I finally had a version of the work that would correspond at least a little to how I exploit the code. Let me explain, Fabio was using a &lsquo;parser&rsquo;, which is a way to give the hyperparameters in the command line of your computer, here in Docker COntainer. I was not completely satisfied with the way his code worked so I decided to include a config.json file that would allow me to get a better trace of the different experiment.</p>
+<h3 id="the-entity-component-system">The Entity Component System<a hidden class="anchor" aria-hidden="true" href="#the-entity-component-system">#</a></h3>
+<p>Here I was in Tsukuba. On my first day at the lab, I met Claus, and as a first advice he told me to look intot what is called Entity Component System, but why ? It is because I expressed my desire to built a version of the project that would be more Object Oriented Programming. Comming from an engineering school, I wanted to implement what I had studied and I also wanted to make something that would be easier to understand. I spent I think the next week to implement my own version of the project with ECS.</p>
+<p>But first what is ECS ?
+Usually with Python you create a class, let&rsquo;s say sword for object that will act as a sword, then you create a sub-class fire-sword and ice-sword that both inherits the class sword. Then you realize that you want to have sword that deals both fire and ice damage. Here is the twist, now it seems really simple tyo do so. But with more and more object, the dependancies will become too complicated to handle and to keep track of. Instead, you could use ECS, you associate to the object an and Identity Number and you attached to him different component like the sword component and then the fire element. If you want it is easy to add an ice element to the sword. This is the main idea of ECS.</p>
+<p>I build the ECS version of Fabio&rsquo;s project but never tested it and I think that I had many errors inside. Instead I realized that for the next student that will work on the project, it would be nice for him/her to have a manual of instruction of how the work is done&hellip;</p>
+<h3 id="the-entity-component-system-project-example">The Entity Component System project example<a hidden class="anchor" aria-hidden="true" href="#the-entity-component-system-project-example">#</a></h3>
+<p>In order to show an example, I decided to build an entire example project, the idea was that I would implement a really simple genetic algorythm with this method so that it would serve as a pillar for every other project.</p>
+<p>The project is available on GitHub <a href="https://github.com/matteovacher/evogym-entity-component-system">here</a></p>
+<p>I spent another week building this full project, but I think it was worth it, it allowed me to better understand how to build an ECS and how to use the Evogym Library even better.</p>
+<p>I will not talk too much about this project because I will make an article on it later (curently writting it lmao)</p>
+<h2 id="hyperneat-and-evogym">Hyperneat and Evogym<a hidden class="anchor" aria-hidden="true" href="#hyperneat-and-evogym">#</a></h2>
+<h3 id="notes">notes<a hidden class="anchor" aria-hidden="true" href="#notes">#</a></h3>
+<p>did with 2 dominances, and hyperneat as tanaka did
+but all individuals looks the same
+need to design again the substrate with some circle because not same distance, more will increase dominance because now 1/2 of genes are puicked randomly</p>
+
+
+  </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
