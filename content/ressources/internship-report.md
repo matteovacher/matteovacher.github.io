@@ -44,6 +44,25 @@ I will not talk too much about this project because I will make an article on it
 
 ## Hyperneat and Evogym
 
+### What is Evogym ?
+
+Well evogym is a Python library where you put a tiny robot in an environment, crossing bridges for example and you study how it performs amd how evolution or other ML thecniques can make him perform better. This tiny litlle robot is just a 2D matrix with different type of cells. 
+
+Here is an example of the robot 
+
+robot = [[0, 2, 2, 4, 0],
+         [1, 1, 1, 1, 1],
+         [2, 3, 3, 3, 2], 
+         [4, 4, 4, 4, 4], 
+         [3, 3, 0, 0, 4]]
+
+Here the robot is a 5*5 matrix with the following configuration : [0 : empty, 1 : rigid, 2 : soft, 3 : horizontal, 4 : vertical]
+
+
+### What is Hyperneat ?
+
+Hyperneat is a way of evolving both the body and the controller at the same time. Basically a first NN called CPPN for Compositional Pattern Producing Network will be used to generate the weights of the body network and the controller network. The first one will create the body and the second one will pilot the body during the experiment. The only thing that evolves is the CPPN itself with the neast algorithm. This CPPN start as a simple NN without any hidden layer before the evolution process. Then during the process, its weight are changed, its topology evolve, 
+
 
 
 ### notes 
