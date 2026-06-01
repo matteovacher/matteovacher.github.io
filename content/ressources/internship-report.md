@@ -61,8 +61,39 @@ Here the robot is a 5*5 matrix with the following configuration : [0 : empty, 1 
 
 ### What is Hyperneat ?
 
-Hyperneat is a way of evolving both the body and the controller at the same time. Basically a first NN called CPPN for Compositional Pattern Producing Network will be used to generate the weights of the body network and the controller network. The first one will create the body and the second one will pilot the body during the experiment. The only thing that evolves is the CPPN itself with the neast algorithm. This CPPN start as a simple NN without any hidden layer before the evolution process. Then during the process, its weight are changed, its topology evolve, 
+Hyperneat is a way of evolving both the body and the controller at the same time. Basically a first NN called CPPN for Compositional Pattern Producing Network will be used to generate the weights of the body network and the controller network. The first one will create the body and the second one will pilot the body during the experiment. The only thing that evolves is the CPPN itself with the neast algorithm. This CPPN start as a simple NN without any hidden layer before the evolution process. Then during the process, its weight are changed, its topology evolve, and crossover only happens between look-alike individuals or should I say between individuals with similar genome not phenotype. Despite that, Fabio decided to implement a new version of Hyperneat where not only the genotypic distance was taken into account but also the phenotypic distance. 
 
+### What is a CPPN ?
+
+CPPN stands for Computational Pattern Producing Netwok ? Some might say that it is simply an ANN (Artificial Neural Network) but it is not. CPPNs in fact are iniatially not designed to have clear layers. They are just an oriented graph where the nodes are the neurons and the edges are the weights between the neurons. In addition to that each node has its own activation function. Furthermore the CPPN usually takes as entry some coordinates. The original paper on CPPN first uses it to creates images with patterns where on the other side, the Hyperneat paper uses it to generate neural networks. Therefore, on one side the CPPN has the coordinate of a point as input (in reality, in this paper the CPPN also had the distance to the center and a static bias of 1) and on the other, the CPPN has the coordinate of two points as input. 
+
+### What is Indirect Encoding 
+
+Indirect Encoding is the underlying process behing HyperNeat where the point is that sometimes, the genome is too big and the direct encoding has to explore ! solution at a time. On the mean time, HyperNeat demonstrates how it is possible to encode larger solution because CPPN encodes the soolution conceptually and the number of resolution only depends on the resolution that you make of the current problem. 
+
+## My Idea 
+
+The task I was given was to work on this work from Fabio Tanaka about HyperNeat and Soft Robots in Evogym. 
+
+## Initial Idea
+
+My initial idea was to explore a new way to encode individuals indirectly. For that I first thought about introducing the concept of diploidy in the project. My first suggestion was that I wanted to reproduce a male and a female, both with different characteristics. The male would a bigger body but the woman would have a denser controller network. I had this idea in front of the tournament system in my ECS example. In this tournament the individual that won would go to a pool and wait for another individual to come and join him in this pool. I wanted for some individual to wait longer, this is where i thought that having sexual indiviodual could help. The problem here is that it does not solve a problem happening in the simulation, and does not focus on something to look for. This is why I decided to go for a similar idea with the objective of focusing on different type of indirect encoding. 
+
+## Another Idea 
+
+In nature, we tend to observe that a population can adapt to a given environment quicly enough to survive. This is due to diploidy, in front of such a good looking behavior I decided to still focus on this idea but this time with a focus on dominance. The dominance is what tells which allele from the two genes should be expressed. The most common exemple here is blood type, all humans have version of this gene, an individual with the A allele and the O allele will express the A allele and its blood type will be A because A is the dominant allele here. Still O continues to exist and can be passed to the next generation. If the other parent also gives an O then the expression of the genes, ie the phenotype, will be O. This child will here express a different phenotype than the one expressed by his parents. Then What I m looking for in this type of genome is that maybe I will be able to explore diverse solutions without putting individuals into look-alike categories (which is exactly what the Neat algorithm is doing, putting individuals into species bring more diversity and allow bad performance in individuals with the expected outcome that these individuals will give better results in the future). By doing so if I do not push to much pressure in my tournament selection, maybe that low fitness individuals that dont produce too bad results will be able to reproduce and spread their genes in the population therefore allowing diverse solutions. 
+
+## First Results
+
+Despite running this experiment on a few generations, the resukts were bad. Not in the sense that my individuals would not performs well, in fact on the most simple environment I had very good results, but the twist here is that all my individuals would look the same : 
+
+ind = [[4, 4, 4, 4, 4], 
+       [4, 4, 4, 4, 4], 
+       [4, 4, 4, 4, 4], 
+       [4, 4, 4, 4, 4], 
+       [4, 4, 4, 4, 4]]
+
+What you see here is globally the form of these individuals. A robot full of vertical actuators that would act like a kangaroo. Even if the controller seems perfectly adapted to the robot (the robot was not extending all of his voxels in one time but those on the left side would contract and expand sooner than those on the right for example). The problem is that, these rob\ot would take control of the population too quicly. In fact, at the first generations, I had a great numner of robot full of 4 or 0. This indicated me that something was wrong in the creation of the body. 
 
 
 ### notes 
