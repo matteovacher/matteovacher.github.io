@@ -2,6 +2,7 @@
 date = '2026-05-25T11:52:31+02:00'
 draft = true
 title = 'Internship Report'
+math = true 
 +++
 
 
@@ -89,7 +90,8 @@ I will talk later about this diploidy, first lets understand the initial results
 
 ## First Algorithm  
 
-"""text 
+'''text
+
 initialize the population genome with random genes
 select with dominance the expressed genome 
 
@@ -113,7 +115,7 @@ for i in range (generations) :
        if len(awaiting_to_reproduce) == 2 :
            population.append(reproduce(parent1, parent2))
 
-"""
+'''
 
 
 
