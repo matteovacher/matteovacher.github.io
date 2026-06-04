@@ -58,6 +58,8 @@ robot = [[0, 2, 2, 4, 0],
 
 Here the robot is a 5*5 matrix with the following configuration : [0 : empty, 1 : rigid, 2 : soft, 3 : horizontal, 4 : vertical]
 
+See [here](https://evolutiongym.github.io/) for more information. 
+
 
 ### What is Hyperneat ?
 
@@ -83,9 +85,42 @@ My initial idea was to explore a new way to encode individuals indirectly. For t
 
 In nature, we tend to observe that a population can adapt to a given environment quicly enough to survive. This is due to diploidy, in front of such a good looking behavior I decided to still focus on this idea but this time with a focus on dominance. The dominance is what tells which allele from the two genes should be expressed. The most common exemple here is blood type, all humans have version of this gene, an individual with the A allele and the O allele will express the A allele and its blood type will be A because A is the dominant allele here. Still O continues to exist and can be passed to the next generation. If the other parent also gives an O then the expression of the genes, ie the phenotype, will be O. This child will here express a different phenotype than the one expressed by his parents. Then What I m looking for in this type of genome is that maybe I will be able to explore diverse solutions without putting individuals into look-alike categories (which is exactly what the Neat algorithm is doing, putting individuals into species bring more diversity and allow bad performance in individuals with the expected outcome that these individuals will give better results in the future). By doing so if I do not push to much pressure in my tournament selection, maybe that low fitness individuals that dont produce too bad results will be able to reproduce and spread their genes in the population therefore allowing diverse solutions. 
 
+I will talk later about this diploidy, first lets understand the initial results that I got with an indirect encoding. 
+
+## First Algorithm  
+
+"""text 
+initialize the population genome with random genes
+select with dominance the expressed genome 
+
+for i in range (generations) :
+    create body_neural_network
+    body = create_body(body_neural_network)
+
+    if body is incorrect : 
+       continue 
+
+    create controller_neural_network 
+
+    fitness = simulate(body, controller_neural_network)
+
+    awaiting_to_reproduce = []
+    new_population = [best_individual for _ in range(number_of_chose_one)]
+
+    while new_population < max_population :
+       awaiting_to_reproduce.append(tournament_winner(population))
+
+       if len(awaiting_to_reproduce) == 2 :
+           population.append(reproduce(parent1, parent2))
+
+"""
+
+
+
+
 ## First Results
 
-Despite running this experiment on a few generations, the resukts were bad. Not in the sense that my individuals would not performs well, in fact on the most simple environment I had very good results, but the twist here is that all my individuals would look the same : 
+Despite running this experiment on a few generations, the results were bad. Not in the sense that my individuals would not performs well, in fact on the most simple environment I had very good results, but the twist here is that all my individuals would look the same : 
 
 ind = [[4, 4, 4, 4, 4], 
        [4, 4, 4, 4, 4], 
@@ -94,6 +129,20 @@ ind = [[4, 4, 4, 4, 4],
        [4, 4, 4, 4, 4]]
 
 What you see here is globally the form of these individuals. A robot full of vertical actuators that would act like a kangaroo. Even if the controller seems perfectly adapted to the robot (the robot was not extending all of his voxels in one time but those on the left side would contract and expand sooner than those on the right for example). The problem is that, these rob\ot would take control of the population too quicly. In fact, at the first generations, I had a great numner of robot full of 4 or 0. This indicated me that something was wrong in the creation of the body. 
+
+## Explanation 
+
+I see two possibilities here : 
+
+- The substrate has side effect and the cppn is induced in error due to the shape that the substrate possesses 
+
+- at the initialization I dont bring enough diversity in the population so my algorithm tends to converge faster towards an easy solution 
+
+At first I didnt thought about the second solution since the hypothesis of side effect seamed to be the most plausible explanation. In order to correct this I decided to not represent the 5 possibilities of the type of voxels on a line ((-1, -0.5, 0, 0.5, 1) would be associated to (0, 1, 2, 3, 4)). Then what type of geometrical shape would allow me to give every type of voxel the same amount of chance ? The most simple solution for me was a circle. Each point would be position on one of the element of this set ${(cos(i*2*pi/5), sin(i*2*pi/5))} for i \in {0, 1, 2, 3, 4}$.
+
+I still didnt analyze very precisely the different results but it seams, at first glance, that on the first generation I have a more diverse population. With 1/87 that a given individual on a given generation will be 50% like another random individual, I will also soon add a distance also in % for the expressed genotype, ie the cppn, now I just have raw numbers and distance that means something only if you also look at the config.json file. 
+
+
 
 
 ### notes 
