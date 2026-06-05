@@ -144,6 +144,18 @@ At first I didnt thought about the second solution since the hypothesis of side 
 
 I still didnt analyze very precisely the different results but it seams, at first glance, that on the first generation I have a more diverse population. With 1/87 that a given individual on a given generation will be 50% like another random individual, I will also soon add a distance also in % for the expressed genotype, ie the cppn, now I just have raw numbers and distance that means something only if you also look at the config.json file. 
 
+Well, this method has still brought to me some good results since my populatin would already look way mor different than the one I had before. 
+The thing that I have to test now is to modify even more the shape of the substrate. Remember, I am working with basically a square, and what I did to counter the side effect was to add dimensions so that I could add a circular composant in my substrate. Still, I may still have other side effect, because my square is in fact a side effect by itself. This is why I should maybe try to represent my square shaped robot with a circular substrate. 
+
+robot = [[0, 2, 2, 4, 0],
+         [0, 2, 2, 4, 0],
+         [0, 2, 0, 4, 0],
+         [0, 2, 2, 4, 0],
+         [0, 2, 2, 4, 4]]
+
+Here for example, the 0 that you see in the middle of the robot is the center of the circles then the 8 point of the robot array around that 0 are the first circle. Each point on the subrate will be represented by an angle. Then, The last circle on the substrate will be the external layer ont he body of the robot. I will have to make more complete experience to see if there is a real impact, but I think it should really changes how the robot works.
+
+Moreover after a quick time, the population would converge towards a certain type of body, even with diversity on the body on the first generation, the main reason lies in the initialization of the genome. My weights and biases were chosen between -1 and 1, the problem here is that i would not have enough diversity and then the solution would converge too fast toward a single genome, therefore augmenting the probability to possesses the same phenotype. To solve that I increased the range of the random selection to a dozen. The initial results are promising. More stable diversity in the population. What I am afraid of here is that the fitness of the best individual will progress too slowly. More I suspect that it only a matter of time before my population converges again towards a certain type of body. An interesting idea could that like us humans and animals, two individual with a too weak genotypic distance should not reproduce together. Therefore A more diverse populatuion would probably emerges. This is a diversity maintenance method. Another possibility is that because of the diploidy in my genome, I can always bring more diversity in the population, and a simple way to achieve that is by flipping the dominance of each gene more often. Let's see if it works if I increase the generation to a 100. 
 
 
 
