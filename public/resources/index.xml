@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Resources on Mattéo Vacher</title>
+    <link>http://localhost:1313/resources/</link>
+    <description>Recent content in Resources on Mattéo Vacher</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>en-us</language>
+    <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
+    <lastBuildDate>Mon, 25 May 2026 11:52:31 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/resources/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Internship Report</title>
+      <link>http://localhost:1313/resources/internship-report/</link>
+      <pubDate>Mon, 25 May 2026 11:52:31 +0200</pubDate>
+      <guid>http://localhost:1313/resources/internship-report/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;In this page, I will report what I will be doing in my internship and the different steps that compose this project.
+I begin this article with almost a month of delay since I was really involved in my search.&lt;/p&gt;
+&lt;h2 id=&#34;before-and-after-coming-to-japan&#34;&gt;Before and after coming to japan&lt;/h2&gt;
+&lt;p&gt;Before coming to Japan, Claus, my supervisor here in Japan told me to do Dennis&amp;rsquo; elective and to reproduce Fabio&amp;rsquo;s work (Fabio is the student that work on the project before me).
+First I did the elective, managed to make some summary that will follow my path for a long time. Then I started to reproduce the work of Fabio.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>References Soft Robots</title>
+      <link>http://localhost:1313/resources/references-soft-robots/</link>
+      <pubDate>Thu, 16 Apr 2026 16:32:51 +0200</pubDate>
+      <guid>http://localhost:1313/resources/references-soft-robots/</guid>
+      <description>&lt;h2 id=&#34;co-evolving-morphology-and-control-of-soft-robots-using-a-single-genome&#34;&gt;Co-evolving morphology and control of soft robots using a single genome&lt;/h2&gt;
+&lt;p&gt;Fabio Tanaka&lt;/p&gt;
+&lt;p&gt;Ce papier est le papier sur lequel je vais me baser pour mes recherches sur les soft robots et sur co evoluer le corps et le controller, je vasi utiliser la meme methode.&lt;/p&gt;
+&lt;p&gt;c&amp;rsquo;est un cppn evoler par neat qui produit deux ann, l&amp;rsquo;un pour le corps et l&amp;rsquo;autre pour le cerveau. c&amp;rsquo;est ca hyper neat.&lt;/p&gt;
+&lt;p&gt;l&amp;rsquo;ann du corps est simple, il prend la position et dit quoi mettre, l&amp;rsquo;ann du cerveau est different, des valeurs sont enregistré (celle produites par les capteurs) et il y a une sortie par voxel.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,14 +1,18 @@
 +++
 date = '2026-04-06T00:00:00+01:00'
 draft = true
-title = 'Step 3 of Ant Simulation Project : Colony and Emergence'
+title = 'Step 3 (Perhaps Final) of Ant Simulation Project : Colony and Emergence'
 math = true
-summary = 'Premier essai de suivi de traces par gradient d antennes. Observations, bugs, et prochaines etapes.'
+summary = 'Study of the design of the colony and emergence of collective behaviors.'
 +++
 
 ## Introduction
 
-***Careful : This is a really long article. If you want to see the videos of the simulation, all of them will be displayed below***
+***Careful : This is a really long article. If you want to see the videos of the simulation, all of them will be displayed below. I also want to add that this article will probably be the last of this series since it took me an incredible amount of time and that I also want to explore other things in the future. I am now in Tsukuba and I am looking forward writing an article about my current project. I also want to master C++. I guess all of this will take me a lot of time since I am really dedicated on these projects. Anyway this series gave me a first glimpse of what research could look like and I really like it. It also gave me the opportunity to master a few tools I never had the chance to use before. I am writing these lines after having finish this article and the videos. The only video that will be displayed in the introduction is the video where everything works :)***
+
+{{< youtube QgjBLVlBrh0 >}}
+
+--- 
 
 In the previous post, we built the `Ant` class : movement by angle, rebound on the walls, pheromones deposit and antennas positions. But the antennas were only computed, not used. The ants were walking randomly and did not read the pheromones they were depositing.
 
@@ -287,13 +291,17 @@ To prepare for Step 4, I also added a map creation tool on the side. The tool le
 
 Four videos show the evolution of the simulation across this step, from the first chaotic runs to the current state.
 
-early chaotic simulation, 20 to 50 ants, single evaporation rate 
+- Here are the chaotic runs, I forgot what were the different parameters across them, but we can clearly see that something is not working correctly. 
 
-intermediate state, 200 ants, 3 antennas, before the proportional deposit 
+{{< youtube s6q2DrQZxxw >}}
 
-stable state with the original additive deposit rule, trails already emerging clearly 
+{{< youtube gHzIVaAsBrU >}}
 
-final state with the new proportional deposit rule 
+{{< youtube ZALTSHO15Xo >}}
+
+- Here is the current state, we can clearly the creation of path and the emergence of collective behavior : 
+
+{{< youtube QgjBLVlBrh0 >}}
 
 ---
 

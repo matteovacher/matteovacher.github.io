@@ -3,7 +3,7 @@ date = '2026-04-02T00:00:00+01:00'
 draft = false
 title = 'Step 2 of Ant Simulation Project : Ant Agent'
 math = true
-summary = 'Implementation de la classe Ant : orientation par angle, mouvement, reflexion sur les murs, depot de pheromones.'
+summary = 'Implementation of the ant agent : orientation by angle, movement, reflection on walls, pheromone deposit.'
 +++
 
 ## Introduction 

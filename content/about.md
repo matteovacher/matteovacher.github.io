@@ -7,26 +7,31 @@ url = "/about"
 
 ## Mattéo Vacher  
 
-**Student & Collective Intelligence, AI Enthusiast**
+**Student & Researcher, AI Enthusiast**
 
-I am a student  passionate about the intersection of **myrmecology** (the study of ants), **neuro-ethology** (the study of neural mechanisms responsible of animals behavior) and **Artificial Intelligence**. My work focuses on understanding how simple individual rules in ant colonies lead to complex behaviors, which I will simulate using **Python**. 
+I am a student  passionate about the intersection of **myrmecology** (the study of ants), **neuro-ethology** (the study of neural mechanisms responsible of animals behavior) and **Artificial Intelligence**. I am currently researching about the evolution of soft robot at the University of Tsukuba, Japan with Prof. Claus Aranha. 
 
 --- 
 
 ### Research Interests 
 
-My goal is to bridge biological observations and computational model. I am interested in : 
+I am interested in : 
 
 * **Collective Intelligence :** How simple individuals solve complex problems together. 
-* **Bio-Inspired AI :** Applying ant foraging and pheromone algorithms to neural networks. 
+* **Bio-Inspired AI :** Applying biological knowledge to AI.
 * **Simulations :** Developing efficient models on my computer to visualize agent-based behaviors. 
 
 ---
+### Experience 
+
+#### **2026 - Present :** University of Tsukuba (Tsukuba, Japan)
+* **Exchange Research Student :** Working on the EvoGym library and the evolution of single genomne soft robot.
 
 ### Education 
+
 #### **2024 - Present :** ISAE-SUPAERO (Toulouse, France)
-* **Master's in Engineering :** General engineering formation. 
-* **Developped** a strong foundation in Python programming, Automatic Control, Java and C. 
+* **Master's in Engineering :** General engineering formation. I will be studying for my last year Data & Decision Sciences.
+* **Developped** a strong foundation in Python programming, Automatic Control, Java and C. Currently learning C++ on my own. 
 
 #### **2022 - 2024 :** Lycée Saint-Louis (Paris, France)
 * **CPGE MPSI/PSI*** **:** Intensive French Mathematics and Physics Preparatory Classes. 
@@ -34,10 +39,11 @@ My goal is to bridge biological observations and computational model. I am inter
 ---
 
 ### Projects & Research
-#### Myrmeco-AI Lab 
+
+#### Myrmeco-Lab 
 This website serves as my digital laboratory. I will documents my progress in building ant simulations that mimics ants natural behaviors. 
 
-#### Upcoming Research 
+#### Current Research 
 Exchange Research Student at the University of Tsukuba, Japan (May - Sept 2026) researching the evolution of robot structures and neural controllers with Prof. Claus Aranha and Prof. Dennis G. Wilson. 
 
 --- 

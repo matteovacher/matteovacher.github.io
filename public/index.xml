@@ -11,9 +11,9 @@
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Internship Report</title>
-      <link>http://localhost:1313/ressources/internship-report/</link>
+      <link>http://localhost:1313/resources/internship-report/</link>
       <pubDate>Mon, 25 May 2026 11:52:31 +0200</pubDate>
-      <guid>http://localhost:1313/ressources/internship-report/</guid>
+      <guid>http://localhost:1313/resources/internship-report/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;In this page, I will report what I will be doing in my internship and the different steps that compose this project.
 I begin this article with almost a month of delay since I was really involved in my search.&lt;/p&gt;
@@ -30,9 +30,9 @@ First I did the elective, managed to make some summary that will follow my path 
     </item>
     <item>
       <title>References Soft Robots</title>
-      <link>http://localhost:1313/ressources/references-soft-robots/</link>
+      <link>http://localhost:1313/resources/references-soft-robots/</link>
       <pubDate>Thu, 16 Apr 2026 16:32:51 +0200</pubDate>
-      <guid>http://localhost:1313/ressources/references-soft-robots/</guid>
+      <guid>http://localhost:1313/resources/references-soft-robots/</guid>
       <description>&lt;h2 id=&#34;co-evolving-morphology-and-control-of-soft-robots-using-a-single-genome&#34;&gt;Co-evolving morphology and control of soft robots using a single genome&lt;/h2&gt;
 &lt;p&gt;Fabio Tanaka&lt;/p&gt;
 &lt;p&gt;Ce papier est le papier sur lequel je vais me baser pour mes recherches sur les soft robots et sur co evoluer le corps et le controller, je vasi utiliser la meme methode.&lt;/p&gt;
@@ -40,103 +40,60 @@ First I did the elective, managed to make some summary that will follow my path 
 &lt;p&gt;l&amp;rsquo;ann du corps est simple, il prend la position et dit quoi mettre, l&amp;rsquo;ann du cerveau est different, des valeurs sont enregistré (celle produites par les capteurs) et il y a une sortie par voxel.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Evostar</title>
-      <link>http://localhost:1313/ressources/evostar/</link>
-      <pubDate>Wed, 08 Apr 2026 17:04:17 +0200</pubDate>
-      <guid>http://localhost:1313/ressources/evostar/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>CMA-ES - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
-      <link>http://localhost:1313/ressources/cmaes/</link>
+      <link>http://localhost:1313/resources/courses-evo/cmaes/</link>
       <pubDate>Mon, 06 Apr 2026 12:09:31 +0200</pubDate>
-      <guid>http://localhost:1313/ressources/cmaes/</guid>
+      <guid>http://localhost:1313/resources/courses-evo/cmaes/</guid>
       <description>Synthesis of the core concepts of the Covariance Matrix Adaptation Evolution Strategy (CMA-ES)</description>
     </item>
     <item>
-      <title>Step 3 of Ant Simulation Project : Colony and Emergence</title>
-      <link>http://localhost:1313/posts/third_of_the_project/</link>
+      <title>Step 3 (Perhaps Final) of Ant Simulation Project : Colony and Emergence</title>
+      <link>http://localhost:1313/posts/myrmico-lab/third_of_the_project/</link>
       <pubDate>Mon, 06 Apr 2026 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/third_of_the_project/</guid>
-      <description>Premier essai de suivi de traces par gradient d antennes. Observations, bugs, et prochaines etapes.</description>
+      <guid>http://localhost:1313/posts/myrmico-lab/third_of_the_project/</guid>
+      <description>Study of the design of the colony and emergence of collective behaviors.</description>
     </item>
     <item>
       <title>Step 2 of Ant Simulation Project : Ant Agent</title>
-      <link>http://localhost:1313/posts/second_of_the_project/</link>
+      <link>http://localhost:1313/posts/myrmico-lab/second_of_the_project/</link>
       <pubDate>Thu, 02 Apr 2026 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/second_of_the_project/</guid>
-      <description>Implementation de la classe Ant : orientation par angle, mouvement, reflexion sur les murs, depot de pheromones.</description>
+      <guid>http://localhost:1313/posts/myrmico-lab/second_of_the_project/</guid>
+      <description>Implementation of the ant agent : orientation by angle, movement, reflection on walls, pheromone deposit.</description>
     </item>
     <item>
       <title>Step 1 of Ant Simulation Project : Pheromones</title>
-      <link>http://localhost:1313/posts/first-of-the-project/</link>
+      <link>http://localhost:1313/posts/myrmico-lab/first-of-the-project/</link>
       <pubDate>Sat, 28 Mar 2026 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/first-of-the-project/</guid>
+      <guid>http://localhost:1313/posts/myrmico-lab/first-of-the-project/</guid>
       <description>Building the pheromone grid : the substrate every ant reads from and writes to, grounded in biological and mathematical models.</description>
     </item>
     <item>
-      <title>Documentation for my project</title>
-      <link>http://localhost:1313/ressources/lectures_on_ants/</link>
-      <pubDate>Fri, 27 Mar 2026 22:24:32 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/lectures_on_ants/</guid>
-      <description>This serves as a summary (made by Claude) for helping me with the writing of my articles</description>
-    </item>
-    <item>
-      <title>To_read</title>
-      <link>http://localhost:1313/ressources/to_read/</link>
-      <pubDate>Thu, 26 Mar 2026 23:13:38 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/to_read/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
-      <link>http://localhost:1313/ressources/evo_strat/</link>
+      <link>http://localhost:1313/resources/courses-evo/evo_strat/</link>
       <pubDate>Wed, 25 Mar 2026 00:53:30 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/evo_strat/</guid>
+      <guid>http://localhost:1313/resources/courses-evo/evo_strat/</guid>
       <description>Synthesis of the core concepts of Evolutionary Strategies (ES)</description>
     </item>
     <item>
       <title>Genetic Algorithms (GA) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
-      <link>http://localhost:1313/ressources/ga/</link>
+      <link>http://localhost:1313/resources/courses-evo/ga/</link>
       <pubDate>Mon, 16 Mar 2026 15:42:15 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/ga/</guid>
+      <guid>http://localhost:1313/resources/courses-evo/ga/</guid>
       <description>Synthesis of the core concepts of Genetic Algorythms (GA)</description>
     </item>
     <item>
       <title>Introduction to the Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
-      <link>http://localhost:1313/ressources/intro_elective/</link>
+      <link>http://localhost:1313/resources/courses-evo/intro_elective/</link>
       <pubDate>Mon, 16 Mar 2026 14:24:53 +0100</pubDate>
-      <guid>http://localhost:1313/ressources/intro_elective/</guid>
+      <guid>http://localhost:1313/resources/courses-evo/intro_elective/</guid>
       <description>Personal synthesis to remind of the course content</description>
     </item>
     <item>
       <title>The Beginning</title>
-      <link>http://localhost:1313/posts/the-beginning/</link>
+      <link>http://localhost:1313/posts/myrmico-lab/the-beginning/</link>
       <pubDate>Mon, 09 Mar 2026 14:43:18 +0100</pubDate>
-      <guid>http://localhost:1313/posts/the-beginning/</guid>
+      <guid>http://localhost:1313/posts/myrmico-lab/the-beginning/</guid>
       <description>Starting a journey into collective intelligence and multi-agent systems. A look at the project&amp;rsquo;s origins, from theory to live ant colony simulations.</description>
-    </item>
-    <item>
-      <title>The Plan</title>
-      <link>http://localhost:1313/posts/the-plan/</link>
-      <pubDate>Wed, 25 Feb 2026 23:56:13 +0100</pubDate>
-      <guid>http://localhost:1313/posts/the-plan/</guid>
-      <description>&lt;h2 id=&#34;first-simulation&#34;&gt;First Simulation&lt;/h2&gt;
-&lt;p&gt;For my first simulation, here is the plan that will be completed along with my readings :&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;use GA to train individuals&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;the fitness will be evaluated depending on two factors :&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;whether or not the ant bring food to the nest and does trophallaxis&lt;/li&gt;
-&lt;li&gt;whether or not the ant receive trophallaxis and does trophallaxis to feed larvae&lt;/li&gt;
-&lt;li&gt;whether or not the ant receive trophallaxis and does other tasks (still to be determined)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Be careful about the fact that ants may just do trophallaxis to maximize the fitness, the food distribution neef to be studied, cf doc2.&lt;/p&gt;</description>
     </item>
     <item>
       <title>About</title>
@@ -144,23 +101,36 @@ First I did the elective, managed to make some summary that will follow my path 
       <pubDate>Sun, 22 Feb 2026 01:00:09 +0100</pubDate>
       <guid>http://localhost:1313/about/</guid>
       <description>&lt;h2 id=&#34;mattéo-vacher&#34;&gt;Mattéo Vacher&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;Student &amp;amp; Collective Intelligence, AI Enthusiast&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I am a student  passionate about the intersection of &lt;strong&gt;myrmecology&lt;/strong&gt; (the study of ants), &lt;strong&gt;neuro-ethology&lt;/strong&gt; (the study of neural mechanisms responsible of animals behavior) and &lt;strong&gt;Artificial Intelligence&lt;/strong&gt;. My work focuses on understanding how simple individual rules in ant colonies lead to complex behaviors, which I will simulate using &lt;strong&gt;Python&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Student &amp;amp; Researcher, AI Enthusiast&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I am a student  passionate about the intersection of &lt;strong&gt;myrmecology&lt;/strong&gt; (the study of ants), &lt;strong&gt;neuro-ethology&lt;/strong&gt; (the study of neural mechanisms responsible of animals behavior) and &lt;strong&gt;Artificial Intelligence&lt;/strong&gt;. I am currently researching about the evolution of soft robot at the University of Tsukuba, Japan with Prof. Claus Aranha.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;research-interests&#34;&gt;Research Interests&lt;/h3&gt;
-&lt;p&gt;My goal is to bridge biological observations and computational model. I am interested in :&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Readings</title>
-      <link>http://localhost:1313/posts/readings/</link>
-      <pubDate>Sun, 22 Feb 2026 00:55:18 +0100</pubDate>
-      <guid>http://localhost:1313/posts/readings/</guid>
-      <description>&lt;h2 id=&#34;readings-results-discussion-and-possibility-of-research&#34;&gt;Readings, results, discussion and possibility of research&lt;/h2&gt;
-&lt;p&gt;Hello everyone,&lt;/p&gt;
-&lt;p&gt;Thanks to Amany Amin I am now in possession of 10 articles and I am sure that these papers will help me through my project. Here I&amp;rsquo;ll try to note important results from different papers and try to organize them to highlight future possible research.&lt;/p&gt;
+&lt;p&gt;I am interested in :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Collective Intelligence :&lt;/strong&gt; How simple individuals solve complex problems together.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bio-Inspired AI :&lt;/strong&gt; Applying biological knowledge to AI.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Simulations :&lt;/strong&gt; Developing efficient models on my computer to visualize agent-based behaviors.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;emergent-regulation-of-ant-foraging-frequency-through-a-computationally-inexpensive-forager-movement-rule-baltiansky-l-frankel-g--feinerman-o-2023&#34;&gt;Emergent regulation of ant foraging frequency through a computationally inexpensive forager movement rule &lt;em&gt;Baltiansky, L., Frankel, G., &amp;amp; Feinerman, O. (2023)&lt;/em&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Key Question:&lt;/strong&gt; How does a colony regulate its foraging frequency based on collective hunger without a central controller or complex individual computations ?&lt;/p&gt;</description>
+&lt;h3 id=&#34;experience&#34;&gt;Experience&lt;/h3&gt;
+&lt;h4 id=&#34;2026---present--university-of-tsukuba-tsukuba-japan&#34;&gt;&lt;strong&gt;2026 - Present :&lt;/strong&gt; University of Tsukuba (Tsukuba, Japan)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Exchange Research Student :&lt;/strong&gt; Working on the EvoGym library and the evolution of single genomne soft robot.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;education&#34;&gt;Education&lt;/h3&gt;
+&lt;h4 id=&#34;2024---present--isae-supaero-toulouse-france&#34;&gt;&lt;strong&gt;2024 - Present :&lt;/strong&gt; ISAE-SUPAERO (Toulouse, France)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Master&amp;rsquo;s in Engineering :&lt;/strong&gt; General engineering formation. I will be studying for my last year Data &amp;amp; Decision Sciences.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Developped&lt;/strong&gt; a strong foundation in Python programming, Automatic Control, Java and C. Currently learning C++ on my own.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;2022---2024--lycée-saint-louis-paris-france&#34;&gt;&lt;strong&gt;2022 - 2024 :&lt;/strong&gt; Lycée Saint-Louis (Paris, France)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CPGE MPSI/PSI&lt;/strong&gt;* &lt;strong&gt;:&lt;/strong&gt; Intensive French Mathematics and Physics Preparatory Classes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;projects--research&#34;&gt;Projects &amp;amp; Research&lt;/h3&gt;
+&lt;h4 id=&#34;myrmeco-lab&#34;&gt;Myrmeco-Lab&lt;/h4&gt;
+&lt;p&gt;This website serves as my digital laboratory. I will documents my progress in building ant simulations that mimics ants natural behaviors.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

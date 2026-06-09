@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Courses of Evolutionary Computation on Mattéo Vacher</title>
+    <link>http://localhost:1313/resources/courses-evo/</link>
+    <description>Recent content in Courses of Evolutionary Computation on Mattéo Vacher</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>en-us</language>
+    <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
+    <lastBuildDate>Mon, 06 Apr 2026 12:09:31 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/resources/courses-evo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CMA-ES - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
+      <link>http://localhost:1313/resources/courses-evo/cmaes/</link>
+      <pubDate>Mon, 06 Apr 2026 12:09:31 +0200</pubDate>
+      <guid>http://localhost:1313/resources/courses-evo/cmaes/</guid>
+      <description>Synthesis of the core concepts of the Covariance Matrix Adaptation Evolution Strategy (CMA-ES)</description>
+    </item>
+    <item>
+      <title>Evolutionary Strategies (ES) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
+      <link>http://localhost:1313/resources/courses-evo/evo_strat/</link>
+      <pubDate>Wed, 25 Mar 2026 00:53:30 +0100</pubDate>
+      <guid>http://localhost:1313/resources/courses-evo/evo_strat/</guid>
+      <description>Synthesis of the core concepts of Evolutionary Strategies (ES)</description>
+    </item>
+    <item>
+      <title>Genetic Algorithms (GA) - Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
+      <link>http://localhost:1313/resources/courses-evo/ga/</link>
+      <pubDate>Mon, 16 Mar 2026 15:42:15 +0100</pubDate>
+      <guid>http://localhost:1313/resources/courses-evo/ga/</guid>
+      <description>Synthesis of the core concepts of Genetic Algorythms (GA)</description>
+    </item>
+    <item>
+      <title>Introduction to the Evolutionary Computation Elective by Prof. Dennis Wilson, ISAE-SUPAERO</title>
+      <link>http://localhost:1313/resources/courses-evo/intro_elective/</link>
+      <pubDate>Mon, 16 Mar 2026 14:24:53 +0100</pubDate>
+      <guid>http://localhost:1313/resources/courses-evo/intro_elective/</guid>
+      <description>Personal synthesis to remind of the course content</description>
+    </item>
+  </channel>
+</rss>

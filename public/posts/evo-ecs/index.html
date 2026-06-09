@@ -132,8 +132,8 @@
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/ressources/" title="Ressources">
-                    <span>Ressources</span>
+                <a href="http://localhost:1313/resources/" title="Resources">
+                    <span>Resources</span>
                 </a>
             </li>
             <li>
@@ -163,7 +163,7 @@
         </svg>
       </span>
     </h1>
-    <div class="post-meta"><span title='2026-05-13 04:40:14 +0200 CEST'>May 13, 2026</span>&nbsp;·&nbsp;<span>8 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
+    <div class="post-meta"><span title='2026-05-13 04:40:14 +0200 CEST'>May 13, 2026</span>&nbsp;·&nbsp;<span>11 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
 
 </div>
   </header> <div class="toc">
@@ -186,7 +186,7 @@
                 <li>
                     <a href="#whats-inside" aria-label="What&rsquo;s inside">What&rsquo;s inside</a></li>
                 <li>
-                    <a href="#how-does-it-look-" aria-label="How does it look ?">How does it look ?</a></li></ul>
+                    <a href="#what-does-it-look-like-" aria-label="What does it look like ?">What does it look like ?</a></li></ul>
                 </li>
                 <li>
                     <a href="#entity_managerpy" aria-label="entity_manager.py">entity_manager.py</a></li>
@@ -197,10 +197,17 @@
                 <li>
                     <a href="#tools" aria-label="Tools">Tools</a></li>
                 <li>
-                    <a href="#systems" aria-label="Systems">Systems</a>
+                    <a href="#systems" aria-label="Systems">Systems</a></li>
+                <li>
+                    <a href="#worldpy" aria-label="world.py">world.py</a></li>
+                <li>
+                    <a href="#mainpy" aria-label="main.py">main.py</a></li>
+                <li>
+                    <a href="#intermediate-conclusion" aria-label="Intermediate Conclusion">Intermediate Conclusion</a></li></ul>
                 </li>
-            </ul>
-            </li>
+                <li>
+                    <a href="#docker-and-dockerfile" aria-label="Docker and Dockerfile">Docker and Dockerfile</a>
+                </li>
             </ul>
         </div>
     </details>
@@ -208,13 +215,13 @@
 
   <div class="post-content"><p>Donc deja, on part de entity component system donc faudra faire un tuto dessus, ensuite on part du dockerfile et de github pour expliquer comment bien ttout installer pour que ca aille vite et bien detaillé. ensuite il faut expliquer les etapes de ecs et ce que c&rsquo;est et comment je les implemente. ensuite montrer comment ca marche sur un exemple simple et concret. je pense faire evoluer un controller avec une morphologie fixe. avec tournament, mutation aleatoire de poids pour commencer et egalement croisement entre individual simplement avec on alterne un sur deu et on oroduit deux invidu.</p>
 <h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
-<p>Hello dear Reader, on this page I will explain my complete and systemic implementation of the EvoGym library. When I first read the work of my predecessor Fabio Tanaka, who did an <strong>extraordinary work</strong> on Single Genome Robot, I was really confused on the whole implementation of the different programs that co-existed in his workspace. To implement my own version of Hyper-Neat, I spent hours understanding what he has done and why. This is the main reason, I&rsquo;ll explain how my code works and how I will work in the future on the EvoGym library. This article is made for people who want to learn more about <em>Entity Component System</em>, or the <em>EvoGym Library</em> and how to use it, or <em>how I manage my projects</em> to reproduce my work.</p>
-<p>*To finish the introduction, you can find the exampleof such an implementation on a GitHub repository that I have made specially for this article <a href="https://github.com/matteovacher/evogym-entity-component-system">here</a>.</p>
+<p>Hello dear Reader, on this page I will explain my complete and systemic implementation of the EvoGym library. When I first read the work of my predecessor Fabio Tanaka, who did an <strong>extraordinary work</strong> on Single Genome Robot, I was really confused on the whole implementation of the different programs that co-existed in his workspace. To implement my own version of Hyper-Neat, I spent hours understanding what he has done and why. This is mainly because of this reason that I&rsquo;ll explain how my code works and how I will work in the future on the EvoGym library. This article is made for people who want to learn more about <em>Entity Component System</em>, or the <em>EvoGym Library</em> and how to use it, or just <em>how I manage my projects</em> to reproduce my work.</p>
+<p>*To finish the introduction, you can find the example of such an implementation on a GitHub repository that I have made specially for this article <a href="https://github.com/matteovacher/evogym-entity-component-system">here</a>.</p>
 <h2 id="what-is-entity-component-system-">What is Entity Component System ?<a hidden class="anchor" aria-hidden="true" href="#what-is-entity-component-system-">#</a></h2>
-<p>First of all, this idea of using Entity Component System (ECS) has not emerged from me but from my supervisor (Claus Aranha, University of Tsukuba). I hope that this article will help others as much as it helped me to organize my work, and for that I want to thank Claus.</p>
+<p>First of all, this idea of using Entity Component System (ECS) has not emerged from me but from my supervisor (Claus Aranha, University of Tsukuba). I hope that this article will help others as much as it helped me to organize my work, and for this particular reason, I wanted to thank Claus.</p>
 <h3 id="a-brief-example">A brief example<a hidden class="anchor" aria-hidden="true" href="#a-brief-example">#</a></h3>
-<p>Well, ECS is usually involved while creating video games, so the exemple I&rsquo;m about to write will be about creating video games. I&rsquo;m not a creator of video games but it surely joins one big interest of mine : Simulations. So, that being said, let&rsquo;s go back to creating video games. Imagine yourself, two seconds trying to implements NPC (Non Playable Characters) in a fantasy world where the hero has to explore a vast land with lots of race (Goblins, Elves&hellip;). In the mountains of the East you find Goblins, a cruel race that will steal every piece of gold that you carry. On the West part of this land resides dozens of Human towns with lots of market places. Well at some point a tiny and very kind goblin decided to quit this life of violence and decided to reside on one of the many human town and to become a merchant. Normally in Object-Oriented Programming you would implement a Monster Class and then implement a Goblin Class that inherits from the Monster one, then the same goes for humans and their merchants. At the end of the day, it appears complicated to add other features to our poor little Goblin that just want to live a normal life.</p>
-<p>Then, a simple way to implements all of this and to manage every entity without going deeply into Class inheritance is to think about adding component to our entity. For example, in the case of our charming Goblin, we would add to the entity id number 7476572645 the following components/features :</p>
+<p>Well, ECS is usually involved while creating video games, therefore the example I&rsquo;m about to write will be about the creation of video games. I&rsquo;m not a creator of video games myself, but it surely joins one big interest of mine : Simulations. So, that being said, let&rsquo;s go back to creating video games. Imagine yourself, two seconds trying to implements Non Playable Characters (NPC) in a fantasy world where the hero has to explore a vast land filled with lots of available races for these NPCs (Goblins, Elves&hellip;). In the mountains of the East you find Goblins, a cruel race that will steal every piece of gold that you carry. On the West part of this land resides dozens of Human towns with lots of market places. Well at some point a tiny and very kind goblin decided to quit his life of violence in the mountains and decided to reside on one of the many human town and to become a merchant. Normally in Object-Oriented Programming you would implement a Monster Class and then implement a Goblin Class that inherits from the Monster one, then the same goes for humans and their merchants. At the end of the day, it appears complicated to add other features to our poor little Goblin that just want to live a normal life as merchant.</p>
+<p>Then, a simple way to implements all of this, and to manage every entity without going deeply into Class inheritance is to think about adding component to our entity/goblin. For example, in the case of our charming Goblin, we would add to the entity id number 7476572645 the following components/features :</p>
 <ul>
 <li><strong>Skin Color :</strong> green</li>
 <li><strong>Length :</strong> short (around 120cm probably)</li>
@@ -223,41 +230,41 @@
 <li><strong>Health :</strong> 100</li>
 <li><strong>Weapon :</strong> axe</li>
 </ul>
-<p>This is a simple example but this way we can simply destroy/create/manage the desired components/features.</p>
+<p>This is a simple example but this way we can simply destroy/create/manage the desired components/features of every entity in the game.</p>
 <h3 id="how-to-describe-such-an-architecture-">How to describe such an architecture ?<a hidden class="anchor" aria-hidden="true" href="#how-to-describe-such-an-architecture-">#</a></h3>
 <h4 id="whats-inside">What&rsquo;s inside<a hidden class="anchor" aria-hidden="true" href="#whats-inside">#</a></h4>
-<p>As you&rsquo;ve probably understood, ECS is a software architectural pattern. It contains 3 funddamental things :</p>
+<p>As you&rsquo;ve probably understood, ECS is a software architectural pattern. It contains 3 fundamental things :</p>
 <ul>
 <li>
-<p><strong>Entity</strong>, it is a unique ID that we give to every entity in the simulation. This ID will allow us to go get the component and to modify them on this given entity.</p>
+<p><strong>Entity</strong>, it is a unique ID that we give to every entity in the simulation. This ID will allow us to go get the components of a given entity and to modify them.</p>
 </li>
 <li>
-<p><strong>Components</strong>, it is what will compose our entity, an entity can have as much as component as we want. But every entity must have one different component for a given type. For example, entity 793468682 can only have one component <em>Health</em>, not two. This will allow us to use dictionaries to store datas.</p>
+<p><strong>Components</strong>, it is what will compose our entity, an entity can have as much as components as we want. But every entity must have one different component for a given type. For example, entity 793468682 can only have one component <em>Health</em>, not two. This will allow us to use dictionaries to store data and access them quickly. Here you might say : &lsquo;Then it is completely useless if my entity can only have one weapon and not two&rsquo;. Well, if you want any character to possess more than one weapon simply add another slot of weapon, but in each slot, only a single weapon will be stored.</p>
 </li>
 <li>
-<p><strong>Systems</strong>, it is what will handle the registry of component and will write what different entity possesses. It&rsquo;s basically functions that takes every individuals possessing the same components and apply them functions to write information into the component registry</p>
+<p><strong>Systems</strong>, it is what will handle the registry of components and will write what different entity possesses. It&rsquo;s basically functions that takes every individuals possessing the same components and write/modify information directly in the component registries.</p>
 </li>
 </ul>
-<h4 id="how-does-it-look-">How does it look ?<a hidden class="anchor" aria-hidden="true" href="#how-does-it-look-">#</a></h4>
+<h4 id="what-does-it-look-like-">What does it look like ?<a hidden class="anchor" aria-hidden="true" href="#what-does-it-look-like-">#</a></h4>
 <p>I have added here some other elements of the architecture that I will explain later.</p>
-<pre tabindex="0"><code>project 
-|
-|-main.py
-|-entity_manager.py
-|-components.py
-|-registry.py
-|-world.py
-|
-|   systems
-|---|
-|   |-system1.py
-|   |-system2.py
-|
-|   tools
-|---|
-|   |-tool1
-|   |-tool2
-</code></pre><h3 id="entity_managerpy">entity_manager.py<a hidden class="anchor" aria-hidden="true" href="#entity_managerpy">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>project 
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>|-main.py
+</span></span><span style="display:flex;"><span>|-entity_manager.py
+</span></span><span style="display:flex;"><span>|-components.py
+</span></span><span style="display:flex;"><span>|-registry.py
+</span></span><span style="display:flex;"><span>|-world.py
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>|   systems
+</span></span><span style="display:flex;"><span>|---|
+</span></span><span style="display:flex;"><span>|   |-system1.py
+</span></span><span style="display:flex;"><span>|   |-system2.py
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>|   tools
+</span></span><span style="display:flex;"><span>|---|
+</span></span><span style="display:flex;"><span>|   |-tool1
+</span></span><span style="display:flex;"><span>|   |-tool2
+</span></span></code></pre></div><h3 id="entity_managerpy">entity_manager.py<a hidden class="anchor" aria-hidden="true" href="#entity_managerpy">#</a></h3>
 <p>The aim of this file is to create, destroy, know which entity is alive.
 Your entity manager should looks like this :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EntityManager</span> : 
@@ -277,9 +284,9 @@ Your entity manager should looks like this :</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_alive</span>(self, entity_id) : 
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> entity_id <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_alive
-</span></span></code></pre></div><p>Here, knowing which entity is alive will be useful for the simulation and not to run the programs on every entity created since the beginning of the simulation.</p>
+</span></span></code></pre></div><p>Here, knowing which entity is alive will be useful for the simulation and not to run the programs on every entity created since the beginning of the simulation. Moreover, if your experience uses lots of RAM, you will be able to remove the old entity from their registry, therefore guaranteeing a lower memory usage and longer runs.</p>
 <h3 id="componentspy">components.py<a hidden class="anchor" aria-hidden="true" href="#componentspy">#</a></h3>
-<p>In this file, we only implements the components. Remember that a component is an object that does not possess es any functions, it is just made to store data, not to process them (this will be the job of the systems).</p>
+<p>In this file, we only implements the components. Remember that a component is an object that does not possess any function, its unique purpose is to store data, not to process them (this will be the job of the systems).</p>
 <p>Here is the example of a components file :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GenomeComponent</span> : 
 </span></span><span style="display:flex;"><span>
@@ -299,9 +306,9 @@ Your entity manager should looks like this :</p>
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>node_evals <span style="color:#f92672">=</span> node_evals  
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>input_nodes <span style="color:#f92672">=</span> input_nodes 
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>output_nodes <span style="color:#f92672">=</span> output_nodes 
-</span></span></code></pre></div><p>See, we only store data and don&rsquo;t exploit them.</p>
+</span></span></code></pre></div><p>See, we only store data and don&rsquo;t try to process them.</p>
 <h3 id="registrypy">registry.py<a hidden class="anchor" aria-hidden="true" href="#registrypy">#</a></h3>
-<p>Well, here we begin to explore more deeply the architecture. The idea to access the components of a given entity is to use the registry.</p>
+<p>Well, here we begin to explore more deeply the architecture. The idea to access the components of a given entity is to use the registry. Basically, the registry stores, in dictionaries, the id of an individual and the object component that store the data.</p>
 <p>The registry looks like this :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> components <span style="color:#f92672">import</span> <span style="color:#f92672">*</span> 
 </span></span><span style="display:flex;"><span>
@@ -376,11 +383,11 @@ Your entity manager should looks like this :</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">clear_controller</span>(self) : 
 </span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>controller_registry<span style="color:#f92672">.</span>clear()
-</span></span></code></pre></div><p>So, here we have the registry that manges what component is associated to which entity. Moreover this registry is able to get a component given an ID, or to add a component to an entity, or to modify a component, or to remove a component, or to know if an entity has a component or not.</p>
-<p>The only bothering thing here is that every time you want to create a new component for your project you have to add it to the registry and all of its associated methods.</p>
+</span></span></code></pre></div><p>So, here we have the registry that manages what component is associated to which entity. Moreover this registry is able to get a component given an ID, or to add a component to an entity, or to modify a component, or to remove a component, or to know if an entity has a component or not.</p>
+<p>The only bothering thing here is that every time you want to create a new component for your project, you have to add it to the registry and write all of its associated methods which can consume time that you don&rsquo;t want to spend on this.</p>
 <h3 id="tools">Tools<a hidden class="anchor" aria-hidden="true" href="#tools">#</a></h3>
-<p>Before showing you what systems look like I want to talk a little bit about tools. Tools are meant to allow you to handle components datas and to use them. For example here, in the components.py file above, I have a neural network component, but to create it I need the genome component, then according to what the genome says, i can create the neural network. This is exactly the role of the tools. I would implement the controller_operator.py file, and in it I will add a function that returns me the necessary elements to create a controller from the genome component.</p>
-<p>Here is what the controller_operator.py file looks like :</p>
+<p>Before showing you what a typical system looks like, I want to talk a little bit about tools. Tools are meant to allow you to handle components data and to use them. For example here, in the components.py file above, I have a neural network component, but to create it, I need to extract the building information from the genome component. This is exactly the role of the tools. Here it would be extracting the building information from the genome component and create all of the data necessary to create a neural network component. To achieve this, I would simply write this function in a controller_operator.py file.
+Here is what the controller_operator.py file looks like :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> math 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ControllerOperator</span> : 
@@ -431,8 +438,156 @@ Your entity manager should looks like this :</p>
 </span></span><span style="display:flex;"><span>            entering_node <span style="color:#f92672">=</span> agregation_function(node_inputs)
 </span></span><span style="display:flex;"><span>            values[node] <span style="color:#f92672">=</span> activation_function(bias <span style="color:#f92672">+</span> response <span style="color:#f92672">*</span> entering_node)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [values[node] <span style="color:#66d9ef">for</span> node <span style="color:#f92672">in</span> controller<span style="color:#f92672">.</span>output_nodes]
-</span></span></code></pre></div><p>Then, these tools will be used in the systems. This will allow the reader to easily understand what is going on in the different system file and to easily modify the different tools and systems in case of it is needed.</p>
+</span></span></code></pre></div><p>Then, these tools will be used in the systems. This will allow the reader to easily understand what is going on in the different system files and to easily modify the different tools and systems if it is required.</p>
 <h3 id="systems">Systems<a hidden class="anchor" aria-hidden="true" href="#systems">#</a></h3>
+<p>Systems are meant to to write/modify data from the registries.</p>
+<p>I think that here an example is ten times more valuable than explanations. The following evaluation_system.py file will take all the individual alive and then add their controller to the registry before evaluate them and proceed to add their fitness to the registry. Here goes the file :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EvaluationSystem</span> : 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, entity_manager, controller_operator, config, robot_simulator, reporter_tool, parallel_tool) :
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>config <span style="color:#f92672">=</span> config
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>entity_manager <span style="color:#f92672">=</span> entity_manager 
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>controller_operator <span style="color:#f92672">=</span> controller_operator
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>robot_simulator <span style="color:#f92672">=</span> robot_simulator
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>reporter_tool <span style="color:#f92672">=</span> reporter_tool 
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>parallel_tool <span style="color:#f92672">=</span> parallel_tool 
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>generation <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__str__</span>(self) : 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;EvaluationSystem, evaluate al individuals in the current population and add their fitness to registry&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process</span>(self, registry) : 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>reporter_tool<span style="color:#f92672">.</span>start_generation(self<span style="color:#f92672">.</span>generation)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>generation <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        entity_ids <span style="color:#f92672">=</span> [id <span style="color:#66d9ef">for</span> id <span style="color:#f92672">in</span> registry<span style="color:#f92672">.</span>get_all_id_with_genome() <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>entity_manager<span style="color:#f92672">.</span>is_alive(id)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> entity_id <span style="color:#f92672">in</span> entity_ids : 
+</span></span><span style="display:flex;"><span>            genome <span style="color:#f92672">=</span> registry<span style="color:#f92672">.</span>get_genome(entity_id)
+</span></span><span style="display:flex;"><span>            node_evals, input_nodes, output_nodes <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>controller_operator<span style="color:#f92672">.</span>generate_controller_from_genome(genome)
+</span></span><span style="display:flex;"><span>            registry<span style="color:#f92672">.</span>add_controller(entity_id, node_evals, input_nodes, output_nodes)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        controllers <span style="color:#f92672">=</span> [registry<span style="color:#f92672">.</span>get_controller(entity_id) <span style="color:#66d9ef">for</span> entity_id <span style="color:#f92672">in</span> entity_ids]
+</span></span><span style="display:flex;"><span>        body <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>config<span style="color:#f92672">.</span>body 
+</span></span><span style="display:flex;"><span>        bodies <span style="color:#f92672">=</span> [np<span style="color:#f92672">.</span>array(body) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(len(entity_ids))] 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        function <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>robot_simulator<span style="color:#f92672">.</span>simulate
+</span></span><span style="display:flex;"><span>        chunk <span style="color:#f92672">=</span> list(zip(entity_ids, bodies, controllers))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        results <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>parallel_tool<span style="color:#f92672">.</span>run(function, chunk)
+</span></span><span style="display:flex;"><span>        fitnesses <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        ids <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> entity_id, fitness, finished <span style="color:#f92672">in</span> results : 
+</span></span><span style="display:flex;"><span>            ids<span style="color:#f92672">.</span>append(entity_id)
+</span></span><span style="display:flex;"><span>            fitnesses<span style="color:#f92672">.</span>append(fitness)
+</span></span><span style="display:flex;"><span>            registry<span style="color:#f92672">.</span>add_fitness(entity_id, fitness, finished)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        fitnesses <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(fitnesses)
+</span></span><span style="display:flex;"><span>        arg_sorted_fitnesses <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>argsort(fitnesses)
+</span></span><span style="display:flex;"><span>        bests <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        number_of_reported_individuals <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>config<span style="color:#f92672">.</span>number_of_reported_individuals
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> taken <span style="color:#f92672">in</span> range(number_of_reported_individuals) : 
+</span></span><span style="display:flex;"><span>            id <span style="color:#f92672">=</span> arg_sorted_fitnesses[len(entity_ids) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> taken]
+</span></span><span style="display:flex;"><span>            bests<span style="color:#f92672">.</span>append((ids[id], fitnesses[id]))
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>reporter_tool<span style="color:#f92672">.</span>bests(bests)
+</span></span></code></pre></div><h3 id="worldpy">world.py<a hidden class="anchor" aria-hidden="true" href="#worldpy">#</a></h3>
+<p>One of the last thing that we must do is to assemble all the different systems together in a world. This world is also an object, it contains all the different systems and the registry. Here goes the example of the world.py file :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> registry <span style="color:#f92672">import</span> ComponentRegistry
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">World</span> : 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self) : 
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>registry <span style="color:#f92672">=</span> ComponentRegistry()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_builder_systems <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_step_systems <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>all_systems <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_builder_system</span>(self, system) : 
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_builder_systems<span style="color:#f92672">.</span>append(system)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>all_systems<span style="color:#f92672">.</span>append(system)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_step_system</span>(self, system) : 
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>_step_systems<span style="color:#f92672">.</span>append(system)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>all_systems<span style="color:#f92672">.</span>append(system)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">reset</span>(self) : 
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>registry<span style="color:#f92672">.</span>clear_all_except_genome()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build</span>(self) : 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> system <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_builder_systems : 
+</span></span><span style="display:flex;"><span>            system<span style="color:#f92672">.</span>process(self<span style="color:#f92672">.</span>registry)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">step</span>(self) : 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> system <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_step_systems : 
+</span></span><span style="display:flex;"><span>            system<span style="color:#f92672">.</span>process(self<span style="color:#f92672">.</span>registry)
+</span></span></code></pre></div><h3 id="mainpy">main.py<a hidden class="anchor" aria-hidden="true" href="#mainpy">#</a></h3>
+<p>The last thing to do is to put all of this together in a main file to run the simulation. Here goes the example of the main.py file :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json  
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> config <span style="color:#f92672">import</span> Config  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> entity_manager <span style="color:#f92672">import</span> EntityManager 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> world <span style="color:#f92672">import</span> World
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> systems.build_system <span style="color:#f92672">import</span> BuildSystem
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> systems.evaluation_system <span style="color:#f92672">import</span> EvaluationSystem
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> systems.tournament_system <span style="color:#f92672">import</span> TournamentSystem
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tools.controller_operator <span style="color:#f92672">import</span> ControllerOperator
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tools.genome_operator <span style="color:#f92672">import</span> GenomeOperator
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tools.robot_simulator <span style="color:#f92672">import</span> RobotSimulator
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tools.parallel_tool <span style="color:#f92672">import</span> ParallelTool
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tools.reporter_tool <span style="color:#f92672">import</span> ReporterTool
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> results_manager.results_saver <span style="color:#f92672">import</span> ResultsSaver
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>() : 
+</span></span><span style="display:flex;"><span>    entity_manager <span style="color:#f92672">=</span> EntityManager()
+</span></span><span style="display:flex;"><span>    world <span style="color:#f92672">=</span> World()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    config_path <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Enter the path to the config file from the configs folder (can be just config.json) : &#34;</span>)
+</span></span><span style="display:flex;"><span>    local_dir <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>abspath(__file__))
+</span></span><span style="display:flex;"><span>    config_path_final <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(local_dir, <span style="color:#e6db74">&#34;configs&#34;</span>, config_path)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(config_path_final, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> f : 
+</span></span><span style="display:flex;"><span>        config <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>load(f)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    config <span style="color:#f92672">=</span> Config(config)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    results_saver <span style="color:#f92672">=</span> ResultsSaver()
+</span></span><span style="display:flex;"><span>    results_saver<span style="color:#f92672">.</span>add_results_path()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    controller_operator <span style="color:#f92672">=</span> ControllerOperator()
+</span></span><span style="display:flex;"><span>    robot_simulator <span style="color:#f92672">=</span> RobotSimulator(config, controller_operator)
+</span></span><span style="display:flex;"><span>    genome_operator <span style="color:#f92672">=</span> GenomeOperator(config, robot_simulator)
+</span></span><span style="display:flex;"><span>    parallel_tool <span style="color:#f92672">=</span> ParallelTool(config)
+</span></span><span style="display:flex;"><span>    reporter_tool <span style="color:#f92672">=</span> ReporterTool(config)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    build_system <span style="color:#f92672">=</span> BuildSystem(config, entity_manager, genome_operator, reporter_tool)
+</span></span><span style="display:flex;"><span>    evaluation_system <span style="color:#f92672">=</span> EvaluationSystem(entity_manager, controller_operator, config, robot_simulator, reporter_tool, parallel_tool)
+</span></span><span style="display:flex;"><span>    tournament_system <span style="color:#f92672">=</span> TournamentSystem(entity_manager, config, genome_operator, reporter_tool)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    world<span style="color:#f92672">.</span>add_builder_system(build_system)
+</span></span><span style="display:flex;"><span>    world<span style="color:#f92672">.</span>add_step_system(evaluation_system)
+</span></span><span style="display:flex;"><span>    world<span style="color:#f92672">.</span>add_step_system(tournament_system)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    world<span style="color:#f92672">.</span>build()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> generation <span style="color:#f92672">in</span> range(config<span style="color:#f92672">.</span>generations) : 
+</span></span><span style="display:flex;"><span>        world<span style="color:#f92672">.</span>step()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    results_saver<span style="color:#f92672">.</span>save_results(world<span style="color:#f92672">.</span>registry, config, config_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span> : 
+</span></span><span style="display:flex;"><span>    main()
+</span></span></code></pre></div><h3 id="intermediate-conclusion">Intermediate Conclusion<a hidden class="anchor" aria-hidden="true" href="#intermediate-conclusion">#</a></h3>
+<p>Now we have all the necessary information to implement a simulation using ECS. This was the first part of the article, next I&rsquo;ll explain how to install the different necessary libraries and use Docker to run all of your EvoGym simulations in a container. Moreover, I will shortly explain how I use the Evogym library to reproduce my work.</p>
+<h2 id="docker-and-dockerfile">Docker and Dockerfile<a hidden class="anchor" aria-hidden="true" href="#docker-and-dockerfile">#</a></h2>
 
 
   </div>

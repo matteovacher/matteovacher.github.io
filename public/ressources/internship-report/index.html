@@ -76,6 +76,26 @@ First I did the elective, managed to make some summary that will follow my path 
     }
 
 </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.38/dist/katex.min.css" integrity="sha384-/L6i+LN3dyoaK2jYG5ZLh5u13cjdsPDcFOSNJeFBFa/KgVXR5kOfTdiN3ft1uMAq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.38/dist/katex.min.js" integrity="sha384-H6s1ZrH2CKpFpqR680poRdStIRJGXty7fSkxAcIfxwl9iu6A4BOPtTk7vQ58Ovio" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.38/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+
 </head>
 <body id="top">
     <header class="header">
@@ -117,8 +137,8 @@ First I did the elective, managed to make some summary that will follow my path 
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/ressources/" title="Ressources">
-                    <span>Ressources</span>
+                <a href="http://localhost:1313/resources/" title="Resources">
+                    <span>Resources</span>
                 </a>
             </li>
             <li>
@@ -148,7 +168,7 @@ First I did the elective, managed to make some summary that will follow my path 
         </svg>
       </span>
     </h1>
-    <div class="post-meta"><span title='2026-05-25 11:52:31 +0200 CEST'>May 25, 2026</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
+    <div class="post-meta"><span title='2026-05-25 11:52:31 +0200 CEST'>May 25, 2026</span>&nbsp;·&nbsp;<span>15 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
 
 </div>
   </header> <div class="toc">
@@ -174,6 +194,30 @@ First I did the elective, managed to make some summary that will follow my path 
                 </li>
                 <li>
                     <a href="#hyperneat-and-evogym" aria-label="Hyperneat and Evogym">Hyperneat and Evogym</a><ul>
+                        
+                <li>
+                    <a href="#what-is-evogym-" aria-label="What is Evogym ?">What is Evogym ?</a></li>
+                <li>
+                    <a href="#what-is-hyperneat-" aria-label="What is Hyperneat ?">What is Hyperneat ?</a></li>
+                <li>
+                    <a href="#what-is-a-cppn-" aria-label="What is a CPPN ?">What is a CPPN ?</a></li>
+                <li>
+                    <a href="#what-is-indirect-encoding" aria-label="What is Indirect Encoding">What is Indirect Encoding</a></li></ul>
+                </li>
+                <li>
+                    <a href="#my-idea" aria-label="My Idea">My Idea</a></li>
+                <li>
+                    <a href="#initial-idea" aria-label="Initial Idea">Initial Idea</a></li>
+                <li>
+                    <a href="#another-idea" aria-label="Another Idea">Another Idea</a></li>
+                <li>
+                    <a href="#first-algorithm" aria-label="First Algorithm">First Algorithm</a></li>
+                <li>
+                    <a href="#first-results" aria-label="First Results">First Results</a></li>
+                <li>
+                    <a href="#explanation" aria-label="Explanation">Explanation</a></li>
+                <li>
+                    <a href="#first-conclusion" aria-label="First Conclusion">First Conclusion</a><ul>
                         
                 <li>
                     <a href="#notes" aria-label="notes">notes</a>
@@ -206,10 +250,101 @@ Usually with Python you create a class, let&rsquo;s say sword for object that wi
 <p>I spent another week building this full project, but I think it was worth it, it allowed me to better understand how to build an ECS and how to use the Evogym Library even better.</p>
 <p>I will not talk too much about this project because I will make an article on it later (curently writting it lmao)</p>
 <h2 id="hyperneat-and-evogym">Hyperneat and Evogym<a hidden class="anchor" aria-hidden="true" href="#hyperneat-and-evogym">#</a></h2>
+<h3 id="what-is-evogym-">What is Evogym ?<a hidden class="anchor" aria-hidden="true" href="#what-is-evogym-">#</a></h3>
+<p>Well evogym is a Python library where you put a tiny robot in an environment, crossing bridges for example and you study how it performs amd how evolution or other ML thecniques can make him perform better. This tiny litlle robot is just a 2D matrix with different type of cells.</p>
+<p>Here is an example of the robot</p>
+<p>robot = [[0, 2, 2, 4, 0],
+[1, 1, 1, 1, 1],
+[2, 3, 3, 3, 2],
+[4, 4, 4, 4, 4],
+[3, 3, 0, 0, 4]]</p>
+<p>Here the robot is a 5*5 matrix with the following configuration : [0 : empty, 1 : rigid, 2 : soft, 3 : horizontal, 4 : vertical]</p>
+<p>See <a href="https://evolutiongym.github.io/">here</a> for more information.</p>
+<h3 id="what-is-hyperneat-">What is Hyperneat ?<a hidden class="anchor" aria-hidden="true" href="#what-is-hyperneat-">#</a></h3>
+<p>Hyperneat is a way of evolving both the body and the controller at the same time. Basically a first NN called CPPN for Compositional Pattern Producing Network will be used to generate the weights of the body network and the controller network. The first one will create the body and the second one will pilot the body during the experiment. The only thing that evolves is the CPPN itself with the neast algorithm. This CPPN start as a simple NN without any hidden layer before the evolution process. Then during the process, its weight are changed, its topology evolve, and crossover only happens between look-alike individuals or should I say between individuals with similar genome not phenotype. Despite that, Fabio decided to implement a new version of Hyperneat where not only the genotypic distance was taken into account but also the phenotypic distance.</p>
+<h3 id="what-is-a-cppn-">What is a CPPN ?<a hidden class="anchor" aria-hidden="true" href="#what-is-a-cppn-">#</a></h3>
+<p>CPPN stands for Computational Pattern Producing Netwok ? Some might say that it is simply an ANN (Artificial Neural Network) but it is not. CPPNs in fact are iniatially not designed to have clear layers. They are just an oriented graph where the nodes are the neurons and the edges are the weights between the neurons. In addition to that each node has its own activation function. Furthermore the CPPN usually takes as entry some coordinates. The original paper on CPPN first uses it to creates images with patterns where on the other side, the Hyperneat paper uses it to generate neural networks. Therefore, on one side the CPPN has the coordinate of a point as input (in reality, in this paper the CPPN also had the distance to the center and a static bias of 1) and on the other, the CPPN has the coordinate of two points as input.</p>
+<h3 id="what-is-indirect-encoding">What is Indirect Encoding<a hidden class="anchor" aria-hidden="true" href="#what-is-indirect-encoding">#</a></h3>
+<p>Indirect Encoding is the underlying process behing HyperNeat where the point is that sometimes, the genome is too big and the direct encoding has to explore ! solution at a time. On the mean time, HyperNeat demonstrates how it is possible to encode larger solution because CPPN encodes the soolution conceptually and the number of resolution only depends on the resolution that you make of the current problem.</p>
+<h2 id="my-idea">My Idea<a hidden class="anchor" aria-hidden="true" href="#my-idea">#</a></h2>
+<p>The task I was given was to work on this work from Fabio Tanaka about HyperNeat and Soft Robots in Evogym.</p>
+<h2 id="initial-idea">Initial Idea<a hidden class="anchor" aria-hidden="true" href="#initial-idea">#</a></h2>
+<p>My initial idea was to explore a new way to encode individuals indirectly. For that I first thought about introducing the concept of diploidy in the project. My first suggestion was that I wanted to reproduce a male and a female, both with different characteristics. The male would a bigger body but the woman would have a denser controller network. I had this idea in front of the tournament system in my ECS example. In this tournament the individual that won would go to a pool and wait for another individual to come and join him in this pool. I wanted for some individual to wait longer, this is where i thought that having sexual indiviodual could help. The problem here is that it does not solve a problem happening in the simulation, and does not focus on something to look for. This is why I decided to go for a similar idea with the objective of focusing on different type of indirect encoding.</p>
+<h2 id="another-idea">Another Idea<a hidden class="anchor" aria-hidden="true" href="#another-idea">#</a></h2>
+<p>In nature, we tend to observe that a population can adapt to a given environment quicly enough to survive. This is due to diploidy, in front of such a good looking behavior I decided to still focus on this idea but this time with a focus on dominance. The dominance is what tells which allele from the two genes should be expressed. The most common exemple here is blood type, all humans have version of this gene, an individual with the A allele and the O allele will express the A allele and its blood type will be A because A is the dominant allele here. Still O continues to exist and can be passed to the next generation. If the other parent also gives an O then the expression of the genes, ie the phenotype, will be O. This child will here express a different phenotype than the one expressed by his parents. Then What I m looking for in this type of genome is that maybe I will be able to explore diverse solutions without putting individuals into look-alike categories (which is exactly what the Neat algorithm is doing, putting individuals into species bring more diversity and allow bad performance in individuals with the expected outcome that these individuals will give better results in the future). By doing so if I do not push to much pressure in my tournament selection, maybe that low fitness individuals that dont produce too bad results will be able to reproduce and spread their genes in the population therefore allowing diverse solutions.</p>
+<p>I will talk later about this diploidy, first lets understand the initial results that I got with an indirect encoding.</p>
+<h2 id="first-algorithm">First Algorithm<a hidden class="anchor" aria-hidden="true" href="#first-algorithm">#</a></h2>
+<p>&lsquo;&lsquo;&rsquo;text</p>
+<p>initialize the population genome with random genes
+select with dominance the expressed genome</p>
+<p>for i in range (generations) :
+create body_neural_network
+body = create_body(body_neural_network)</p>
+<pre><code>if body is incorrect : 
+   continue 
+
+create controller_neural_network 
+
+fitness = simulate(body, controller_neural_network)
+
+awaiting_to_reproduce = []
+new_population = [best_individual for _ in range(number_of_chose_one)]
+
+while new_population &lt; max_population :
+   awaiting_to_reproduce.append(tournament_winner(population))
+
+   if len(awaiting_to_reproduce) == 2 :
+       population.append(reproduce(parent1, parent2))
+</code></pre>
+<p>&rsquo;&rsquo;&rsquo;</p>
+<h2 id="first-results">First Results<a hidden class="anchor" aria-hidden="true" href="#first-results">#</a></h2>
+<p>Despite running this experiment on a few generations, the results were bad. Not in the sense that my individuals would not performs well, in fact on the most simple environment I had very good results, but the twist here is that all my individuals would look the same :</p>
+<p>ind = [[4, 4, 4, 4, 4],
+[4, 4, 4, 4, 4],
+[4, 4, 4, 4, 4],
+[4, 4, 4, 4, 4],
+[4, 4, 4, 4, 4]]</p>
+<p>What you see here is globally the form of these individuals. A robot full of vertical actuators that would act like a kangaroo. Even if the controller seems perfectly adapted to the robot (the robot was not extending all of his voxels in one time but those on the left side would contract and expand sooner than those on the right for example). The problem is that, these rob\ot would take control of the population too quicly. In fact, at the first generations, I had a great numner of robot full of 4 or 0. This indicated me that something was wrong in the creation of the body.</p>
+<h2 id="explanation">Explanation<a hidden class="anchor" aria-hidden="true" href="#explanation">#</a></h2>
+<p>I see two possibilities here :</p>
+<ul>
+<li>
+<p>The substrate has side effect and the cppn is induced in error due to the shape that the substrate possesses</p>
+</li>
+<li>
+<p>at the initialization I dont bring enough diversity in the population so my algorithm tends to converge faster towards an easy solution</p>
+</li>
+</ul>
+<p>At first I didnt thought about the second solution since the hypothesis of side effect seamed to be the most plausible explanation. In order to correct this I decided to not represent the 5 possibilities of the type of voxels on a line ((-1, -0.5, 0, 0.5, 1) would be associated to (0, 1, 2, 3, 4)). Then what type of geometrical shape would allow me to give every type of voxel the same amount of chance ? The most simple solution for me was a circle. Each point would be position on one of the element of this set ${(cos(i<em>2</em>pi/5), sin(i<em>2</em>pi/5))} for i \in {0, 1, 2, 3, 4}$.</p>
+<p>I still didnt analyze very precisely the different results but it seams, at first glance, that on the first generation I have a more diverse population. With 1/87 that a given individual on a given generation will be 50% like another random individual, I will also soon add a distance also in % for the expressed genotype, ie the cppn, now I just have raw numbers and distance that means something only if you also look at the config.json file.</p>
+<p>Well, this method has still brought to me some good results since my populatin would already look way mor different than the one I had before.
+The thing that I have to test now is to modify even more the shape of the substrate. Remember, I am working with basically a square, and what I did to counter the side effect was to add dimensions so that I could add a circular composant in my substrate. Still, I may still have other side effect, because my square is in fact a side effect by itself. This is why I should maybe try to represent my square shaped robot with a circular substrate.</p>
+<p>robot = [[0, 2, 2, 4, 0],
+[0, 2, 2, 4, 0],
+[0, 2, 0, 4, 0],
+[0, 2, 2, 4, 0],
+[0, 2, 2, 4, 4]]</p>
+<p>Here for example, the 0 that you see in the middle of the robot is the center of the circles then the 8 point of the robot array around that 0 are the first circle. Each point on the subrate will be represented by an angle. Then, The last circle on the substrate will be the external layer ont he body of the robot. I will have to make more complete experience to see if there is a real impact, but I think it should really changes how the robot works.</p>
+<p>Moreover after a quick time, the population would converge towards a certain type of body, even with diversity on the body on the first generation, the main reason lies in the initialization of the genome. My weights and biases were chosen between -1 and 1, the problem here is that i would not have enough diversity and then the solution would converge too fast toward a single genome, therefore augmenting the probability to possesses the same phenotype. To solve that I increased the range of the random selection to a dozen. The initial results are promising. More stable diversity in the population. What I am afraid of here is that the fitness of the best individual will progress too slowly. More I suspect that it only a matter of time before my population converges again towards a certain type of body. An interesting idea could that like us humans and animals, two individual with a too weak genotypic distance should not reproduce together. Therefore A more diverse populatuion would probably emerges. This is a diversity maintenance method. Another possibility is that because of the diploidy in my genome, I can always bring more diversity in the population, and a simple way to achieve that is by flipping the dominance of each gene more often. Let&rsquo;s see if it works if I increase the generation to a 100.</p>
+<p>The first results seems to look good. I have far more diversity and the genetic distance only goes down after a long time and right after an true elite emerge. To look the results ple\ase look after the analysis notebook, indicate the path. At this point, look for 1/91 and 2/1 and 3/2. The videos are already on youtube.</p>
+<h2 id="first-conclusion">First Conclusion<a hidden class="anchor" aria-hidden="true" href="#first-conclusion">#</a></h2>
+<p>We have first implemented a GA that evolves diploid individuals, this method is inspired on the one from Cara Reedy, where she uses diploid ANN that controls individuals in a simulation. In here paper she describes that each individual is composed of two chromosomes, one for the layer and one for the weight, for the crossover she just select one chromosome randomly from each parent and then mutate it. My method has quite a few ressemblance with hers :
+For the crossover I also chose randomly a whole chjromosome from each parent and then proceed to mutate it.
+The difference lies in the fact that lmy individuyakls posses a single chromosome and a fixed shape. In this chromosome, the genes represent the node and not the weights. As mentionned ion her article crossover of Neural Network seems to be something that has not yet been fully studied. Therefore knowing if crossover of NN breaks substructures seems to remain an open question. In order to avoid breaking substructures I decided that the whole gene expressed would be a node. Indeed, I think that making many chromosomes would break substructures, for example having a chromosome for the activation function and another one for the biases and another one for the weight, I think would break how the different ellement are working together. Therefore my substructure comes as a package and the one that is activated thank to the dominance is thge node with his activation function, bias, and weights copming from the previous layer.</p>
+<p>Moreover the indirect encoding is inpired from the work of Fabio Tanaka on single genome soft robot, here he uses the algorithm Hyperneat to evolve its robot. My method differs from him in the fact that I choosed a different subrate that for me will bring more diversity without using the speciation technic included in the NEAT library, and that I do not evolve the structure opf the CPPN to focus more on the evolution of diploid individuals. My point here is to not use any technic of speciation.</p>
+<p>Then from now on I will divide my work in two parts :</p>
+<ul>
+<li>
+<p>The evolution and comparison of haploid/diplouid individuals in stationary/changing environment.</p>
+</li>
+<li>
+<p>The diversity on the first generated robot with different type of substrate, to see if a circular substrate would not be a better representation of a squared problem.</p>
+</li>
+</ul>
 <h3 id="notes">notes<a hidden class="anchor" aria-hidden="true" href="#notes">#</a></h3>
 <p>did with 2 dominances, and hyperneat as tanaka did
 but all individuals looks the same
-need to design again the substrate with some circle because not same distance, more will increase dominance because now 1/2 of genes are puicked randomly</p>
+need to design again the substrate with some circle because not same distance, more will increase dominance because now 1/2 of genes are picked random;y</p>
 
 
   </div>

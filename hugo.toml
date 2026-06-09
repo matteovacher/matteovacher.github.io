@@ -10,7 +10,7 @@ copyright = "© 2026 [Mattéo Vacher](/) · Icons from [Flaticon](https://www.fl
 
 [params] 
     author = "Mattéo Vacher"
-    description = "Simulation of ant colony and AI" 
+    description = "Engineering Student at ISAE-Supaero and Exchange Research Student at the University of Tsukuba, Japan" 
     defaultTheme = 'auto'
     disableThemeToggle = false
 
@@ -32,8 +32,8 @@ copyright = "© 2026 [Mattéo Vacher](/) · Icons from [Flaticon](https://www.fl
     
     [params.profileMode]
     enabled = true 
-    title = "Mattéo Vacher - Ants and AI"
-    subtitle = "Dear Reader, here I explore ants collective intelligence through simulations at my scale and with my own equipment."
+    title = "Mattéo Vacher"
+    subtitle = "Engineering Student at ISAE-Supaero and Exchange Research Student at the University of Tsukuba, Japan"
     imageUrl = "img/anthill.png"
     imageWidth = 180
     imageHeight = 180
@@ -90,10 +90,10 @@ copyright = "© 2026 [Mattéo Vacher](/) · Icons from [Flaticon](https://www.fl
     #     weight = 30
 
     [[menu.main]]
-        identifier = "ressources"
-        name = "Ressources" 
-        url = "/ressources/"
-    weight = 30
+        identifier = "resources"
+        name = "Resources" 
+        url = "/resources/"
+        weight = 30
 
     [[menu.main]]
         identifier = "search"

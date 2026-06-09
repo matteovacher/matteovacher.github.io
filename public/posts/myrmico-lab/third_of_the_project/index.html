@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Step 3 (Perhaps Final) of Ant Simulation Project : Colony and Emergence | Mattéo Vacher</title>
+<meta name="keywords" content="">
+<meta name="description" content="Study of the design of the colony and emergence of collective behaviors.">
+<meta name="author" content="Mattéo Vacher">
+<link rel="canonical" href="http://localhost:1313/posts/myrmico-lab/third_of_the_project/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.91bca08ba24824edebd4266f1219549f7b8e610f545bed813ab87737fe9d351c.css" integrity="sha256-kbygi6JIJO3r1CZvEhlUn3uOYQ9UW&#43;2BOrh3N/6dNRw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/img/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/img/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/img/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/myrmico-lab/third_of_the_project/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.38/dist/katex.min.css" integrity="sha384-/L6i+LN3dyoaK2jYG5ZLh5u13cjdsPDcFOSNJeFBFa/KgVXR5kOfTdiN3ft1uMAq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.38/dist/katex.min.js" integrity="sha384-H6s1ZrH2CKpFpqR680poRdStIRJGXty7fSkxAcIfxwl9iu6A4BOPtTk7vQ58Ovio" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.38/dist/contrib/auto-render.min.js" integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Mattéo Vacher (Alt + H)">Mattéo Vacher</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/posts/" title="News">
+                    <span>News</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/resources/" title="Resources">
+                    <span>Resources</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/myrmico-lab/">Myrmico Lab</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Step 3 (Perhaps Final) of Ant Simulation Project : Colony and Emergence
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta"><span title='2026-04-06 00:00:00 +0100 +0100'>April 6, 2026</span>&nbsp;·&nbsp;<span>25 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#the-starting-point" aria-label="The Starting Point">The Starting Point</a></li>
+                <li>
+                    <a href="#a-simple-angular-rule" aria-label="A Simple Angular Rule">A Simple Angular Rule</a></li>
+                <li>
+                    <a href="#from-two-antennas-to-three" aria-label="From Two Antennas to Three">From Two Antennas to Three</a></li>
+                <li>
+                    <a href="#a-step-counting-deposit" aria-label="A Step-Counting Deposit">A Step-Counting Deposit</a></li>
+                <li>
+                    <a href="#two-pheromones-two-dynamics" aria-label="Two Pheromones, Two Dynamics">Two Pheromones, Two Dynamics</a></li>
+                <li>
+                    <a href="#a-more-realistic-deposit-rule" aria-label="A More Realistic Deposit Rule">A More Realistic Deposit Rule</a></li>
+                <li>
+                    <a href="#separating-physics-from-rendering" aria-label="Separating Physics from Rendering">Separating Physics from Rendering</a></li>
+                <li>
+                    <a href="#a-calibration-tool-for-the-parameters" aria-label="A Calibration Tool for the Parameters">A Calibration Tool for the Parameters</a></li>
+                <li>
+                    <a href="#the-final-parameters" aria-label="The Final Parameters">The Final Parameters</a></li>
+                <li>
+                    <a href="#where-we-stand-now" aria-label="Where We Stand Now">Where We Stand Now</a><ul>
+                        
+                <li>
+                    <a href="#what-works" aria-label="What works">What works</a></li>
+                <li>
+                    <a href="#what-is-still-broken" aria-label="What is still broken">What is still broken</a></li>
+                <li>
+                    <a href="#a-map-creation-tool-for-the-next-step" aria-label="A map creation tool for the next step">A map creation tool for the next step</a></li>
+                <li>
+                    <a href="#videos" aria-label="Videos">Videos</a></li></ul>
+                </li>
+                <li>
+                    <a href="#whats-next" aria-label="What&rsquo;s Next">What&rsquo;s Next</a></li>
+                <li>
+                    <a href="#references" aria-label="References">References</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p><em><strong>Careful : This is a really long article. If you want to see the videos of the simulation, all of them will be displayed below. I also want to add that this article will probably be the last of this series since it took me an incredible amount of time and that I also want to explore other things in the future. I am now in Tsukuba and I am looking forward writing an article about my current project. I also want to master C++. I guess all of this will take me a lot of time since I am really dedicated on these projects. Anyway this series gave me a first glimpse of what research could look like and I really like it. It also gave me the opportunity to master a few tools I never had the chance to use before. I am writing these lines after having finish this article and the videos. The only video that will be displayed in the introduction is the video where everything works :)</strong></em></p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/QgjBLVlBrh0?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<hr>
+<p>In the previous post, we built the <code>Ant</code> class : movement by angle, rebound on the walls, pheromones deposit and antennas positions. But the antennas were only computed, not used. The ants were walking randomly and did not read the pheromones they were depositing.</p>
+<p>Step 3 is about connecting the sensory inputs to the movement. The rule is still hand-crafted - a simple weighted difference between the left and the right antenna - but it is enough to observe the <strong>first emergent trails</strong>. The goal of this step is to see a collective structure appear from purely local decisions, without any central coordination.</p>
+<p>The path to get there was not straight. Many parameters were tested, many things did not work, and the model itself evolved during the process (2 antennas became 3, a single evaporation rate became two, the deposit rule was rewritten). The article below describes the final state of the model and the reasoning behind each choice.</p>
+<p>This article, by its complexity, is a really long one, and if you are more interested in the results than in the process (which I totally understand), I highly recommend you to skip all this article to directly go see the videos at the end of it.</p>
+<hr>
+<h2 id="the-starting-point">The Starting Point<a hidden class="anchor" aria-hidden="true" href="#the-starting-point">#</a></h2>
+<p>Before describing the final model, it is useful to show where Step 3 actually started. Here is the <code>config.py</code> at the very beginning of this step, before any of the changes described below :</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># GRID AND PHEROMONE </span>
+</span></span><span style="display:flex;"><span>EVAPORATION_RATE <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.997</span>                <span style="color:#75715e"># between 0 and 1, the higher the slower the evaporation</span>
+</span></span><span style="display:flex;"><span>DIFFUSION_SIGMA <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.3</span>                   <span style="color:#75715e"># between 0 and inf, the higher the more the pheromone spreads, but also the more it evaporates</span>
+</span></span><span style="display:flex;"><span>GRID_WIDTH <span style="color:#f92672">=</span> <span style="color:#ae81ff">360</span>                        <span style="color:#75715e"># width of the grid in cells, also in pixels if cell size is 1, max 2880 for 8k screen</span>
+</span></span><span style="display:flex;"><span>GRID_HEIGHT <span style="color:#f92672">=</span> <span style="color:#ae81ff">240</span>                       <span style="color:#75715e"># height of the grid in cells, also in pixels if cell size is 1, max 1920 for 8k screen</span>
+</span></span><span style="display:flex;"><span>CELL_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>                           <span style="color:#75715e"># size of each cell in pixels</span>
+</span></span><span style="display:flex;"><span>FPS <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>                                <span style="color:#75715e"># frames per second</span>
+</span></span><span style="display:flex;"><span>WINDOW_WIDTH <span style="color:#f92672">=</span> GRID_WIDTH<span style="color:#f92672">*</span>CELL_SIZE     <span style="color:#75715e"># width of the window = width*cellsize (2880 pixels max )</span>
+</span></span><span style="display:flex;"><span>WINDOW_HEIGHT <span style="color:#f92672">=</span> GRID_HEIGHT<span style="color:#f92672">*</span>CELL_SIZE   <span style="color:#75715e"># height of the window = height*cellsize (1920 pixels max )</span>
+</span></span><span style="display:flex;"><span>PHEROMONE_DEPOSIT <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span>                 <span style="color:#75715e"># amount of pheromone deposited by an ant at each step, between 0 and 1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ENVIRONMENT</span>
+</span></span><span style="display:flex;"><span>COLOR_HOME <span style="color:#f92672">=</span> (<span style="color:#ae81ff">139</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">43</span>)              <span style="color:#75715e"># brown color for the pheromone leading to the nest</span>
+</span></span><span style="display:flex;"><span>COLOR_FOOD <span style="color:#f92672">=</span> (<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">205</span>, <span style="color:#ae81ff">50</span>)              <span style="color:#75715e"># green color for the pheromone leading to the food</span>
+</span></span><span style="display:flex;"><span>COLOR_BACKGROUND <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)            <span style="color:#75715e"># black color for the background</span>
+</span></span><span style="display:flex;"><span>COLOR_NEST <span style="color:#f92672">=</span> (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>)            <span style="color:#75715e"># white color for the nest</span>
+</span></span><span style="display:flex;"><span>NEST_RADIUS <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>                         <span style="color:#75715e"># radius of the nest in cells</span>
+</span></span><span style="display:flex;"><span>NEST_X <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>                            <span style="color:#75715e"># coordinates of the nest</span>
+</span></span><span style="display:flex;"><span>NEST_Y <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>                            <span style="color:#75715e"># coordinates of the nest</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ANT</span>
+</span></span><span style="display:flex;"><span>N_ANTS <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>                             <span style="color:#75715e"># number of ants in the simulation, must be an integer greater than 0</span>
+</span></span><span style="display:flex;"><span>LENGTH_ANTENNA <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>                    <span style="color:#75715e"># length from the head to the tip of the antenna in cells, must be greater than 0</span>
+</span></span><span style="display:flex;"><span>ANGLE_ANTENNA <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">4</span>                 <span style="color:#75715e"># angle between the direction of the ant and the direction of the antenna in radians, between 0 and pi/2, if 0 then antennas are in the same direction as the ant, if pi/2 then antennas are perpendicular to the direction of the ant</span>
+</span></span><span style="display:flex;"><span>COLOR_ANT <span style="color:#f92672">=</span> (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">165</span>, <span style="color:#ae81ff">0</span>)               <span style="color:#75715e"># orange color for the ants</span>
+</span></span><span style="display:flex;"><span>MAX_FOOD_CARRIED <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>                  <span style="color:#75715e"># maximum amount of food an ant can carry, between 0 and 1, if 0.5 then an ant can carry half of a food source</span>
+</span></span><span style="display:flex;"><span>FOOD_COLLECT_AMOUNT <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>               <span style="color:#75715e"># amount of food an ant can collect at one time, between 0 and MAX_FOOD_CARRIED</span>
+</span></span><span style="display:flex;"><span>EAT_DURATION <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>                        <span style="color:#75715e"># number of steps an ant needs to eat a food source, during this time the ant cannot move or interact with other food sources, must be an integer</span>
+</span></span><span style="display:flex;"><span>ANTENNA_WEIGHT <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>                <span style="color:#75715e"># weight of the pheromone bias on the ant&#39;s direction, between 0 and pi/2, if 0 then the ant ignores the pheromones, if pi/2 then the ant turns directly towards the strongest pheromone</span>
+</span></span><span style="display:flex;"><span>TRESHOLD_FOOD <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.45</span>                    <span style="color:#75715e"># threshold of food carried for an ant to switch from following home pheromone to following food pheromone, between 0 and MAX_FOOD_CARRIED</span>
+</span></span><span style="display:flex;"><span>RANDOM_DIR <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>                    <span style="color:#75715e"># maximum random change in direction for an ant at each step, between 0 and pi, if 0 then the ant never changes direction randomly, if pi then the ant can turn in any direction at each step</span>
+</span></span><span style="display:flex;"><span>HALF_LENGTH_BODY <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>                  <span style="color:#75715e"># half of the length of the ant&#39;s body in cells, used for drawing the ant as a line before adding the antenna </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># FOOD SOURCES </span>
+</span></span><span style="display:flex;"><span>N_FOOD_TYPES <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>                        <span style="color:#75715e"># number of different types of food sources, must be an integer greater than 0</span>
+</span></span><span style="display:flex;"><span>COLOR_APHID <span style="color:#f92672">=</span> (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">220</span>, <span style="color:#ae81ff">0</span>)             <span style="color:#75715e"># color yellow for aphids, which are a type of food source that can recharge </span>
+</span></span><span style="display:flex;"><span>COLOR_SUGAR <span style="color:#f92672">=</span> (<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">255</span>)           <span style="color:#75715e"># color blue for sugar, which is another type of food source that does not recharge</span>
+</span></span><span style="display:flex;"><span>RECHARGE_RATE_APHID <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>              <span style="color:#75715e"># recharge rate for aphids, between 0 and 1</span>
+</span></span><span style="display:flex;"><span>RECHARGE_RATE_SUGAR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>                 <span style="color:#75715e"># recharge rate for sugar, must be 0 since sugar does not recharge</span>
+</span></span></code></pre></div><hr>
+<p>From this starting configuration, many things evolved. One of the very first changes was about the behavior at the food source. In the initial version, once an ant had finished eating, she just kept walking in the <strong>same direction</strong> she was heading before, and simply crossed the food source without turning back to the nest. To fix this, I added an automatic <strong>U-turn right after food collection</strong>, so that the ant now faces the opposite direction when she leaves the source. It is a small change, but it is the one that unlocked the very first complete <code>nest -&gt; food -&gt; nest</code> cycles.</p>
+<hr>
+<h2 id="a-simple-angular-rule">A Simple Angular Rule<a hidden class="anchor" aria-hidden="true" href="#a-simple-angular-rule">#</a></h2>
+<p>The ant has two antennas, left and right. Each one reads the pheromone concentration at its position. If the concentration on the left is higher, the ant should turn to the left, and the opposite if the right is higher. The simplest way to translate this into code is a weighted difference :</p>
+<p>$$\delta\theta = W \cdot (C_L - C_R) + U(-\delta_r, \delta_r)$$</p>
+<p>where $W$ is <code>ANTENNA_WEIGHT</code>, $C_L$ and $C_R$ are the concentrations at the left and right antenna, and the last term is a uniform random noise of amplitude <code>RANDOM_DIR</code>. The noise is here to keep an exploration component - without it, the ants would stick to the strongest trail and never find new food sources.</p>
+<p><strong>Which pheromone to follow ?</strong> An ant with food wants to go back to the nest, an ant without food is looking for a source. So the rule is simple :</p>
+<ul>
+<li><code>food_carried &gt; THRESHOLD</code> -&gt; follows the <code>HOME</code> pheromones</li>
+<li><code>food_carried &lt;= THRESHOLD</code> -&gt; follows the <code>FOOD</code> pheromones</li>
+</ul>
+<p>This hand-crafted rule is not the final objective. The final objective is to replace it with a neural network that learns the mapping from sensory inputs to movement. But before that, we need a baseline that works - something good enough to produce emergent trails, so we can study them and later compare them with what the network produces.</p>
+<hr>
+<h2 id="from-two-antennas-to-three">From Two Antennas to Three<a hidden class="anchor" aria-hidden="true" href="#from-two-antennas-to-three">#</a></h2>
+<p>The left/right rule alone is not enough. In straight lines it works fine, but in a curve the ant often leaves the trail. My hypothesis is that during the turn the two antennas miss the trail at the same time : the trail is thin, and if none of the two antennas happens to be on it, the ant reads zero on both sides. The angular bias becomes null, only the random noise remains, and the ant drifts away from the path.</p>
+<p>To fix that, a third antenna is added in front of the ant. The rule becomes :</p>
+<ul>
+<li>if $C_F \geq \max(C_L, C_R)$ -&gt; the concentration is highest in front, so we do not bias the direction and the ant keeps going straight (up to the random noise).</li>
+<li>otherwise -&gt; we apply the same left/right weighted difference as before.</li>
+</ul>
+<p>This is inspired by Draft et al. (2018). They show that during trail tracking, carpenter ants oscillate their antennas perpendicularly to the trail. Each sweep of the head produces a <strong>temporal concentration gradient</strong> : a short moment of high concentration when the antenna crosses the trail, followed by a lower signal. In our model the oscillation is not explicit, but the front antenna plays the same role : it tells the ant &ldquo;you are still on the trail, keep going&rdquo;.</p>
+<p>One more geometric detail. At first, the antennas were starting from the center of the ant, which is biologically wrong : the real antennas start from the head, not from the middle of the body. A new constant <code>HALF_LENGTH_BODY</code> was added so that the antennas start at the head position, computed as <code>(x + HALF_LENGTH_BODY * cos(theta), y + HALF_LENGTH_BODY * sin(theta))</code>.</p>
+<hr>
+<h2 id="a-step-counting-deposit">A Step-Counting Deposit<a hidden class="anchor" aria-hidden="true" href="#a-step-counting-deposit">#</a></h2>
+<p>Until now, an ant was depositing a constant amount of pheromone at each step. The problem is that the trail looks the same everywhere along the path : no information about the distance to the source or to the nest. If a network (or a hand-crafted rule) only reads the concentration, it cannot tell if it is close to the source or far from it.</p>
+<p>The solution used here is to make the deposit <strong>decrease with the number of steps</strong> since the last reset (arrival at the nest, or collection of food). At each step, the deposit value is multiplied by a factor $\lambda &lt; 1$ :</p>
+<p>$$\text{deposited}_{t+1} = \lambda \cdot \text{deposited}_t$$</p>
+<p>In the code, $\lambda$ is the constant <code>DECAY_FACTOR_STEP</code>. This produces a gradient of intensity along the trail : strong at the start (just after the nest or just after the food), weak at the end. An ant that reads a rising concentration is moving toward the source of the trail, an ant that reads a falling concentration is moving away from it.</p>
+<p>Biologically, this is not completely arbitrary. Wittlinger et al. (2006), in their &ldquo;stilts and stumps&rdquo; experiment, show that ants count their steps to estimate the distance walked. Collett et al. (2025) cite this as one of the core mechanisms used by ants for navigation. So a deposit that depends on the number of steps since the last event is a reasonable inspiration, even if the real chemical process is more complex than a simple geometric decay.</p>
+<p>One important nuance here : the Wittlinger experiment was done on <em>Cataglyphis</em>, the desert ant. The stride-counting mechanism (a pedometer-like integrator of the steps) is specific to this genus, which is adapted to navigate in open terrain with almost no pheromone trails and almost no visual landmarks (except perhaps the sun). Applying this mechanism directly to forest ants or to <em>Pheidole</em> species is therefore a <strong>simplification</strong> : I keep it here because the idea of a distance-dependent deposit is useful for the model, not because every ant species really does this.</p>
+<hr>
+<h2 id="two-pheromones-two-dynamics">Two Pheromones, Two Dynamics<a hidden class="anchor" aria-hidden="true" href="#two-pheromones-two-dynamics">#</a></h2>
+<p>In Step 1 we introduced two layers of pheromones, <code>HOME</code> and <code>FOOD</code>, but they were sharing the same evaporation rate and the same diffusion sigma. After many simulations it became clear that this symmetric treatment was not the right choice.</p>
+<p>The main inspiration comes from Dussutour et al. (2009), who studied <em>Pheidole megacephala</em> and described how the colony uses two chemical signals of very different nature. One is a long-lasting exploration signal, deposited in many places across the territory, which works as a slow memory of where the ants have been. The other is a short-lived and stronger recruitment signal, deposited by ants returning from a food source, which triggers a fast collective response. A personal discussion with Guy Theraulaz later confirmed this reading and added a useful nuance : the <code>HOME</code> signal in our model is probably closer to a passive body odor trail (cuticular hydrocarbons) than to a true recruitment pheromone.</p>
+<p>Translated into the code, this gives two separate constants for each process :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>EVAPORATION_RATE_HOME <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.999</span>
+</span></span><span style="display:flex;"><span>EVAPORATION_RATE_FOOD <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.996</span>
+</span></span><span style="display:flex;"><span>DIFFUSION_SIGMA_HOME <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.25</span>
+</span></span><span style="display:flex;"><span>DIFFUSION_SIGMA_FOOD <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.275</span>
+</span></span></code></pre></div><p>The <code>HOME</code> trail lasts longer and is slightly less diffused, which fits the role of a stable map of the colony&rsquo;s territory. The <code>FOOD</code> trail is more volatile and spreads a bit more, which makes sense for a signal that is supposed to attract other ants quickly and then disappear when the source is entirely consumed.</p>
+<hr>
+<h2 id="a-more-realistic-deposit-rule">A More Realistic Deposit Rule<a hidden class="anchor" aria-hidden="true" href="#a-more-realistic-deposit-rule">#</a></h2>
+<p>The first version of the deposit was the simplest possible : at each step, we add <code>value</code> to the cell and clip the result to 1.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>self<span style="color:#f92672">.</span>grids[type_of_pheromone, y, x] <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, self<span style="color:#f92672">.</span>grids[type_of_pheromone, y, x] <span style="color:#f92672">+</span> value)
+</span></span></code></pre></div><p>On paper it works, but in the simulation the cells crossed by many ants saturate to 1 almost immediately and stay there forever. Everywhere the ants pass often, the concentration is a flat surface at 1, with no gradient left for the antennas to read.</p>
+<p>A better rule is to deposit an amount that depends on how much space is still available on the cell. The new formula is :</p>
+<p>$$C_{t+1} = C_t + value \cdot (1 - C_t)$$</p>
+<p>where $v$ is the amount the ant wants to deposit and $C_t$ is the current concentration. When the cell is empty ($C_t = 0$), we add the full $value$. When the cell is full ($C_t = 1$), we add nothing. In between, the deposit is proportional to the remaining margin $(1 - C_t)$. The concentration converges asymptotically to 1 without ever getting stuck on the saturation surface.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>current <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>grids[type_of_pheromone, y, x]
+</span></span><span style="display:flex;"><span>self<span style="color:#f92672">.</span>grids[type_of_pheromone, y, x] <span style="color:#f92672">=</span> min(<span style="color:#ae81ff">1</span>, current <span style="color:#f92672">+</span> value <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> current))
+</span></span></code></pre></div><p>The <code>min(1, ...)</code> stays as a safety, but mathematically the sum cannot exceed 1 anymore.</p>
+<p>Beyond the realism argument, there is also a secondary benefit that is relevant for the bug we observed before : when two <code>HOME</code> trails arrive at the nest from two different directions, their cells near the nest used to stay at 1 in a large saturated zone. Diffusion then spread this surface into neighbor cells on both sides, which is how the two trails were merging into a single wide zone where the ants could not distinguish one path from the other. With the new rule, cells near the nest no longer saturate permanently (or at least not immediately), so the diffusion from these cells injects less pheromone into the neighbors and the two trails stay more distinct for longer.</p>
+<p>Honestly, I do not think this will fix the whole problem. The main reason why ants get lost on a merged trail is probably the simplicity of the model itself : the ant has no memory, and only reads three scalar values at each step. If two trails merge, the left/right/front rule just follows the strongest gradient and does not care about where this gradient actually leads. The deposit rule change is a real improvement, but the deeper problem will probably only be solved when the hand-crafted rule will be replaced by a network that can learn to integrate information over time.</p>
+<hr>
+<h2 id="separating-physics-from-rendering">Separating Physics from Rendering<a hidden class="anchor" aria-hidden="true" href="#separating-physics-from-rendering">#</a></h2>
+<p>At the start of the project, ants and food sources were displayed at their real size inside the simulation, which means very small : a few pixels wide. It was hard to see what was going on, and I was spending a lot of time with my face stuck to the screen trying to follow the trajectories by eye.</p>
+<p>At some point I decided to separate the visual rendering from the physical simulation. The ants and the aphids are now drawn much larger on the screen than they actually are in the underlying grid. From a readability point of view, this makes observation much more comfortable. It also has a side effect that was not planned at the beginning but turned out to be useful.</p>
+<p>The side effect is about how the ant detects a food source or the nest. The detection is based on a circle : the aphid has a radius, the nest has a radius. An ant is considered &ldquo;on&rdquo; a food source when the <strong>center of the ant</strong> (not its drawn body, not its rays of perception) enters the circle of the source. Same rule for the nest : the center of gravity of the ant has to enter the circle of the nest for the food to be delivered. This is a simple geometric test, independent of the visual size.</p>
+<p>Before this change, the detection was more fragile : ants were sometimes visually on the food or on the nest but not triggering the interaction because of small rounding issues. With the new rule, the detection is clean and happens every time the center enters the circle. The collection rate and the nest return rate both improved after this change, without changing anything in the behavior of the ants themselves.</p>
+<hr>
+<h2 id="a-calibration-tool-for-the-parameters">A Calibration Tool for the Parameters<a hidden class="anchor" aria-hidden="true" href="#a-calibration-tool-for-the-parameters">#</a></h2>
+<p>The number of parameters grew quickly during this step : two evaporation rates, two diffusion sigmas, one deposit decay factor, the antenna length, the antenna angle, the random noise amplitude, the bias weight, and so on. Each time one of them is changed, it is not always obvious whether the new configuration is still in a biologically reasonable range or not.</p>
+<p>Two values in particular were the real blocker for me at the beginning of the step, and I wanted a fast way to read them before each run :</p>
+<ul>
+<li>the <strong>antenna separation</strong>, which is the distance between the left and the right antenna tips, given <code>LENGTH_ANTENNA</code>, <code>ANGLE_ANTENNA</code> and <code>HALF_LENGTH_BODY</code>. If the two antennas are too close, they read almost the same concentration and the left/right difference is always close to zero. If they are too far apart, one of them is always outside the trail and no useful signal can be extracted.</li>
+<li>the <strong>effective sigma</strong> of a trail at its half-life, which combines evaporation and diffusion into a single number that tells how wide a trail actually looks on the grid at a typical moment of its life. This is the width that the antenna separation has to be matched against.</li>
+</ul>
+<p>These two geometric values were the main reason I asked for this script, but they were not the only ones. I also asked for most of the other metrics because I already knew more or less which parameters would be important. For example, a signal-to-noise ratio between the angular bias and the random noise was obviously needed, but I did not know exactly how to formulate the signal part of the ratio, so I let the LLM take care of the exact expression. I checked the formulas afterwards and they were consistent. Being in an engineering school, I can usually tell when a derivation is correctly done, even if I did not write it myself :)</p>
+<p>The script does not run any simulation, it only reads <code>config.py</code> and prints the derived values. It was built to display cleanly in the terminal so that I can evaluate all parameters within a few seconds.</p>
+<p>The interesting part here is not the formulas themselves but the fact that I could run this script many times during a debug session, instead of launching dozens of simulations in the void and guessing what was wrong from the visuals alone.</p>
+<hr>
+<h2 id="the-final-parameters">The Final Parameters<a hidden class="anchor" aria-hidden="true" href="#the-final-parameters">#</a></h2>
+<p>After all the iterations described in the previous sections, here is the <code>config.py</code> that the simulation is running on now. These are the values that were finally adopted for the current state of the project :</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># GRID AND PHEROMONE </span>
+</span></span><span style="display:flex;"><span>EVAPORATION_RATE_HOME <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.999</span>           <span style="color:#75715e"># between 0 and 1, the higher the slower the evaporation</span>
+</span></span><span style="display:flex;"><span>EVAPORATION_RATE_FOOD <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.9985</span>          <span style="color:#75715e"># between 0 and 1 </span>
+</span></span><span style="display:flex;"><span>DIFFUSION_SIGMA_HOME <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.25</span>             <span style="color:#75715e"># between 0 and inf, the higher the more the pheromone spreads, but also the more it evaporates</span>
+</span></span><span style="display:flex;"><span>DIFFUSION_SIGMA_FOOD <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.275</span>            <span style="color:#75715e"># between 0 and inf, must be greater than sigma home because evap is less for home </span>
+</span></span><span style="display:flex;"><span>GRID_WIDTH <span style="color:#f92672">=</span> <span style="color:#ae81ff">600</span>                        <span style="color:#75715e"># width of the grid in cells, also in pixels if cell size is 1, max 2880 for 8k screen</span>
+</span></span><span style="display:flex;"><span>GRID_HEIGHT <span style="color:#f92672">=</span> <span style="color:#ae81ff">400</span>                       <span style="color:#75715e"># height of the grid in cells, also in pixels if cell size is 1, max 1920 for 8k screen</span>
+</span></span><span style="display:flex;"><span>CELL_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>                           <span style="color:#75715e"># size of each cell in pixels</span>
+</span></span><span style="display:flex;"><span>FPS <span style="color:#f92672">=</span> <span style="color:#ae81ff">45</span>                                <span style="color:#75715e"># frames per second</span>
+</span></span><span style="display:flex;"><span>WINDOW_WIDTH <span style="color:#f92672">=</span> GRID_WIDTH<span style="color:#f92672">*</span>CELL_SIZE     <span style="color:#75715e"># width of the window = width*cellsize (2880 pixels max )</span>
+</span></span><span style="display:flex;"><span>WINDOW_HEIGHT <span style="color:#f92672">=</span> GRID_HEIGHT<span style="color:#f92672">*</span>CELL_SIZE   <span style="color:#75715e"># height of the window = height*cellsize (1920 pixels max )</span>
+</span></span><span style="display:flex;"><span>PHEROMONE_DEPOSIT <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>                   <span style="color:#75715e"># amount of pheromone deposited by an ant at each step, between 0 and 1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ENVIRONMENT</span>
+</span></span><span style="display:flex;"><span>COLOR_HOME <span style="color:#f92672">=</span> (<span style="color:#ae81ff">139</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">43</span>)              <span style="color:#75715e"># brown color for the pheromone leading to the nest</span>
+</span></span><span style="display:flex;"><span>COLOR_FOOD <span style="color:#f92672">=</span> (<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">205</span>, <span style="color:#ae81ff">50</span>)              <span style="color:#75715e"># green color for the pheromone leading to the food</span>
+</span></span><span style="display:flex;"><span>COLOR_BACKGROUND <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)            <span style="color:#75715e"># black color for the background</span>
+</span></span><span style="display:flex;"><span>COLOR_NEST <span style="color:#f92672">=</span> (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>)            <span style="color:#75715e"># white color for the nest</span>
+</span></span><span style="display:flex;"><span>NEST_RADIUS <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>                        <span style="color:#75715e"># radius of the nest in cells</span>
+</span></span><span style="display:flex;"><span>NEST_X <span style="color:#f92672">=</span> int(GRID_WIDTH<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)              <span style="color:#75715e"># coordinates of the nest, must be an integer </span>
+</span></span><span style="display:flex;"><span>NEST_Y <span style="color:#f92672">=</span> int(GRID_HEIGHT<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)             <span style="color:#75715e"># coordinates of the nest, must be an integer </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ANT</span>
+</span></span><span style="display:flex;"><span>N_ANTS <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>                            <span style="color:#75715e"># number of ants in the simulation, must be an integer greater than 0</span>
+</span></span><span style="display:flex;"><span>LENGTH_ANTENNA <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5</span>                    <span style="color:#75715e"># length from the head to the tip of the antenna in cells, must be greater than 0</span>
+</span></span><span style="display:flex;"><span>ANGLE_ANTENNA <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>                 <span style="color:#75715e"># angle between the direction of the ant and the direction of the antenna in radians, between 0 and pi/2, if 0 then antennas are in the same direction as the ant, if pi/2 then antennas are perpendicular to the direction of the ant</span>
+</span></span><span style="display:flex;"><span>COLOR_ANT_HOME <span style="color:#f92672">=</span> (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">165</span>, <span style="color:#ae81ff">0</span>)          <span style="color:#75715e"># orange color for the ants exploring </span>
+</span></span><span style="display:flex;"><span>COLOR_ANT_FOOD <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">80</span>)           <span style="color:#75715e"># different green color for ants carrying food </span>
+</span></span><span style="display:flex;"><span>MAX_FOOD_CARRIED <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>                  <span style="color:#75715e"># maximum amount of food an ant can carry, between 0 and 1, if 0.5 then an ant can carry half of a food source</span>
+</span></span><span style="display:flex;"><span>FOOD_COLLECT_AMOUNT <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>               <span style="color:#75715e"># amount of food an ant can collect at one time, between 0 and MAX_FOOD_CARRIED</span>
+</span></span><span style="display:flex;"><span>EAT_DURATION <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>                        <span style="color:#75715e"># number of steps an ant needs to eat a food source, during this time the ant cannot move or interact with other food sources, must be an integer</span>
+</span></span><span style="display:flex;"><span>ANTENNA_WEIGHT <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">2.5</span>              <span style="color:#75715e"># weight of the pheromone bias on the ant&#39;s direction, between 0 and pi/2, if 0 then the ant ignores the pheromones, if pi/2 then the ant turns directly towards the strongest pheromone</span>
+</span></span><span style="display:flex;"><span>LIM_ANGLE <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>                     <span style="color:#75715e"># maximum angle an ant can turn at each step</span>
+</span></span><span style="display:flex;"><span>TRESHOLD_FOOD <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.45</span>                    <span style="color:#75715e"># threshold of food carried for an ant to switch from following home pheromone to following food pheromone, between 0 and MAX_FOOD_CARRIED</span>
+</span></span><span style="display:flex;"><span>RANDOM_DIR <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">25</span>                   <span style="color:#75715e"># maximum random change in direction for an ant at each step, between 0 and pi, if 0 then the ant never changes direction randomly, if pi then the ant can turn in any direction at each step</span>
+</span></span><span style="display:flex;"><span>HALF_LENGTH_BODY <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5</span>                  <span style="color:#75715e"># half of the length of the ant&#39;s body in cells, used for drawing the ant as a line before adding the antenna </span>
+</span></span><span style="display:flex;"><span>ANT_RADIUS <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>                          <span style="color:#75715e"># must be integer for arrays and only for the visual here </span>
+</span></span><span style="display:flex;"><span>DECAY_FACTOR_STEP <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.995</span>               <span style="color:#75715e"># decay factor applied to the pheromone deposit at each step, between 0 and 1, slowly decrease the amount of pheromone deposited </span>
+</span></span><span style="display:flex;"><span>NEST_DURATION <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>                      <span style="color:#75715e"># number of steps an ant needs to stay at the nest after depositing food, during this time the ant cannot move or interact with food sources, must be an integer    </span>
+</span></span><span style="display:flex;"><span>NEST_ANGLE_VARIATION <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pi<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>          <span style="color:#75715e"># maximum random change in direction for an ant when leaving the nest, between 0 and pi, if 0 then the ant leaves the nest in a straight line, if pi then the ant can leave the nest in any direction</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># FOOD SOURCES </span>
+</span></span><span style="display:flex;"><span>N_FOOD_TYPES <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>                        <span style="color:#75715e"># number of different types of food sources, must be an integer greater than 0</span>
+</span></span><span style="display:flex;"><span>COLOR_APHID <span style="color:#f92672">=</span> (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">220</span>, <span style="color:#ae81ff">0</span>)             <span style="color:#75715e"># color yellow for aphids, which are a type of food source that can recharge </span>
+</span></span><span style="display:flex;"><span>COLOR_SUGAR <span style="color:#f92672">=</span> (<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">255</span>)           <span style="color:#75715e"># color blue for sugar, which is another type of food source that does not recharge</span>
+</span></span><span style="display:flex;"><span>RECHARGE_RATE_APHID <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.01</span>              <span style="color:#75715e"># recharge rate for aphids, between 0 and 1</span>
+</span></span><span style="display:flex;"><span>RECHARGE_RATE_SUGAR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>                 <span style="color:#75715e"># recharge rate for sugar, must be 0 since sugar does not recharge</span>
+</span></span><span style="display:flex;"><span>FOOD_RADIUS <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>                         <span style="color:#75715e"># radius of the food source in cells, must be an integer</span>
+</span></span></code></pre></div><hr>
+<p>Compared to the starting config at the top of the article, almost every value has changed : the grid is larger, the number of ants is ten times higher, the deposit decay <code>DECAY_FACTOR_STEP</code> and the angular clipping <code>LIM_ANGLE</code> are new, the evaporation rates and the diffusion sigmas are now split per pheromone type, and several constants related to the ant&rsquo;s body geometry (<code>HALF_LENGTH_BODY</code>, <code>ANT_RADIUS</code>) were added along the way. Each of these changes is the direct consequence of one of the sections above.</p>
+<hr>
+<h2 id="where-we-stand-now">Where We Stand Now<a hidden class="anchor" aria-hidden="true" href="#where-we-stand-now">#</a></h2>
+<p>After all these iterations, the simulation finally produces something that looks like collective behavior. With 200 ants on a 600x400 grid, the three-antennas rule, the step-counting deposit, differentiated evaporation rates, and the proportional deposit, a few things work well and a few things are still broken.</p>
+<h3 id="what-works">What works<a hidden class="anchor" aria-hidden="true" href="#what-works">#</a></h3>
+<ul>
+<li>Trails appear and get reinforced over time. They are not perfectly stable, but they are visible and they last long enough to be useful.</li>
+<li>Ants come back to the nest often enough to keep the <code>HOME</code> and <code>FOOD</code> cycles running together, which was not really the case in the first iterations.</li>
+<li>The curve problem described earlier is strongly reduced. Ants leave the trail much less often in sharp turns than they used to.</li>
+</ul>
+<h3 id="what-is-still-broken">What is still broken<a hidden class="anchor" aria-hidden="true" href="#what-is-still-broken">#</a></h3>
+<ul>
+<li>When two <code>HOME</code> trails are close to each other, they merge through diffusion into a single path, and the ants stuck on this merged zone never go back to the nest. But what is interesting is that after some time, because of evaporation, this dead trail gets replaced by a new more efficient one that another group of ants has reinforced in the meantime. This is actually one of the main objectives of the simulation : adaptability, a colony that does not rely on a single trail but keeps rewriting its own map over time.</li>
+<li>The biggest current limitation is that when an ant arrives perpendicularly to a trail, it just passes through it without turning. The reason is that the gradient along the trail, the one pointing toward the nest (or toward the food, depending on the trail type), is not strong enough to trigger a clear response. If I increased this gradient, the ants that are already far from the nest would have their own deposit decayed to almost zero because of <code>DECAY_FACTOR_STEP</code>, and they would stop reinforcing the trail at long distance. I could not find how to make the parameters evolve correctly to balance both ends, so I left the behavior as it is for now. A related problem comes after the detection itself : even when an ant does notice a trail, it often joins it without knowing which direction is the right one, again because the gradient along the trail is too weak. There are a few rare cases where an ant arriving perpendicularly actually turns in the correct direction, but they are the exception, not the rule. I hope the neural network in Step 4 will handle this better than the current hand-crafted rule.</li>
+</ul>
+<h3 id="a-map-creation-tool-for-the-next-step">A map creation tool for the next step<a hidden class="anchor" aria-hidden="true" href="#a-map-creation-tool-for-the-next-step">#</a></h3>
+<p>To prepare for Step 4, I also added a map creation tool on the side. The tool lets me build a custom map (nest position, food sources, obstacles if I add them later), save it if I want, and when the simulation starts it now asks which map to load. This will be useful for training : the colony will not always see the same environment, and the network will have to generalize across different map layouts.</p>
+<h3 id="videos">Videos<a hidden class="anchor" aria-hidden="true" href="#videos">#</a></h3>
+<p>Four videos show the evolution of the simulation across this step, from the first chaotic runs to the current state.</p>
+<ul>
+<li>Here are the chaotic runs, I forgot what were the different parameters across them, but we can clearly see that something is not working correctly.</li>
+</ul>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/s6q2DrQZxxw?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/gHzIVaAsBrU?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ZALTSHO15Xo?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<ul>
+<li>Here is the current state, we can clearly the creation of path and the emergence of collective behavior :</li>
+</ul>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/QgjBLVlBrh0?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<hr>
+<h2 id="whats-next">What&rsquo;s Next<a hidden class="anchor" aria-hidden="true" href="#whats-next">#</a></h2>
+<p>Step 3 ends here with a hand-crafted rule that mostly works : ants follow trails, come back to the nest, trigger the recruitment cycle, and sometimes rebuild a new trail when the old one gets corrupted. But it is not possible to keep tuning the parameters by hand, and rewriting new rules for every situation would never end.</p>
+<p>Step 4 is about replacing the hand-crafted rule with a <strong>neural network</strong> trained for this task. I do not know yet exactly how the network will look. What I know is that I will use a <strong>genetic algorithm</strong> to evolve the weights of the ants. The key point here is that I want a <strong>collective reward, not an individual one</strong>. A single ant that brings back food is not doing well by itself, it only matters because the colony as a whole finds the source and exploits it. So the fitness score will be computed at the colony level (amount of food brought back, etc.), and each individual ant will be evolved based on the performance of the whole colony. The inputs are not fully decided yet, but I will try to keep them based on the antennas only.</p>
+<hr>
+<h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
+<ul>
+<li>Collett T., Graham P., Heinze S. (2025). The neuroethology of ant navigation.</li>
+<li>Draft R.W., McGill M.R., Kapoor V., Murthy V.N. (2018). Carpenter ants use diverse antennae sampling strategies to track odor trails.</li>
+<li>Wittlinger M., Wehner R., Wolf H. (2006). The ant odometer : stepping on stilts and stumps.</li>
+<li>Dussutour A., Nicolis S.C., Shepard G., Beekman M., Sumpter D.J.T. (2009). The role of multiple pheromones in food recruitment by ants.</li>
+<li>Personal discussion with Guy Theraulaz at EvoStar, Toulouse.</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>© 2026 <a href="/">Mattéo Vacher</a> · Icons from <a href="https://www.flaticon.com/">Flaticon</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

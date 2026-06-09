@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Step 3 of Ant Simulation Project : Colony and Emergence | Mattéo Vacher</title>
+<title>Step 3 (Perhaps Final) of Ant Simulation Project : Colony and Emergence | Mattéo Vacher</title>
 <meta name="keywords" content="">
-<meta name="description" content="Premier essai de suivi de traces par gradient d antennes. Observations, bugs, et prochaines etapes.">
+<meta name="description" content="Study of the design of the colony and emergence of collective behaviors.">
 <meta name="author" content="Mattéo Vacher">
 <link rel="canonical" href="http://localhost:1313/posts/third_of_the_project/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.91bca08ba24824edebd4266f1219549f7b8e610f545bed813ab87737fe9d351c.css" integrity="sha256-kbygi6JIJO3r1CZvEhlUn3uOYQ9UW&#43;2BOrh3N/6dNRw=" rel="preload stylesheet" as="style">
@@ -132,8 +132,8 @@
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/ressources/" title="Ressources">
-                    <span>Ressources</span>
+                <a href="http://localhost:1313/resources/" title="Resources">
+                    <span>Resources</span>
                 </a>
             </li>
             <li>
@@ -155,7 +155,7 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
-      Step 3 of Ant Simulation Project : Colony and Emergence
+      Step 3 (Perhaps Final) of Ant Simulation Project : Colony and Emergence
       <span class="entry-hint" title="Draft">
         <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
           <path
@@ -163,7 +163,7 @@
         </svg>
       </span>
     </h1>
-    <div class="post-meta"><span title='2026-04-06 00:00:00 +0100 +0100'>April 6, 2026</span>&nbsp;·&nbsp;<span>24 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
+    <div class="post-meta"><span title='2026-04-06 00:00:00 +0100 +0100'>April 6, 2026</span>&nbsp;·&nbsp;<span>25 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
 
 </div>
   </header> <div class="toc">
@@ -216,7 +216,11 @@
 </div>
 
   <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
-<p><em><strong>Careful : This is a really long article. If you want to see the videos of the simulation, all of them will be displayed below</strong></em></p>
+<p><em><strong>Careful : This is a really long article. If you want to see the videos of the simulation, all of them will be displayed below. I also want to add that this article will probably be the last of this series since it took me an incredible amount of time and that I also want to explore other things in the future. I am now in Tsukuba and I am looking forward writing an article about my current project. I also want to master C++. I guess all of this will take me a lot of time since I am really dedicated on these projects. Anyway this series gave me a first glimpse of what research could look like and I really like it. It also gave me the opportunity to master a few tools I never had the chance to use before. I am writing these lines after having finish this article and the videos. The only video that will be displayed in the introduction is the video where everything works :)</strong></em></p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/QgjBLVlBrh0?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
 <p>In the previous post, we built the <code>Ant</code> class : movement by angle, rebound on the walls, pheromones deposit and antennas positions. But the antennas were only computed, not used. The ants were walking randomly and did not read the pheromones they were depositing.</p>
 <p>Step 3 is about connecting the sensory inputs to the movement. The rule is still hand-crafted - a simple weighted difference between the left and the right antenna - but it is enough to observe the <strong>first emergent trails</strong>. The goal of this step is to see a collective structure appear from purely local decisions, without any central coordination.</p>
 <p>The path to get there was not straight. Many parameters were tested, many things did not work, and the model itself evolved during the process (2 antennas became 3, a single evaporation rate became two, the deposit rule was rewritten). The article below describes the final state of the model and the reasoning behind each choice.</p>
@@ -409,10 +413,28 @@
 <p>To prepare for Step 4, I also added a map creation tool on the side. The tool lets me build a custom map (nest position, food sources, obstacles if I add them later), save it if I want, and when the simulation starts it now asks which map to load. This will be useful for training : the colony will not always see the same environment, and the network will have to generalize across different map layouts.</p>
 <h3 id="videos">Videos<a hidden class="anchor" aria-hidden="true" href="#videos">#</a></h3>
 <p>Four videos show the evolution of the simulation across this step, from the first chaotic runs to the current state.</p>
-<p>early chaotic simulation, 20 to 50 ants, single evaporation rate</p>
-<p>intermediate state, 200 ants, 3 antennas, before the proportional deposit</p>
-<p>stable state with the original additive deposit rule, trails already emerging clearly</p>
-<p>final state with the new proportional deposit rule</p>
+<ul>
+<li>Here are the chaotic runs, I forgot what were the different parameters across them, but we can clearly see that something is not working correctly.</li>
+</ul>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/s6q2DrQZxxw?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/gHzIVaAsBrU?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ZALTSHO15Xo?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<ul>
+<li>Here is the current state, we can clearly the creation of path and the emergence of collective behavior :</li>
+</ul>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/QgjBLVlBrh0?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
 <hr>
 <h2 id="whats-next">What&rsquo;s Next<a hidden class="anchor" aria-hidden="true" href="#whats-next">#</a></h2>
 <p>Step 3 ends here with a hand-crafted rule that mostly works : ants follow trails, come back to the nest, trigger the recruitment cycle, and sometimes rebuild a new trail when the old one gets corrupted. But it is not possible to keep tuning the parameters by hand, and rewriting new rules for every situation would never end.</p>
