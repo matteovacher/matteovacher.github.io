@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Myrmico Lab on Mattéo Vacher</title>
+    <link>http://localhost:1313/news/myrmico-lab/</link>
+    <description>Recent content in Myrmico Lab on Mattéo Vacher</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>en-us</language>
+    <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
+    <lastBuildDate>Mon, 06 Apr 2026 00:00:00 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/news/myrmico-lab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Step 3 (Perhaps Final) of Ant Simulation Project : Colony and Emergence</title>
+      <link>http://localhost:1313/news/myrmico-lab/third_of_the_project/</link>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/news/myrmico-lab/third_of_the_project/</guid>
+      <description>Study of the design of the colony and emergence of collective behaviors.</description>
+    </item>
+    <item>
+      <title>Step 2 of Ant Simulation Project : Ant Agent</title>
+      <link>http://localhost:1313/news/myrmico-lab/second_of_the_project/</link>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/news/myrmico-lab/second_of_the_project/</guid>
+      <description>Implementation of the ant agent : orientation by angle, movement, reflection on walls, pheromone deposit.</description>
+    </item>
+    <item>
+      <title>Step 1 of Ant Simulation Project : Pheromones</title>
+      <link>http://localhost:1313/news/myrmico-lab/first-of-the-project/</link>
+      <pubDate>Sat, 28 Mar 2026 00:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/news/myrmico-lab/first-of-the-project/</guid>
+      <description>Building the pheromone grid : the substrate every ant reads from and writes to, grounded in biological and mathematical models.</description>
+    </item>
+    <item>
+      <title>The Beginning</title>
+      <link>http://localhost:1313/news/myrmico-lab/the-beginning/</link>
+      <pubDate>Mon, 09 Mar 2026 14:43:18 +0100</pubDate>
+      <guid>http://localhost:1313/news/myrmico-lab/the-beginning/</guid>
+      <description>Starting a journey into collective intelligence and multi-agent systems. A look at the project&amp;rsquo;s origins, from theory to live ant colony simulations.</description>
+    </item>
+  </channel>
+</rss>

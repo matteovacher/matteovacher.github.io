@@ -23,9 +23,9 @@ First I did the elective, managed to make some summary that will follow my path 
     </item>
     <item>
       <title>Evo Ecs</title>
-      <link>http://localhost:1313/posts/evo-ecs/</link>
+      <link>http://localhost:1313/news/evo-ecs/</link>
       <pubDate>Wed, 13 May 2026 04:40:14 +0200</pubDate>
-      <guid>http://localhost:1313/posts/evo-ecs/</guid>
+      <guid>http://localhost:1313/news/evo-ecs/</guid>
       <description>Here I present my EvoGym-ECS package so that people can better handle EvoGym and their research.</description>
     </item>
     <item>
@@ -48,23 +48,23 @@ First I did the elective, managed to make some summary that will follow my path 
     </item>
     <item>
       <title>Step 3 (Perhaps Final) of Ant Simulation Project : Colony and Emergence</title>
-      <link>http://localhost:1313/posts/myrmico-lab/third_of_the_project/</link>
+      <link>http://localhost:1313/news/myrmico-lab/third_of_the_project/</link>
       <pubDate>Mon, 06 Apr 2026 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/myrmico-lab/third_of_the_project/</guid>
+      <guid>http://localhost:1313/news/myrmico-lab/third_of_the_project/</guid>
       <description>Study of the design of the colony and emergence of collective behaviors.</description>
     </item>
     <item>
       <title>Step 2 of Ant Simulation Project : Ant Agent</title>
-      <link>http://localhost:1313/posts/myrmico-lab/second_of_the_project/</link>
+      <link>http://localhost:1313/news/myrmico-lab/second_of_the_project/</link>
       <pubDate>Thu, 02 Apr 2026 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/myrmico-lab/second_of_the_project/</guid>
+      <guid>http://localhost:1313/news/myrmico-lab/second_of_the_project/</guid>
       <description>Implementation of the ant agent : orientation by angle, movement, reflection on walls, pheromone deposit.</description>
     </item>
     <item>
       <title>Step 1 of Ant Simulation Project : Pheromones</title>
-      <link>http://localhost:1313/posts/myrmico-lab/first-of-the-project/</link>
+      <link>http://localhost:1313/news/myrmico-lab/first-of-the-project/</link>
       <pubDate>Sat, 28 Mar 2026 00:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/myrmico-lab/first-of-the-project/</guid>
+      <guid>http://localhost:1313/news/myrmico-lab/first-of-the-project/</guid>
       <description>Building the pheromone grid : the substrate every ant reads from and writes to, grounded in biological and mathematical models.</description>
     </item>
     <item>
@@ -90,9 +90,9 @@ First I did the elective, managed to make some summary that will follow my path 
     </item>
     <item>
       <title>The Beginning</title>
-      <link>http://localhost:1313/posts/myrmico-lab/the-beginning/</link>
+      <link>http://localhost:1313/news/myrmico-lab/the-beginning/</link>
       <pubDate>Mon, 09 Mar 2026 14:43:18 +0100</pubDate>
-      <guid>http://localhost:1313/posts/myrmico-lab/the-beginning/</guid>
+      <guid>http://localhost:1313/news/myrmico-lab/the-beginning/</guid>
       <description>Starting a journey into collective intelligence and multi-agent systems. A look at the project&amp;rsquo;s origins, from theory to live ant colony simulations.</description>
     </item>
     <item>

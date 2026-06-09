@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>News on Mattéo Vacher</title>
+    <link>http://localhost:1313/news/</link>
+    <description>Recent content in News on Mattéo Vacher</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>en-us</language>
+    <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
+    <lastBuildDate>Wed, 13 May 2026 04:40:14 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/news/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Evo Ecs</title>
+      <link>http://localhost:1313/news/evo-ecs/</link>
+      <pubDate>Wed, 13 May 2026 04:40:14 +0200</pubDate>
+      <guid>http://localhost:1313/news/evo-ecs/</guid>
+      <description>Here I present my EvoGym-ECS package so that people can better handle EvoGym and their research.</description>
+    </item>
+  </channel>
+</rss>
