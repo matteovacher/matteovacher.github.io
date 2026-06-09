@@ -157,10 +157,26 @@ Here for example, the 0 that you see in the middle of the robot is the center of
 
 Moreover after a quick time, the population would converge towards a certain type of body, even with diversity on the body on the first generation, the main reason lies in the initialization of the genome. My weights and biases were chosen between -1 and 1, the problem here is that i would not have enough diversity and then the solution would converge too fast toward a single genome, therefore augmenting the probability to possesses the same phenotype. To solve that I increased the range of the random selection to a dozen. The initial results are promising. More stable diversity in the population. What I am afraid of here is that the fitness of the best individual will progress too slowly. More I suspect that it only a matter of time before my population converges again towards a certain type of body. An interesting idea could that like us humans and animals, two individual with a too weak genotypic distance should not reproduce together. Therefore A more diverse populatuion would probably emerges. This is a diversity maintenance method. Another possibility is that because of the diploidy in my genome, I can always bring more diversity in the population, and a simple way to achieve that is by flipping the dominance of each gene more often. Let's see if it works if I increase the generation to a 100. 
 
+The first results seems to look good. I have far more diversity and the genetic distance only goes down after a long time and right after an true elite emerge. To look the results ple\ase look after the analysis notebook, indicate the path. At this point, look for 1/91 and 2/1 and 3/2. The videos are already on youtube. 
+
+## First Conclusion
+
+We have first implemented a GA that evolves diploid individuals, this method is inspired on the one from Cara Reedy, where she uses diploid ANN that controls individuals in a simulation. In here paper she describes that each individual is composed of two chromosomes, one for the layer and one for the weight, for the crossover she just select one chromosome randomly from each parent and then mutate it. My method has quite a few ressemblance with hers : 
+For the crossover I also chose randomly a whole chjromosome from each parent and then proceed to mutate it. 
+The difference lies in the fact that lmy individuyakls posses a single chromosome and a fixed shape. In this chromosome, the genes represent the node and not the weights. As mentionned ion her article crossover of Neural Network seems to be something that has not yet been fully studied. Therefore knowing if crossover of NN breaks substructures seems to remain an open question. In order to avoid breaking substructures I decided that the whole gene expressed would be a node. Indeed, I think that making many chromosomes would break substructures, for example having a chromosome for the activation function and another one for the biases and another one for the weight, I think would break how the different ellement are working together. Therefore my substructure comes as a package and the one that is activated thank to the dominance is thge node with his activation function, bias, and weights copming from the previous layer. 
+
+Moreover the indirect encoding is inpired from the work of Fabio Tanaka on single genome soft robot, here he uses the algorithm Hyperneat to evolve its robot. My method differs from him in the fact that I choosed a different subrate that for me will bring more diversity without using the speciation technic included in the NEAT library, and that I do not evolve the structure opf the CPPN to focus more on the evolution of diploid individuals. My point here is to not use any technic of speciation. 
+
+Then from now on I will divide my work in two parts : 
+
+- The evolution and comparison of haploid/diplouid individuals in stationary/changing environment. 
+
+- The diversity on the first generated robot with different type of substrate, to see if a circular substrate would not be a better representation of a squared problem. 
+
 
 
 ### notes 
 
 did with 2 dominances, and hyperneat as tanaka did 
 but all individuals looks the same 
-need to design again the substrate with some circle because not same distance, more will increase dominance because now 1/2 of genes are puicked randomly 
+need to design again the substrate with some circle because not same distance, more will increase dominance because now 1/2 of genes are picked random;y 
