@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Evogym Lab on Mattéo Vacher</title>
+    <link>http://localhost:1313/news/evogym-lab/</link>
+    <description>Recent content in Evogym Lab on Mattéo Vacher</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>en-us</language>
+    <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
+    <lastBuildDate>Wed, 10 Jun 2026 08:05:06 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/news/evogym-lab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>First Steps of my Research</title>
+      <link>http://localhost:1313/news/evogym-lab/first-steps/</link>
+      <pubDate>Wed, 10 Jun 2026 08:05:06 +0200</pubDate>
+      <guid>http://localhost:1313/news/evogym-lab/first-steps/</guid>
+      <description>A presentation of my research on Diploidy and Single Genome Soft Robots</description>
+    </item>
+    <item>
+      <title>Entity Component System</title>
+      <link>http://localhost:1313/news/evogym-lab/evo-ecs/</link>
+      <pubDate>Wed, 13 May 2026 04:40:14 +0200</pubDate>
+      <guid>http://localhost:1313/news/evogym-lab/evo-ecs/</guid>
+      <description>Here I present my EvoGym-ECS package so that people can better handle EvoGym and their research.</description>
+    </item>
+  </channel>
+</rss>
