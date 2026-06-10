@@ -1,26 +1,26 @@
 +++
 date = '2026-05-13T04:40:14+02:00'
-draft = true
-title = 'Evo Ecs'
+draft = false
+title = 'Entity Component System'
 math = true 
 summary = 'Here I present my EvoGym-ECS package so that people can better handle EvoGym and their research.'
 +++
 
-Donc deja, on part de entity component system donc faudra faire un tuto dessus, ensuite on part du dockerfile et de github pour expliquer comment bien ttout installer pour que ca aille vite et bien detaillé. ensuite il faut expliquer les etapes de ecs et ce que c'est et comment je les implemente. ensuite montrer comment ca marche sur un exemple simple et concret. je pense faire evoluer un controller avec une morphologie fixe. avec tournament, mutation aleatoire de poids pour commencer et egalement croisement entre individual simplement avec on alterne un sur deu et on oroduit deux invidu. 
-
 ## Introduction 
 
-Hello dear Reader, on this page I will explain my complete and systemic implementation of the EvoGym library. When I first read the work of my predecessor Fabio Tanaka, who did an **extraordinary work** on Single Genome Robot, I was really confused on the whole implementation of the different programs that co-existed in his workspace. To implement my own version of Hyper-Neat, I spent hours understanding what he has done and why. This is mainly because of this reason that I'll explain how my code works and how I will work in the future on the EvoGym library. This article is made for people who want to learn more about *Entity Component System*, or the *EvoGym Library* and how to use it, or just *how I manage my projects* to reproduce my work.
+Hello dear Reader, on this page I will explain my complete and systemic implementation of the EvoGym library. When I first read the work of my predecessor Fabio Tanaka, who did an **extraordinary work** on Single Genome Soft Robots, I was really confused on the whole implementation of the different programs that co-existed in his workspace. To implement my own version of Hyper-Neat, I spent hours understanding what he has done and why. This is mainly because of this reason that I'll explain how my code works and how I will work in the future on the EvoGym library. This article is made for people who want to learn more about **Entity Component System**, or the **EvoGym Library** and how to use it, or just **how I manage my projects** to reproduce my work.
 
-*To finish the introduction, you can find the example of such an implementation on a GitHub repository that I have made specially for this article [here](https://github.com/matteovacher/evogym-entity-component-system).
+*To finish the introduction, you can find the example of such an implementation on a GitHub repository that I have made specially for this article [here](https://github.com/matteovacher/evogym-entity-component-system). The key idea of this small example is to evolve the the controller neural network of the robot in EvoGym with an evolutionary algorithm.*
 
 ## What is Entity Component System ? 
 
-First of all, this idea of using Entity Component System (ECS) has not emerged from me but from my supervisor (Claus Aranha, University of Tsukuba). I hope that this article will help others as much as it helped me to organize my work, and for this particular reason, I wanted to thank Claus.
+First of all, this idea of using Entity Component System (ECS) has not emerged from me but from my supervisor (Claus Aranha, University of Tsukuba). I hope that this article will help others as much as it helped me organize my work, and for this particular reason, I wanted to thank Claus.
 
 ### A brief example
 
-Well, ECS is usually involved while creating video games, therefore the example I'm about to write will be about the creation of video games. I'm not a creator of video games myself, but it surely joins one big interest of mine : Simulations. So, that being said, let's go back to creating video games. Imagine yourself, two seconds trying to implements Non Playable Characters (NPC) in a fantasy world where the hero has to explore a vast land filled with lots of available races for these NPCs (Goblins, Elves...). In the mountains of the East you find Goblins, a cruel race that will steal every piece of gold that you carry. On the West part of this land resides dozens of Human towns with lots of market places. Well at some point a tiny and very kind goblin decided to quit his life of violence in the mountains and decided to reside on one of the many human town and to become a merchant. Normally in Object-Oriented Programming you would implement a Monster Class and then implement a Goblin Class that inherits from the Monster one, then the same goes for humans and their merchants. At the end of the day, it appears complicated to add other features to our poor little Goblin that just want to live a normal life as merchant.  
+Well, ECS is usually involved while creating video games, therefore the example I'm about to write will be about the creation of video games. I'm not a creator of video games myself, but it surely joins one big interest of mine : Simulations. 
+
+So, that being said, let's go back to creating video games. Imagine yourself, two seconds trying to implements Non Playable Characters (NPC) in a fantasy world where the hero has to explore a vast land filled with lots of available races for these NPCs (Goblins, Elves...). In the mountains of the East you find Goblins, a cruel race that will steal every piece of gold that you carry. On the West part of this land resides dozens of Human towns with lots of market places. Well at some point a tiny and very kind goblin decided to quit his life of violence in the mountains and decided to reside on one of the many human town and to become a merchant. Normally in Object-Oriented Programming you would implement a Monster Class and then implement a Goblin Class that inherits from the Monster one, then the same goes for humans and their merchants. At the end of the day, it appears complicated to add other features to our poor little Goblin that just want to live a normal life as merchant.  
 
 Then, a simple way to implements all of this, and to manage every entity without going deeply into Class inheritance is to think about adding component to our entity/goblin. For example, in the case of our charming Goblin, we would add to the entity id number 7476572645 the following components/features :
 
@@ -31,13 +31,13 @@ Then, a simple way to implements all of this, and to manage every entity without
 - **Health :** 100
 - **Weapon :** axe
 
-This is a simple example but this way we can simply destroy/create/manage the desired components/features of every entity in the game.
+This is a simple example but this way we can simply **destroy/create/manage** the desired **components/features** of every entity in the game.
 
 ### How to describe such an architecture ?
 
 #### What's inside
 
-As you've probably understood, ECS is a software architectural pattern. It contains 3 fundamental things :
+As you've probably understood, ECS is a **software architectural pattern**. It contains 3 fundamental things :
 
 - **Entity**, it is a unique ID that we give to every entity in the simulation. This ID will allow us to go get the components of a given entity and to modify them.
 
@@ -72,7 +72,9 @@ project
 ### entity_manager.py 
 
 The aim of this file is to create, destroy, know which entity is alive.
-Your entity manager should looks like this :
+Your **entity manager** should looks like this :
+
+---
 
 ```python
 class EntityManager : 
@@ -94,13 +96,17 @@ class EntityManager :
         return entity_id in self._alive
 ```
 
-Here, knowing which entity is alive will be useful for the simulation and not to run the programs on every entity created since the beginning of the simulation. Moreover, if your experience uses lots of RAM, you will be able to remove the old entity from their registry, therefore guaranteeing a lower memory usage and longer runs. 
+---
+
+Here, *entity_id is a unique ID associated to a single entity.* Knowing which entity is alive will be useful for the simulation and not to run the programs on every entity created since the beginning of the simulation. Moreover, if your experience uses lots of RAM, you will be able to remove the old entity from their registry, therefore guaranteeing a lower memory usage and longer runs. 
 
 ### components.py 
 
 In this file, we only implements the components. Remember that a component is an object that does not possess any function, its unique purpose is to store data, not to process them (this will be the job of the systems).
 
-Here is the example of a components file :
+Here is the example of a **components** file :
+
+---
 
 ```python 
 class GenomeComponent : 
@@ -123,13 +129,17 @@ class ControllerComponent :
         self.output_nodes = output_nodes 
 ```
 
+---
+
 See, we only store data and don't try to process them. 
 
 ### registry.py 
 
 Well, here we begin to explore more deeply the architecture. The idea to access the components of a given entity is to use the registry. Basically, the registry stores, in dictionaries, the id of an individual and the object component that store the data.
 
-The registry looks like this :
+The **registry** looks like this :
+
+---
 
 ```python 
 from components import * 
@@ -207,14 +217,18 @@ class ComponentRegistry :
         self.controller_registry.clear()
 ```
 
+---
+
 So, here we have the registry that manages what component is associated to which entity. Moreover this registry is able to get a component given an ID, or to add a component to an entity, or to modify a component, or to remove a component, or to know if an entity has a component or not.
 
-The only bothering thing here is that every time you want to create a new component for your project, you have to add it to the registry and write all of its associated methods which can consume time that you don't want to spend on this.
+*The only bothering thing here is that every time you want to create a new component for your project, you have to add it to the registry and write all of its associated methods which can consume time that you don't want to spend on this.*
 
 ### Tools
 
-Before showing you what a typical system looks like, I want to talk a little bit about tools. Tools are meant to allow you to handle components data and to use them. For example here, in the components.py file above, I have a neural network component, but to create it, I need to extract the building information from the genome component. This is exactly the role of the tools. Here it would be extracting the building information from the genome component and create all of the data necessary to create a neural network component. To achieve this, I would simply write this function in a controller_operator.py file.
+Before showing you what a typical system looks like, I want to talk a little bit about **tools**. Tools are meant to allow you to handle components data and to use them. For example here, in the components.py file above, I have a neural network component, but to create it, I need to extract the building information from the genome component. This is exactly the role of the tools. Here it would be extracting the building information from the genome component and create all of the data necessary to create a neural network component. To achieve this, I would simply write this function in a controller_operator.py file.
 Here is what the controller_operator.py file looks like :
+
+---
 
 ```python
 import math 
@@ -269,13 +283,17 @@ class ControllerOperator :
         return [values[node] for node in controller.output_nodes]
 ```
 
-Then, these tools will be used in the systems. This will allow the reader to easily understand what is going on in the different system files and to easily modify the different tools and systems if it is required.  
+---
+
+Then, these tools will be used in the systems. This will allow the reader to **easily understand** *(I hope so)* what is going on in the different system files and to easily modify the different tools and systems if it is required.  
 
 ### Systems
 
-Systems are meant to to write/modify data from the registries. 
+**Systems** are meant to to write/modify data from the registries. 
 
 I think that here an example is ten times more valuable than explanations. The following evaluation_system.py file will take all the individual alive and then add their controller to the registry before evaluate them and proceed to add their fitness to the registry. Here goes the file : 
+
+---
 
 ```python
 import numpy as np 
@@ -333,9 +351,13 @@ class EvaluationSystem :
 
 ```
 
+---
+
 ### world.py
 
-One of the last thing that we must do is to assemble all the different systems together in a world. This world is also an object, it contains all the different systems and the registry. Here goes the example of the world.py file :
+One of the last thing that we must do is to **assemble all the different systems together in a world**. This world is also an object, it contains all the different systems and the registry. Here goes the example of the world.py file :
+
+---
 
 ```python
 from registry import ComponentRegistry
@@ -367,9 +389,13 @@ class World :
             system.process(self.registry)
 ```
 
+---
+
 ### main.py 
 
 The last thing to do is to put all of this together in a main file to run the simulation. Here goes the example of the main.py file :
+
+---
 
 ```python
 import os
@@ -435,11 +461,10 @@ if __name__ == "__main__" :
 
 ```
 
-### Intermediate Conclusion
+---
 
-Now we have all the necessary information to implement a simulation using ECS. This was the first part of the article, next I'll explain how to install the different necessary libraries and use Docker to run all of your EvoGym simulations in a container. Moreover, I will shortly explain how I use the Evogym library to reproduce my work.
+*As you can see, this file is just there to initialize every object and run the different systems in a loop and in the right order.*
 
-## Docker and Dockerfile
+## Conclusion
 
-
-
+Now we have all the necessary information to implement a simulation using ECS. This was the first part of this series of article, next I'll explain how to install the different necessary libraries and use **Docker** to run all of your EvoGym simulations in a container. Moreover, I will shortly explain how **I use the Evogym** library to reproduce my work.
