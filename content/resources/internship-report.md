@@ -169,11 +169,25 @@ Moreover the indirect encoding is inpired from the work of Fabio Tanaka on singl
 
 Then from now on I will divide my work in two parts : 
 
-- The evolution and comparison of haploid/diplouid individuals in stationary/changing environment. 
+- The evolution and comparison of haploid/diploid individuals in stationary/changing environment. 
 
 - The diversity on the first generated robot with different type of substrate, to see if a circular substrate would not be a better representation of a squared problem. 
 
+## second part 
 
+I did implement a version with a haploid, and the first results indicates that i have a huge (see ob-0/id_1 and tests/id_35) loss in diversity for the haploid algorithm for the same parameters as the diploid one. It is normal since the diploid algorithm brings more diversity in the population and that even old gene can come back to life if their dominance change. But the problem her is that it doesnt seem really fair for the haploid algo. It is as if Im not giving the haploid algo a proper chance to evolve. It is the reason why Ill proceed to a few changes in my structure :
+
+- As Tanaka did, implement a cppn with 2 outputs, one for the morpological ANN and another one for the controller ANN, I hope this will give me diversity and adapted controllers to the body. With one output it seems difficult for the CPPN to produce complex and really adapted controllers. 
+
+- I will delete the implementation of the bias for the ANN and only have weight, I believe it is adding too much complexity to the problem. 
+
+- I will implement a version of codominance for the CPPN weight and biases, this will bring more diversity and will avoid the problem of choosing randomly especially for the haploid algorythm. 
+
+- I could change the sigma of the gaussian distribution for the mutation of the weight and biases for the CPPN and put a higher one. Then I would explore more agressively the space of solutions. 
+
+- finally , since my controller is a big ANN, I will set a limit for the values of the weights. I hope that this way, it wont lead to absurd values for the weight. 
+
+I hope that all of this simple manipulation will help me have more simple results before complexifying again. For this I just looked back at tanaka's work and also looked at the most recent paper on diploidy for neural networks. The rest from hyp@othesis that I made in my mind. 
 
 ### notes 
 
