@@ -194,3 +194,16 @@ I hope that all of this simple manipulation will help me have more simple result
 did with 2 dominances, and hyperneat as tanaka did 
 but all individuals looks the same 
 need to design again the substrate with some circle because not same distance, more will increase dominance because now 1/2 of genes are picked random;y 
+
+
+
+bad results for ot1 perhaps need to reduce the size of everything to make things easier for the cppn, ie size of controller, size of body, or even size of cppn itself, see actual config for next exp 
+
+sigma either 0.2 or 0.5 
+10 4 4 4 2 now 
+
+je pense que retrouver ce que j avais avant avec bloc full c est bien 
+
+alors conclusion, intermediaire, deja un plus petit cppn permet de converger plus vite, logique et semble plus adapter pour trouver des solutions au problemes, ensuite, 2 sorties fournis plus de choix et de diversite a priori, le sigma n a pas tant que ca d influence que ca, a changer pour mieux voir les effets. les petite valeurs pour les poids de l ann sont parfaites, une representation plus simple semble aider (je dis ca vis a vis des poids)la codiminances semblent marcher pour le haploide mais pas diploide car ensuite les genes je les jetais a la poubelle, maintenant ca remplace donc ca va mieux je pense (a tester) enfin aussi grosse etape, un substrat plus petit pour le controller semble vraiment etre benefique sur la capacite du robot a pouvoir s adapter a son corps. je vais maintenant faire : 
+
+changer implementation diploid pour garder trace de la codominance, ajouter une 3e entree qui est la distance entre les points (c est ce que fais la methode original de hyperneat) je devrais peut etre voir des ameliorations. 
