@@ -1,5 +1,5 @@
 +++
-date = '2026-17-08T14:00:02+02:00'
+date = '2026-08-17T14:00:02+02:00'
 draft = true 
 title = 'Bandit - First Levels'
 summary = 'summary of the first levels of the Bandit challenge.'
