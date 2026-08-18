@@ -11,7 +11,7 @@ Over the wire [see here](https://overthewire.org/wargames/), is a website that o
 
 I'll propose here my solutions to the first levels of the Bandit challenges which cover the basic Linux commands. 
 
-## Bandit 0 
+## Bandit 0 and 1 
 
 On this level you just have to log into the game using SSH. basically SSH (Secure Shell) is a cryptographic protocol that is used to surely connect to remote systems over an unsecured network. Each transfer is encrypted to protect against attacks. 
 
@@ -27,6 +27,8 @@ the username is bandit0
 
 the password is bandit0
 
+Find the `readme` file located in the home directory and read it. 
+
 ### Theory && Solution 
 
 When you work with your favorite terminal, you can probably use `ssh` to connect to a remote server. If you need to learn more about any command, you can use `man <command>` to get the documentation. 
@@ -35,15 +37,15 @@ to connect to a server, the simplest way is to use `ssh <username>@<server>` and
 
 Another fun way to do this is to look up for the IP address of the server with either `nslookup <server>` or `ping <server>`. then instead of `ssh <username>@<server>`, you can use `ssh <username>@<ip>`.
 
-Then using `cat <file>` to read the file you can read the password to enter the next level.
+Then using `cat <file>` to read the file you can read the password to enter the next level which gives us `cat ./readme`.
 
-## Bandit 1
+## Bandit 2
 
 ### Goal
 
 In this level, the goal is to : 
 
-find the readme file (located in the home directory) and read it. 
+find the `-` file (located in the home directory) and read it. 
 
 ### Theory && Solution
 
@@ -74,7 +76,7 @@ bandit1@bandit:~$ file ./-
 
 now we know that the file is indeed a text file. So now we can just read it with the `cat` command and go to the next level. the final command is : `cat ./-`
 
-## Bandit 2
+## Bandit 3
 
 ### Goal 
 
@@ -98,6 +100,83 @@ total 24
 ```
 
 We can see that the flag is present in the home directory. To read it we just use the `cat` command. `cat ./--spaces\ in\ this\ filename--` is a first way of doing it. Here the `\` are used to quote the name of the file. It tells the terminal that the space belongs to the name of the file. If I had use `cat ./--spaces in this filename--` the terminal would have consider each word as a file to read. I could also have used `cat './--spaces in this filename--'` but this time the `'` are used to quote the entire name of the file. This option can be preferred because it is more readable. 
+
+## Bandit 4 
+
+### Goal
+
+The goal of this level is to :
+
+find the password located in an hidden file in the `inhere` directory. 
+
+### Theory && Solution
+
+First we go in the `inhere` directory and with the help of the `ls` command we list the files in the directory> This gives us the following output :
+
+text```
+bandit3@bandit:~$ cd inhere/ && ls -las
+total 12
+4 drwxr-xr-x 2 root    root    4096 Jun 24 14:59 .
+4 drwxr-xr-x 3 root    root    4096 Jun 24 14:59 ..
+4 -rw-r----- 1 bandit4 bandit3   33 Jun 24 14:59 ...Hiding-From-You
+```
+
+Now we can see that the hidden file is called `...Hiding-From-You`. Now we just have to read it using `cat ./...Hiding-From-You`
+
+Here, it is important to notice the that the flag `-a` of the `ls` command is used to list all the files, including the hidden ones and that is the key to solve this level. 
+
+## Bandit 4 
+
+### Goal
+
+The goal here is to : 
+
+Find the password stored in the only human-readable file in the inhere directory. 
+
+### Theory && Solution
+
+Here I begin by going in the `inhere` directory. Then I use the `ls` command to list the files in the directory. Here is the output :
+
+text```
+bandit4@bandit:~$ cd inhere/ && ls -las
+total 48
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file00
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file01
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file02
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file03
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file04
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file05
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file06
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file07
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file08
+4 -rw-r----- 1 bandit5 bandit4   33 Jun 24 14:59 -file09
+4 drwxr-xr-x 2 root    root    4096 Jun 24 14:59 .
+4 drwxr-xr-x 3 root    root    4096 Jun 24 14:59 ..
+```
+
+Here I can see that the `inhere` directory has different files and that I cannot distinguish which one of them is the human readable file. For that I'll use the `file <file>` command to get the information about each file in the current directory. Here is the command and the output :
+
+text```
+bandit4@bandit:~/inhere$ file ./* | grep text
+./-file07: ASCII text
+./-file09: Motorola S-Record; binary data in text format    
+```
+
+Let's decrypt the command. The command `file <file>` gives the type of the file and. I use the `./*` to apply the command to all the files in the current directory. It is precisely the `*` that tells the terminal to apply the command to all the files, it basically means "everything inside". The `|` is called a pipe and is there to take the output of the command on the left and give it as input to the command on the right. The next command is `grep <pattern> <file>` where the pattern is the string that we want in the file. Here, with the pipe, we only use `grep <pattern>` because the pipe send the output of the previous command as the input of the `grep`command. 
+
+Now we can see that the only file that is human readable is the `-file07` file. The final command is therefore `cat ./-file07`. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
