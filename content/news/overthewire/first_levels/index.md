@@ -1,8 +1,8 @@
 +++
 date = '2026-08-17T14:00:02+02:00'
-draft = true 
+draft = false 
 title = 'Bandit - First Levels'
-summary = 'summary of the first levels of the Bandit challenge.'
+summary = 'Summary of the first levels of the Bandit challenge.'
 +++
 
 ## OverTheWire 
@@ -11,13 +11,13 @@ Over the wire [see here](https://overthewire.org/wargames/), is a website that o
 
 I'll propose here my solutions to the first levels of the Bandit challenges which cover the basic Linux commands. 
 
-## Bandit 0 and 1 
+## Bandit 0  
 
 On this level you just have to log into the game using SSH. basically SSH (Secure Shell) is a cryptographic protocol that is used to surely connect to remote systems over an unsecured network. Each transfer is encrypted to protect against attacks. 
 
 ### Goal 
 
-Log intto the game with ssh 
+Log into the game with ssh 
 
 the server is bandit.labs.overthewire.org
 
@@ -39,7 +39,7 @@ Another fun way to do this is to look up for the IP address of the server with e
 
 Then using `cat <file>` to read the file you can read the password to enter the next level which gives us `cat ./readme`.
 
-## Bandit 2
+## Bandit 1
 
 ### Goal
 
@@ -50,9 +50,9 @@ find the `-` file (located in the home directory) and read it.
 ### Theory && Solution
 
 the file is supposed to be in the home directory. Then, the first to do is to look at the files located in the home directory. for that, you can use `ls`. This command basically lists the directory contents. I'll add a bit more flag to better read and understand the output. 
-first the flag `-a` is used to list all the files, including the hidden ones. The second flag `-l` is used to list the files in a long format. The third is `-s` which is basically used to store the file. 
+first the flag `-a` is used to list all the files, including the hidden ones. The second flag `-l` is used to list the files in a long format. The third is `-s`, which prints the allocated size of each file in blocks -- that's the number in the leftmost column of the output.
 
-The first ccommand is therefore `ls -las`. 
+The first command is therefore `ls -las`. 
 
 we obtain this output :
 
@@ -67,7 +67,7 @@ total 24
 4 -rw-r--r--   1 root    root     807 Feb 13  2026 .profile
 ```
 
-Now we can understand that the file with the most probability of being the one that contains the password is the `-` file. To be sure we use the command 'file <file>' to get the type of the file. And here this how it renders `file ./-`. Here I use `./ because the `.` indicates the current directory and the `/-` the file in the current directory. It also avoid considering the `-` as a flag of the command `file`. Here is the output :
+Now we can understand that the file with the most probability of being the one that contains the password is the `-` file. To be sure we use the command `file <file>` to get the type of the file. And here this how it renders `file ./-`. Here I use `./ because the `.` indicates the current directory and the `/-` the file in the current directory. It also avoid considering the `-` as a flag of the command `file`. Here is the output :
 
 ```text
 bandit1@bandit:~$ file ./-
@@ -76,7 +76,7 @@ bandit1@bandit:~$ file ./-
 
 now we know that the file is indeed a text file. So now we can just read it with the `cat` command and go to the next level. the final command is : `cat ./-`
 
-## Bandit 3
+## Bandit 2
 
 ### Goal 
 
@@ -101,7 +101,7 @@ total 24
 
 We can see that the flag is present in the home directory. To read it we just use the `cat` command. `cat ./--spaces\ in\ this\ filename--` is a first way of doing it. Here the `\` are used to quote the name of the file. It tells the terminal that the space belongs to the name of the file. If I had use `cat ./--spaces in this filename--` the terminal would have consider each word as a file to read. I could also have used `cat './--spaces in this filename--'` but this time the `'` are used to quote the entire name of the file. This option can be preferred because it is more readable. 
 
-## Bandit 4 
+## Bandit 3
 
 ### Goal
 
@@ -289,7 +289,33 @@ The final command is therefore `cat /var/lib/dpkg/info/bandit7.password`.
 
 ## Bandit 7
 
+### Goal 
 
+The goal here is to find the password stored in the file `data.txt` next to the word millionth. 
+
+### Theory && Solution
+
+Here, I'll begin by using the `ls` command to confirm that the file is in the current directory.
+
+```text
+bandit7@bandit:~$ ls -las
+total 4108
+   4 drwxr-xr-x   2 root    root       4096 Jun 24 14:59 .
+   4 drwxr-xr-x 150 root    root       4096 Jun 24 15:02 ..
+   4 -rw-r--r--   1 root    root        220 Feb 13  2026 .bash_logout
+   4 -rw-r--r--   1 root    root       3851 Jun 24 14:50 .bashrc
+   4 -rw-r--r--   1 root    root        807 Feb 13  2026 .profile
+4088 -rw-r-----   1 bandit8 bandit7 4184396 Jun 24 14:59 data.txt
+```
+
+And there it is ! If we try to read the file `data.txt` we can see that the file is too long. The first I did it I had to stop the command with `Ctrl+C`... Instead of that I'll use again the pipe and the `grep` command. Here is the command and the output :
+
+```text
+bandit7@bandit:~$ cat data.txt | grep millionth
+millionth       password here
+```
+
+With this command we give all the text of the file to the `grep` command and we ask it to take the line with the word `millionth` and give it to us. This way we can read the password. We could also have more simply used `grep millionth data.txt`. I just prefer the first one. 
 
 
 

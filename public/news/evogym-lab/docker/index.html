@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>First Steps of my Research | Mattéo Vacher</title>
+<title>How to use Docker for Evogym | Mattéo Vacher</title>
 <meta name="keywords" content="">
-<meta name="description" content="A presentation of my research on Diploidy and Single Genome Soft Robots">
+<meta name="description" content="Here is a tutorial on how to use Docker for the Evogym library. This tutorial also contains general information on Docker">
 <meta name="author" content="Mattéo Vacher">
-<link rel="canonical" href="http://localhost:1313/news/evogym-lab/first-steps/">
+<link rel="canonical" href="http://localhost:1313/news/evogym-lab/docker/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.91bca08ba24824edebd4266f1219549f7b8e610f545bed813ab87737fe9d351c.css" integrity="sha256-kbygi6JIJO3r1CZvEhlUn3uOYQ9UW&#43;2BOrh3N/6dNRw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/img/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/img/favicon-16x16.png">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/news/evogym-lab/first-steps/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/news/evogym-lab/docker/">
 <noscript>
     <style>
         #theme-toggle,
@@ -135,9 +135,15 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/news/">News</a>&nbsp;»&nbsp;<a href="http://localhost:1313/news/evogym-lab/">Evogym Lab</a></div>
     <h1 class="post-title entry-hint-parent">
-      First Steps of my Research
+      How to use Docker for Evogym
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
     </h1>
-    <div class="post-meta"><span title='2026-06-10 08:05:06 +0200 CEST'>June 10, 2026</span>&nbsp;·&nbsp;<span>1 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
+    <div class="post-meta"><span title='2026-06-16 03:24:30 +0200 CEST'>June 16, 2026</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
 
 </div>
   </header> <div class="toc">
@@ -148,21 +154,53 @@
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#a-quick-presentation-of-my-presentation" aria-label="A Quick Presentation of my Presentation">A Quick Presentation of my Presentation</a></li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
                 <li>
-                    <a href="#acknowledgements" aria-label="Acknowledgements">Acknowledgements</a>
+                    <a href="#docker-objects" aria-label="Docker Objects">Docker Objects</a><ul>
+                        
+                <li>
+                    <a href="#images" aria-label="Images">Images</a></li>
+                <li>
+                    <a href="#dockerfile" aria-label="Dockerfile">Dockerfile</a></li>
+                <li>
+                    <a href="#containers" aria-label="Containers">Containers</a></li>
+                <li>
+                    <a href="#summary" aria-label="Summary">Summary</a></li></ul>
+                </li>
+                <li>
+                    <a href="#how-to-create-your-dockerfile" aria-label="How to create your Dockerfile">How to create your Dockerfile</a>
                 </li>
             </ul>
         </div>
     </details>
 </div>
 
-  <div class="post-content"><h2 id="a-quick-presentation-of-my-presentation">A Quick Presentation of my Presentation<a hidden class="anchor" aria-hidden="true" href="#a-quick-presentation-of-my-presentation">#</a></h2>
-<p>Well, my research at the University of Tsukuba (Tsukuba, Japan) is about the study of the evolution of diploidy in the context of single genome soft robots. I&rsquo;ll simply let you enjoy this presentation without any context. If I have time, I&rsquo;ll try to make a video to present it in a more formal way.</p>
-<p>Here is the <a href="zemi1_matteo_vacher.pdf">pdf</a> of this presentation.</p>
-<p><em>Inside this pdf, you&rsquo;ll find the videos of the early results of my experiments. Enjoy the decoding !</em></p>
-<h2 id="acknowledgements">Acknowledgements<a hidden class="anchor" aria-hidden="true" href="#acknowledgements">#</a></h2>
-<p>I also want to give a very special thanks to my supervisor <strong>Pr. Claus Aranha</strong>  for <em>welcoming me</em> in his lab and for his <em>invaluable support, guidance and patience</em> throughout this project.</p>
+  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>When developing software or running your experiments, it may be required to work with several other people. During the test phases, everything might work very well on your computer, with your current OS and IDE. The problem here is that someone else might want to continue your work and test your code using a different OS or IDE, therefore <em>leading to multiple errors</em> not because the code is wrong but because the initial environment is different. The solution here is simple : <strong>use Docker</strong>.</p>
+<p>Docker is an platform for developing and running applications. It allows you to to separate the applications or the experiments from the infrastructure. It is basically just running your application in a box that represent the universal infrastructure for the current work.</p>
+<p>In this article, I will explain how to use Docker with the example of my project. I&rsquo;ll let the reader find additional information if my tutorial don&rsquo;t cover everything (I am not building an application, but running experiments).</p>
+<h2 id="docker-objects">Docker Objects<a hidden class="anchor" aria-hidden="true" href="#docker-objects">#</a></h2>
+<h3 id="images">Images<a hidden class="anchor" aria-hidden="true" href="#images">#</a></h3>
+<p>An image is a <strong>template with instruction</strong>s** for creating the Docker container <em>(the box mentioned above)</em>. It is possible to us already existing images created by other people or to create your own. In order to create your own you need to create a Dockerfile.</p>
+<h3 id="dockerfile">Dockerfile<a hidden class="anchor" aria-hidden="true" href="#dockerfile">#</a></h3>
+<p>The Dockerfile is a file located at the root of the project that will contains the <strong>commands to build an image</strong>. This DOckerfile will contains different commands on each line, and each of these instruction will be converted into a layer on that image. The goal here is that if you add a line instruction to your Dockerfile, Docker will add a layer on the pre-existing image instead og going through the process of executing all the previous instructions again.</p>
+<h3 id="containers">Containers<a hidden class="anchor" aria-hidden="true" href="#containers">#</a></h3>
+<p>A container is a <strong>runnable instance of an image</strong>. A container <em>is defined by its image</em>. It is basically an isolated box on your computer that contains everything you need to run your application or run your experiments.</p>
+<h3 id="summary">Summary<a hidden class="anchor" aria-hidden="true" href="#summary">#</a></h3>
+<p>To run your application or run your experiments into an isolated and universal box, you need to be <em>inside a container</em>. The <strong>container is the box</strong>. But to run this container you need an <strong>image</strong>. An image is a template that contains every program or external dependency that you need to run your project. And to obtain that image you can either download a pre-existing one or create your own using a <strong>Dockerfile</strong>, a file that contains the different instructions to build the image by adding layers to the already existing base.</p>
+<h2 id="how-to-create-your-dockerfile">How to create your Dockerfile<a hidden class="anchor" aria-hidden="true" href="#how-to-create-your-dockerfile">#</a></h2>
+<p>Beginning with the basics, create a file called <code>Dockerfile</code> at the root of the project.</p>
+<p>Then we need need to create the first instruction for the image, ie the base image. A base image is a pre-built Docker image that will start as the first layer for the final image. The first instruction is <code>FROM python:3.10-slim</code>. This command will install python 3.10 on along with the minimal Debian package (the minimal package come from the <code>slim</code> in the command line, without it a bigger version of Debian would be installed). Debian is a free and open source operating system (OS) based on the Linux kernel and the GNU system. Here the 3.10 version of Python is chosen because Evogym only supports Python 3.7 to 3.10 (on most operating system, see the installation tutorial <a href="https://github.com/EvolutionGym/evogym">here</a>).</p>
+<p>Here comes the second line of the Dockerfile, which purpose is to set the current working directory : <code>WORKDIR /app</code>. It is basically the same command as the <code>cd</code> command in the terminal. It is possible to work directly in the root of the container image but it is considered a good practice to work . It allows you to avoid typing the full path over and over. The future commands will automatically be executed in this directory.</p>
+<p>Next, you need to install the different software for running correctly Evogym. Here comes the new line : <code>RUN apt-get update &amp;&amp; apt-get install -y xorg-dev libglu1-mesa-dev xvfb</code>. The <code>RUN</code> instruction executes commands in the image. Each <code>RUN</code> will add a new layer to the image. Also, please notice that on this line we use <code>&amp;&amp;</code> which means that we execute to <code>RUN</code> in one. Instead of having 2 layers, we end up only having 1. The <code>apt-get update</code> instruction will simply update the list of available packages for our Debian system. But, What are we supposed to install ? The response lies again in the installation tutorial <a href="https://github.com/EvolutionGym/evogym">here</a> :</p>
+<ul>
+<li>
+<p>xorg-dev libglu1-mesa-dev are required for a linux OS (as said in the tutorial).</p>
+</li>
+<li>
+<p>xvfb is required because when saving the videos of the robot you&rsquo;ll need to produce images without printing it on the screen. I&rsquo;ll explain later this part.</p>
+</li>
+</ul>
 
 
   </div>

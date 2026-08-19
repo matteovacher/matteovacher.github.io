@@ -1,7 +1,7 @@
 +++
 date = '2026-08-19T07:43:03+02:00'
 draft = false
-title = 'Last Steps of my research'
+title = 'Last Steps of my Research'
 summary = 'More than a presentation of my research on Diploidy and Single Genome Soft Robots'
 +++
 

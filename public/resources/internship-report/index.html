@@ -168,7 +168,7 @@ First I did the elective, managed to make some summary that will follow my path 
         </svg>
       </span>
     </h1>
-    <div class="post-meta"><span title='2026-05-25 11:52:31 +0200 CEST'>May 25, 2026</span>&nbsp;·&nbsp;<span>15 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
+    <div class="post-meta"><span title='2026-05-25 11:52:31 +0200 CEST'>May 25, 2026</span>&nbsp;·&nbsp;<span>18 min</span>&nbsp;·&nbsp;<span>Mattéo Vacher</span>
 
 </div>
   </header> <div class="toc">
@@ -217,7 +217,9 @@ First I did the elective, managed to make some summary that will follow my path 
                 <li>
                     <a href="#explanation" aria-label="Explanation">Explanation</a></li>
                 <li>
-                    <a href="#first-conclusion" aria-label="First Conclusion">First Conclusion</a><ul>
+                    <a href="#first-conclusion" aria-label="First Conclusion">First Conclusion</a></li>
+                <li>
+                    <a href="#second-part" aria-label="second part">second part</a><ul>
                         
                 <li>
                     <a href="#notes" aria-label="notes">notes</a>
@@ -335,16 +337,42 @@ The difference lies in the fact that lmy individuyakls posses a single chromosom
 <p>Then from now on I will divide my work in two parts :</p>
 <ul>
 <li>
-<p>The evolution and comparison of haploid/diplouid individuals in stationary/changing environment.</p>
+<p>The evolution and comparison of haploid/diploid individuals in stationary/changing environment.</p>
 </li>
 <li>
 <p>The diversity on the first generated robot with different type of substrate, to see if a circular substrate would not be a better representation of a squared problem.</p>
 </li>
 </ul>
+<h2 id="second-part">second part<a hidden class="anchor" aria-hidden="true" href="#second-part">#</a></h2>
+<p>I did implement a version with a haploid, and the first results indicates that i have a huge (see ob-0/id_1 and tests/id_35) loss in diversity for the haploid algorithm for the same parameters as the diploid one. It is normal since the diploid algorithm brings more diversity in the population and that even old gene can come back to life if their dominance change. But the problem her is that it doesnt seem really fair for the haploid algo. It is as if Im not giving the haploid algo a proper chance to evolve. It is the reason why Ill proceed to a few changes in my structure :</p>
+<ul>
+<li>
+<p>As Tanaka did, implement a cppn with 2 outputs, one for the morpological ANN and another one for the controller ANN, I hope this will give me diversity and adapted controllers to the body. With one output it seems difficult for the CPPN to produce complex and really adapted controllers.</p>
+</li>
+<li>
+<p>I will delete the implementation of the bias for the ANN and only have weight, I believe it is adding too much complexity to the problem.</p>
+</li>
+<li>
+<p>I will implement a version of codominance for the CPPN weight and biases, this will bring more diversity and will avoid the problem of choosing randomly especially for the haploid algorythm.</p>
+</li>
+<li>
+<p>I could change the sigma of the gaussian distribution for the mutation of the weight and biases for the CPPN and put a higher one. Then I would explore more agressively the space of solutions.</p>
+</li>
+<li>
+<p>finally , since my controller is a big ANN, I will set a limit for the values of the weights. I hope that this way, it wont lead to absurd values for the weight.</p>
+</li>
+</ul>
+<p>I hope that all of this simple manipulation will help me have more simple results before complexifying again. For this I just looked back at tanaka&rsquo;s work and also looked at the most recent paper on diploidy for neural networks. The rest from hyp@othesis that I made in my mind.</p>
 <h3 id="notes">notes<a hidden class="anchor" aria-hidden="true" href="#notes">#</a></h3>
 <p>did with 2 dominances, and hyperneat as tanaka did
 but all individuals looks the same
 need to design again the substrate with some circle because not same distance, more will increase dominance because now 1/2 of genes are picked random;y</p>
+<p>bad results for ot1 perhaps need to reduce the size of everything to make things easier for the cppn, ie size of controller, size of body, or even size of cppn itself, see actual config for next exp</p>
+<p>sigma either 0.2 or 0.5
+10 4 4 4 2 now</p>
+<p>je pense que retrouver ce que j avais avant avec bloc full c est bien</p>
+<p>alors conclusion, intermediaire, deja un plus petit cppn permet de converger plus vite, logique et semble plus adapter pour trouver des solutions au problemes, ensuite, 2 sorties fournis plus de choix et de diversite a priori, le sigma n a pas tant que ca d influence que ca, a changer pour mieux voir les effets. les petite valeurs pour les poids de l ann sont parfaites, une representation plus simple semble aider (je dis ca vis a vis des poids)la codiminances semblent marcher pour le haploide mais pas diploide car ensuite les genes je les jetais a la poubelle, maintenant ca remplace donc ca va mieux je pense (a tester) enfin aussi grosse etape, un substrat plus petit pour le controller semble vraiment etre benefique sur la capacite du robot a pouvoir s adapter a son corps. je vais maintenant faire :</p>
+<p>changer implementation diploid pour garder trace de la codominance, ajouter une 3e entree qui est la distance entre les points (c est ce que fais la methode original de hyperneat) je devrais peut etre voir des ameliorations.</p>
 
 
   </div>

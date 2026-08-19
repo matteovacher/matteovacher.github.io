@@ -7,8 +7,22 @@
     <generator>Hugo -- 0.155.3</generator>
     <language>en-us</language>
     <copyright>2026 Mattéo Vacher · Icons from Flaticon</copyright>
-    <lastBuildDate>Wed, 10 Jun 2026 08:05:06 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 07:43:03 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/news/evogym-lab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Last Steps of my Research</title>
+      <link>http://localhost:1313/news/evogym-lab/final/</link>
+      <pubDate>Wed, 19 Aug 2026 07:43:03 +0200</pubDate>
+      <guid>http://localhost:1313/news/evogym-lab/final/</guid>
+      <description>More than a presentation of my research on Diploidy and Single Genome Soft Robots</description>
+    </item>
+    <item>
+      <title>How to use Docker for Evogym</title>
+      <link>http://localhost:1313/news/evogym-lab/docker/</link>
+      <pubDate>Tue, 16 Jun 2026 03:24:30 +0200</pubDate>
+      <guid>http://localhost:1313/news/evogym-lab/docker/</guid>
+      <description>Here is a tutorial on how to use Docker for the Evogym library. This tutorial also contains general information on Docker</description>
+    </item>
     <item>
       <title>First Steps of my Research</title>
       <link>http://localhost:1313/news/evogym-lab/first-steps/</link>
