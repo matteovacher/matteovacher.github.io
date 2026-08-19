@@ -41,9 +41,9 @@ Here comes the second line of the Dockerfile, which purpose is to set the curren
 
 Next, you need to install the different software for running correctly Evogym. Here comes the new line : `RUN apt-get update && apt-get install -y xorg-dev libglu1-mesa-dev xvfb`. The `RUN` instruction executes commands in the image. Each `RUN` will add a new layer to the image. Also, please notice that on this line we use `&&` which means that we execute to `RUN` in one. Instead of having 2 layers, we end up only having 1. The `apt-get update` instruction will simply update the list of available packages for our Debian system. But, What are we supposed to install ? The response lies again in the installation tutorial [here](https://github.com/EvolutionGym/evogym) :
 
-- xorg-dev libglu1-mesa-dev are required for a linux OS (as said in the tutorial) 
+- xorg-dev libglu1-mesa-dev are required for a linux OS (as said in the tutorial).
 
-- xvfb is required because when saving the videos of the robot you'll need to produce images without printing it on the screen. I'll explain l ater this part. 
+- xvfb is required because when saving the videos of the robot you'll need to produce images without printing it on the screen. I'll explain later this part. 
 
 
 
